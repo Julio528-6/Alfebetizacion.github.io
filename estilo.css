@@ -1,0 +1,722 @@
+/* --- Variables Institucionales --- */
+:root {
+    --verde-institucional: #198754;
+    --amarillo-institucional: #FCF876;
+    --blanco-fondo: #FAF9F0;
+    --fuente-botones: 'Patrick Hand', cursive;
+    --fuente-titulos: 'Italianno', cursive;
+    --fuente-subtitulos: 'Patrick Hand', cursive;
+    --fuente-tarjetas: 'Gloria Hallelujah', cursive;
+    --fuente-cuerpo: 'Comic Neue', cursive;
+}
+
+body {
+    background-color: var(--blanco-fondo);
+    font-family: var(--fuente-cuerpo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 90px;
+    margin: 0;
+    color: #333;
+}
+
+p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+#parrafo-principal {
+    font-size: 1.7rem;
+    font-weight: bold;
+    line-height: 1.7;
+}
+
+/* --- Navegación --- */
+.menu-institucional {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--verde-institucional);
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 80px;
+}
+
+.logo-container {
+    margin-right: 20px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--amarillo-institucional);
+}
+
+.logo-link img {
+    display: block;
+}
+
+.botones-container {
+    display: flex;
+    gap: 20px;
+    margin-right: auto;
+}
+
+.separador-nav {
+    width: 2px;
+    height: 60%;
+    background-color: var(--amarillo-institucional);
+    margin: 0 20px;
+}
+
+.boton-nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--amarillo-institucional);
+    padding: 5px 20px 5px 5px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 55px;
+}
+
+.boton-nav:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.circulo-icono {
+    width: 45px;
+    height: 45px;
+    background-color: var(--verde-institucional);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.circulo-icono span {
+    filter: grayscale(100%) brightness(1000%);
+}
+
+.texto-nav {
+    font-family: var(--fuente-botones);
+    color: var(--verde-institucional);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* --- Título Principal --- */
+.titulo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.titulo-principal {
+    font-family: var(--fuente-titulos);
+    color: var(--amarillo-institucional);
+    margin: 0;
+    font-size: 60px;
+    line-height: 1;
+    text-shadow: 2px 2px 0px #000;
+}
+
+/* --- Layout --- */
+.contenedo-grid {
+    flex: 1;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.contenido-principal {
+    padding: 30px;
+    background-color: var(--blanco-fondo);
+}
+
+.contenido-principal h2,
+.contenido-principal h3 {
+    font-family: var(--fuente-subtitulos);
+    color: var(--verde-institucional);
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+}
+
+/* --- Video --- */
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.video-container video {
+    max-width: 100%;
+}
+
+/* --- Barra Lateral --- */
+.barra-lateral {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 4px solid var(--verde-institucional);
+    min-height: 100%;
+}
+
+.barra-lateral h3 {
+    font-family: var(--fuente-botones);
+    color: var(--verde-institucional);
+    text-align: center;
+}
+
+.novedad-placeholder {
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.novedad-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* --- Pie de Página --- */
+.pie-pagina {
+    background-color: var(--verde-institucional);
+    color: white;
+    padding: 15px 20px 25px 20px;
+    width: 100%;
+    margin-top: auto;
+    border-top: 5px solid var(--amarillo-institucional);
+    font-family: var(--fuente-cuerpo);
+}
+
+.footer-derechos {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.footer-derechos p {
+    margin: 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    align-items: start;
+}
+
+.footer-col {
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.footer-col p {
+    margin: 0;
+    line-height: 1.4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.footer-icono {
+    font-size: 1.35rem;
+    margin-bottom: 2px;
+    filter: grayscale(100%) brightness(1000%);
+}
+
+.footer-enlace {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-enlace:hover {
+    color: var(--amarillo-institucional);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Subnav (Navegación Secundaria) --- */
+.subnav {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 3px solid var(--verde-institucional);
+    z-index: 900;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.subnav-inner {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 20px;
+}
+
+.subnav-inner::-webkit-scrollbar {
+    display: none;
+}
+
+.subnav-tab {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 14px 22px;
+    font-family: var(--fuente-botones);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.subnav-tab:hover {
+    color: var(--verde-institucional);
+}
+
+.subnav-tab.active {
+    color: var(--verde-institucional);
+    border-bottom-color: var(--amarillo-institucional);
+}
+
+.subnav-tab-mobile {
+    font-family: var(--fuente-botones);
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--verde-institucional);
+    text-transform: uppercase;
+    padding: 10px 20px;
+}
+
+.subnav-tab-mobile:hover, .subnav-tab-mobile:focus {
+    background-color: var(--amarillo-institucional);
+    color: var(--verde-institucional);
+}
+
+/* --- Contenido Quiénes Somos --- */
+.qsomos-contenido {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    padding-top: calc(50px + 40px);
+    /* subnav + espacio (el body ya compensa el header) */
+    flex: 1;
+}
+
+.qsomos-seccion {
+    padding-top: 20px;
+    padding-bottom: 150px;
+    scroll-margin-top: calc(80px + 50px + 20px);
+}
+
+.qsomos-seccion:last-child {
+    border-bottom: none;
+}
+
+.qsomos-seccion h2 {
+    font-family: var(--fuente-subtitulos);
+    color: var(--verde-institucional);
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--amarillo-institucional);
+    padding-bottom: 8px;
+}
+
+.lista-institucional {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.lista-institucional li {
+    display: flex;
+    gap: 12px;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    padding: 16px 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    border-left: 4px solid var(--verde-institucional);
+}
+
+.lista-institucional li::before {
+    content: "▸";
+    color: var(--verde-institucional);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 60px;
+    }
+
+    .menu-institucional {
+        padding: 5px 10px;
+        height: auto;
+        min-height: 60px;
+    }
+
+    .texto-nav {
+        display: none;
+    }
+
+    .boton-nav {
+        padding: 3px;
+        width: 42px;
+        height: 42px;
+        justify-content: center;
+    }
+
+    .circulo-icono {
+        margin: 0;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        border: 3px solid var(--amarillo-institucional);
+    }
+
+    .botones-container {
+        gap: 5px;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .titulo-principal, .separador-nav, .titulo-container {
+        display: none;
+    }
+
+    .logo-container {
+        margin-right: 5px;
+        padding: 2px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 42px;
+        height: 42px;
+    }
+
+    .logo-link img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .subnav {
+        display: none;
+    }
+
+    .qsomos-contenido {
+        padding-top: 50px;
+    }
+
+    .contenedo-grid {
+        padding: 0;
+    }
+
+    .barra-lateral {
+        border-left: none;
+        border-top: 4px solid var(--verde-institucional);
+        margin-top: 20px;
+    }
+}
+
+/* --- Referentes Bibliográficos --- */
+.recursos-container {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.col-recursos {
+    padding: 20px 30px;
+}
+
+.separador-columnas {
+    border-right: 3px solid var(--amarillo-institucional);
+}
+
+@media (max-width: 768px) {
+    .separador-columnas {
+        border-right: none;
+        border-bottom: 3px solid var(--amarillo-institucional);
+        padding-bottom: 30px;
+        margin-bottom: 10px;
+    }
+
+    .col-recursos {
+        padding: 10px 15px;
+    }
+}
+
+.recurso-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-left: 6px solid var(--verde-institucional);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recurso-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.recurso-titulo {
+    font-family: var(--fuente-tarjetas);
+    font-weight: bold;
+    color: var(--verde-institucional);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+/* --- Galería Fotográfica Estilo Polaroid --- */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.foto-polaroid {
+    background: #ffffff;
+    padding: 15px 15px 25px 15px;
+    /* Marco blanco más ancho abajo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.foto-polaroid:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.foto-polaroid:nth-child(odd) {
+    transform: rotate(-1deg);
+}
+
+.foto-polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    position: relative;
+}
+
+.polaroid-img {
+    width: 100%;
+    height: 250px;
+    /* Tamaño cuadrado/rectangular parejo */
+    object-fit: cover;
+    background-color: #eee;
+    /* Fondo mientras carga la imagen */
+    border: 1px solid #ddd;
+}
+
+.polaroid-texto {
+    font-family: var(--fuente-tarjetas);
+    /* Se usa una fuente cálida como 'Gloria Hallelujah' */
+    color: #333;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 15px;
+    line-height: 1.3;
+}
+
+.recurso-desc {
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.recurso-enlace {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--amarillo-institucional);
+    color: var(--verde-institucional);
+    font-family: var(--fuente-botones);
+    font-weight: bold;
+    padding: 8px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.recurso-enlace:hover {
+    background-color: #eadd4f;
+    color: var(--verde-institucional);
+    transform: scale(1.03);
+}
+
+.recurso-enlace i {
+    margin-right: 8px;
+    font-style: normal;
+}
+
+/* --- Visor Lateral de Galería (Estilo Google Images) --- */
+
+.visor-lateral {
+    width: 100%;
+    background-color: var(--blanco-fondo);
+    border: 3px solid var(--verde-institucional);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.btn-cerrar-visor {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--verde-institucional);
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.btn-cerrar-visor:hover {
+    transform: scale(1.1);
+    color: #115c38;
+}
+
+.visor-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.visor-contenido img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 10px;
+}
+
+.visor-texto-ampliado {
+    font-family: var(--fuente-subtitulos);
+    font-size: 2.2rem;
+    color: #333;
+    margin-top: 25px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.foto-polaroid {
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .visor-lateral {
+        width: 100%;
+        margin: 0;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        z-index: 1050;
+        max-height: 45vh;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 0 0 15px 15px;
+        border-right: none;
+        border-left: none;
+        border-top: none;
+    }
+
+    .visor-contenido img {
+        max-height: 20vh;
+    }
+
+    .visor-texto-ampliado {
+        font-size: 1.5rem;
+        margin-top: 10px;
+    }
+
+    .galeria-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .foto-polaroid {
+        padding: 10px 10px 15px 10px;
+    }
+
+    .polaroid-img {
+        height: 150px;
+    }
+
+    .polaroid-texto {
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+}

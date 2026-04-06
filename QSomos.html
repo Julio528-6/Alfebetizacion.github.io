@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - Alfabetización</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Italianno&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+    <nav class="menu-institucional">
+        <div class="logo-container">
+            <a href="./index.html" class="logo-link"><img src="./img/n.png" alt="Logo" width="45" height="45"></a>
+        </div>
+
+        <div class="botones-container">
+            <a href="./QSomos.html" class="boton-nav">
+                <div class="circulo-icono"><span>🤝</span></div>
+                <span class="texto-nav">Quiénes somos</span>
+            </a>
+            <a href="./referentes.html" class="boton-nav">
+                <div class="circulo-icono"><span>📖</span></div>
+                <span class="texto-nav">Referentes bibliográficos</span>
+            </a>
+            <a href="./asilo.html" class="boton-nav">
+                <div class="circulo-icono"><span>👴</span></div>
+                <span class="texto-nav">Asilo</span>
+            </a>
+            <a href="./social.html" class="boton-nav">
+                <div class="circulo-icono"><span>🏫</span></div>
+                <span class="texto-nav">Reseña social</span>
+            </a>
+            <a href="./información.html" class="boton-nav">
+                <div class="circulo-icono"><span>❓</span></div>
+                <span class="texto-nav">Más información</span>
+            </a>
+
+            <!-- Mobile subnav dropdown -->
+            <div class="dropdown d-md-none d-flex align-items-center ms-auto">
+                <button class="boton-nav border-0 pe-0" type="button" id="dropdownQSomos" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="circulo-icono"><span>☰</span></div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownQSomos" style="background-color: var(--blanco-fondo); border: 2px solid var(--verde-institucional);">
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#identidad">Identidad Institucional</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#mision">Fundamentación</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#actores">Actores del Programa</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#legal">Marco Legal</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#paces">Modelo Pedagógico PACES</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#teorica">Fundamentación Teórica</a></li>
+                    <li><a class="dropdown-item subnav-tab-mobile" href="#bibliografia">Bibliografía</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="separador-nav"></div>
+
+        <div class="titulo-container">
+            <h1 class="titulo-principal">ALFABETIZACIÓN</h1>
+        </div>
+    </nav>
+
+    <!-- Subnav -->
+    <nav class="subnav">
+        <div class="subnav-inner">
+            <a class="subnav-tab active" href="#identidad">Identidad Institucional</a>
+            <a class="subnav-tab" href="#mision">Fundamentación</a>
+            <a class="subnav-tab" href="#actores">Actores del Programa</a>
+            <a class="subnav-tab" href="#legal">Marco Legal</a>
+            <a class="subnav-tab" href="#paces">Modelo Pedagógico PACES</a>
+            <a class="subnav-tab" href="#teorica">Fundamentación Teórica</a>
+            <a class="subnav-tab" href="#bibliografia">Bibliografía</a>
+        </div>
+    </nav>
+
+    <!-- Layout de 3 columnas -->
+    <div class="qsomos-layout">
+
+        <!-- Columna izquierda: Progreso vertical -->
+        <aside class="qsomos-sidebar-left">
+            <div class="progreso-titulo">Contenido</div>
+            <nav class="progreso-vertical">
+                <a class="progreso-item active" href="#identidad" data-label="Identidad Institucional">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Identidad Institucional</span>
+                </a>
+                <a class="progreso-item" href="#mision" data-label="Fundamentación">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Fundamentación</span>
+                </a>
+                <a class="progreso-item" href="#actores" data-label="Actores del Programa">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Actores del Programa</span>
+                </a>
+                <a class="progreso-item" href="#legal" data-label="Marco Legal">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Marco Legal</span>
+                </a>
+                <a class="progreso-item" href="#paces" data-label="Modelo Pedagógico PACES">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Modelo Pedagógico PACES</span>
+                </a>
+                <a class="progreso-item" href="#teorica" data-label="Fundamentación Teórica">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Fundamentación Teórica</span>
+                </a>
+                <a class="progreso-item" href="#bibliografia" data-label="Bibliografía">
+                    <span class="progreso-dot"></span>
+                    <span class="progreso-label">Bibliografía</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Columna central: Contenido principal -->
+        <main class="qsomos-contenido">
+
+            <section class="qsomos-seccion" id="identidad">
+                <h2><strong>Identidad Institucional</strong></h2>
+                <ul class="lista-institucional">
+                    <li>
+                        <strong>Institución Responsable:</strong>
+                        Escuela Normal Superior Nuestra Señora de la Candelaria.
+                    </li>
+                    <li>
+                        <strong>Ubicación:</strong>
+                        Marquetalia, Caldas.
+                    </li>
+                    <li>
+                        <strong>Naturaleza del Programa:</strong>
+                        Se define como un proyecto de extensión institucional y una estrategia de proyección social.
+                    </li>
+                    <li>
+                        <strong>Escenario Pedagógico:</strong>
+                        Funciona como un espacio real de práctica para la formación de nuevos maestros.
+                    </li>
+                    <li>
+                        <strong>Vinculación Institucional:</strong>
+                        El programa está integrado al PEI, respondiendo a las necesidades del contexto social y
+                        consolidando la proyección normalista.
+                    </li>
+                </ul>
+            </section>
+
+            <section class="qsomos-seccion" id="mision">
+                <h2><strong>Fundamentación</strong></h2>
+
+                <h3>Justificación</h3>
+                <p>El proyecto de Alfabetización <em>"Aprendiendo Juntos"</em> responde a la necesidad de fortalecer
+                    procesos de alfabetización en población joven y adulta del contexto de Marquetalia que presenta
+                    rezago escolar o procesos incompletos de educación básica. Se asume la alfabetización como práctica
+                    social, cultural y transformadora, no limitada al código escrito, sino vinculada a la vida
+                    cotidiana, la participación comunitaria y la autonomía personal, en coherencia con el enfoque de
+                    Educación de Personas Jóvenes y Adultas y el Modelo Educativo Flexible PACES. El proyecto reconoce a
+                    los participantes como sujetos pedagógicos con saberes previos, experiencias y trayectorias de vida
+                    que constituyen el punto de partida del aprendizaje.</p>
+                <p>En este sentido, el proyecto de alfabetización <em>"Aprendiendo Juntos"</em> (A.A), también se
+                    orienta a contribuir de manera directa a la disminución de la brecha de analfabetismo en el
+                    municipio de Marquetalia, problemática que limita el acceso equitativo a oportunidades educativas,
+                    laborales y de participación social. La persistencia de población joven y adulta que no ha culminado
+                    procesos de alfabetización básica constituye un factor de exclusión que incide en condiciones de
+                    vulnerabilidad, dependencia económica y baja incidencia comunitaria. Por ello, la propuesta asume la
+                    alfabetización como una acción de justicia educativa y desarrollo territorial, que favorece la
+                    inclusión social y el ejercicio pleno de la ciudadanía.</p>
+                <p>De igual manera, al fortalecer competencias comunicativas, lectoras, escritoras y de pensamiento
+                    matemático desde metodologías contextualizadas y flexibles, el proyecto aporta al cierre de brechas
+                    educativas históricas entre zonas rurales y urbanas, así como entre generaciones que no tuvieron
+                    acceso oportuno al sistema escolar. Esta apuesta formativa no solo impacta a los participantes
+                    directos, sino que proyecta efectos multiplicadores en sus familias y comunidades, promoviendo
+                    culturas letradas, mayor participación comunitaria y mejores condiciones para el desarrollo humano
+                    local, en coherencia con las políticas de educación inclusiva y aprendizaje a lo largo de la vida.
+                </p>
+
+                <p>A su vez, el proyecto se desarrolla como:</p>
+                <ul class="lista-institucional">
+                    <li>Proceso de extensión de la Escuela Normal Superior Nuestra Señora de la Candelaria</li>
+                    <li>Estrategia de proyección social</li>
+                    <li>Escenario real de práctica pedagógica</li>
+                    <li>Espacio formativo para docentes en formación</li>
+                </ul>
+                <p>Los estudiantes del Programa de Formación Complementaria participan como formadores en práctica,
+                    integrando planeación, mediación didáctica, evaluación formativa y sistematización de experiencias,
+                    bajo orientación y seguimiento de la Coordinadora de Práctica y Académica, garantizando coherencia
+                    curricular y calidad pedagógica.</p>
+
+                <h3>Objetivo General</h3>
+                <p>Desarrollar un proceso de alfabetización integral para jóvenes y adultos mediante estrategias
+                    pedagógicas flexibles, contextualizadas y participativas, fundamentadas en el modelo PACES,
+                    articulado como proyecto de extensión institucional y escenario de práctica pedagógica de la Escuela
+                    Normal.</p>
+
+                <h3>Objetivos Específicos</h3>
+                <ul class="lista-institucional">
+                    <li>Reconocer saberes previos de los participantes como punto de partida pedagógico.</li>
+                    <li>Desarrollar competencias básicas en lectura, escritura y oralidad.</li>
+                    <li>Fortalecer el pensamiento matemático funcional.</li>
+                    <li>Promover prácticas sociales de lectura y escritura.</li>
+                    <li>Implementar experiencias de aprendizaje contextualizadas.</li>
+                    <li>Aplicar metodologías flexibles por secuencias y estaciones.</li>
+                    <li>Vincular estudiantes normalistas en práctica pedagógica real.</li>
+                    <li>Desarrollar procesos de acompañamiento tutorial.</li>
+                    <li>Realizar evaluación formativa continua.</li>
+                    <li>Fortalecer la relación escuela–comunidad.</li>
+                    <li>Consolidar el proyecto como estrategia de extensión normalista.</li>
+                </ul>
+            </section>
+
+            <section class="qsomos-seccion" id="actores">
+                <h2><strong>Actores y beneficiarios del Programa</strong></h2>
+                <p>El proyecto de alfabetización “Aprendiendo Juntos” dirige su acción transformadora hacia una
+                    población diversa y
+                    significativa en el municipio de Marquetalia, consolidándose como un puente de inclusión y justicia
+                    educativa.
+                    En primera instancia, el programa beneficia a jóvenes y adultos que, por diversas trayectorias de
+                    vida,
+                    presentan rezago escolar o procesos incompletos de educación básica, brindándoles la oportunidad de
+                    fortalecer
+                    su autonomía personal y participación social. Asimismo, la propuesta extiende su alcance de manera
+                    especializada
+                    hacia las personas mayores del Asilo El Paraíso, donde la alfabetización se entrelaza con la
+                    afectividad y el
+                    reconocimiento de sus historias de vida para favorecer su bienestar integral y autoestima.
+                    Finalmente, el
+                    impacto de esta iniciativa trasciende a los participantes directos, alcanzando a sus familias y
+                    comunidades, al
+                    tiempo que beneficia a los estudiantes normalistas en formación, quienes encuentran en este proyecto
+                    un
+                    escenario real para consolidar su vocación docente y su compromiso con el desarrollo humano local.
+                </p>
+                <p>En el ámbito técnico y profesional, los estudiantes del Programa de Formación Complementaria asumen
+                    un rol
+                    protagónico como formadores en ejercicio, lo que convierte este proyecto en un escenario de práctica
+                    pedagógica
+                    de alta complejidad. Durante este proceso, los normalistas ejecutan ciclos completos de planeación
+                    didáctica,
+                    mediación pedagógica y evaluación formativa, integrando de manera situada el diseño de materiales y
+                    el registro
+                    sistemático de experiencias en sus diarios pedagógicos. Esta inmersión no solo técnica, sino también
+                    humana,
+                    fomenta un desarrollo profesional que trasciende lo académico: el futuro docente se enfrenta a la
+                    diversidad de
+                    ritmos y trayectorias de los participantes, lo que le permite refinar su capacidad de discernimiento
+                    y ajuste
+                    metodológico frente a necesidades reales de aprendizaje.</p>
+                <p>Por su parte, la institución y sus directivos, bajo el liderazgo de la Coordinación de Práctica y
+                    Académica,
+                    consolidan la proyección social de la Escuela Normal al articular este proyecto como una estrategia
+                    de extensión
+                    institucional. Técnicamente, esto implica un riguroso control de calidad metodológica, seguimiento
+                    pedagógico y
+                    cumplimiento de marcos normativos como la Ley 115 de 1994 y el Decreto 1075 de 2015, garantizando
+                    que la
+                    alfabetización sea una acción de justicia educativa y desarrollo territorial. Al fortalecer la
+                    relación
+                    escuela-comunidad, la institución no solo disminuye las brechas de analfabetismo en Marquetalia,
+                    sino que
+                    reafirma su compromiso con el aprendizaje a lo largo de la vida y la inclusión educativa como ejes
+                    fundamentales
+                    de su horizonte institucional.</p>
+                <p>Finalmente, el proceso de alfabetización planteado invita a observar cómo la adquisición del código
+                    escrito y el
+                    pensamiento matemático funcional actúan como herramientas de reconfiguración personal. Al reconocer
+                    los saberes
+                    previos y las trayectorias de vida, el proyecto permite que cada individuo evalúe su propia
+                    evolución, dejando
+                    abierta la reflexión sobre si el conocimiento es el fin en sí mismo o si es el medio para que el ser
+                    humano
+                    redescubra su autonomía. Queda en manos de cada participante y observador discernir el valor de un
+                    proceso que,
+                    más allá de la instrucción técnica, propone un encuentro entre la experiencia acumulada y las nuevas
+                    posibilidades de interacción con el entorno social y cultural.</p>
+            </section>
+
+            <section class="qsomos-seccion" id="legal">
+                <h2><strong>Marco Legal y Pedagógico</strong></h2>
+                <h3>Ley 115 de 1994 (Ley General de Educación)</h3>
+                <p>Esta norma establece el derecho fundamental a la educación para personas jóvenes y adultas que, por
+                    diversas circunstancias, no ingresaron al servicio educativo público o lo abandonaron
+                    prematuramente. El proyecto se articula con esta ley al garantizar el acceso a un proceso formativo
+                    que promueve la autonomía y la participación ciudadana de los beneficiarios en Marquetalia.</p>
+
+                <h3>Decreto 1075 de 2015</h3>
+                <p>Como norma reglamentaria del sector educativo, este decreto define las pautas para la educación
+                    formal de adultos y los procesos de alfabetización. El programa "Aprendiendo Juntos" cumple con
+                    estos lineamientos al estructurar ciclos lectivos especiales integrados que permiten a los adultos
+                    desarrollar competencias básicas en tiempos y metodologías adaptadas a sus condiciones de vida.</p>
+
+                <h3>Lineamientos del MEN para EPJA</h3>
+                <p>Los lineamientos para la Educación de Personas Jóvenes y Adultas (EPJA) del Ministerio de Educación
+                    Nacional orientan la política pública hacia la inclusión. El proyecto asume estos criterios para
+                    asegurar que la alfabetización no sea solo mecánica, sino un proceso que responda a las realidades
+                    sociales, económicas y culturales de la población adulta atendida.</p>
+
+                <h3>Modelos Educativos Flexibles</h3>
+                <p>Estas estrategias pedagógicas están diseñadas para atender poblaciones en situación de vulnerabilidad
+                    o desplazamiento con dificultades de asistencia regular. El proyecto utiliza la flexibilidad para
+                    ajustar los calendarios, horarios y contenidos, permitiendo que el estudiante sea el eje del proceso
+                    y pueda conciliar su aprendizaje con sus responsabilidades laborales o familiares.</p>
+
+                <h3>Modelo PACES</h3>
+                <p>La Propuesta de Aprendizaje para Cambiar Entornos Sociales (PACES) es el eje metodológico que guía la
+                    intervención. Se centra en el aprendizaje basado en experiencias y "travesías", donde el
+                    conocimiento se construye a partir del diálogo y la transformación del entorno inmediato, integrando
+                    las áreas del saber de forma holística.</p>
+                <br> <br> <br>
+                <p>"<b>Desde este marco, la alfabetización se entiende como:</b> proceso formativo para interpretar la
+                    realidad y actuar de manera transformadora mediante lectura, escritura, matemática básica y cultura
+                    del contexto. "<br> <span>(Escuela Normal Superior Nuestra Señora de la Candelaria, 2024,
+                        p.1)</span>
+                </p>
+
+
+
+            </section>
+
+            <section class="qsomos-seccion" id="paces">
+                <h2><strong>Modelo Pedagógico PACES</strong></h2>
+                <p>Paces es una construcción colectiva concebida para el ciclo 1 en correspondencia con la normatividad
+                    vigente de la educación formal para adultos, incluida en el Decreto 1075 de 2015 (capítulo 5,
+                    servicios educativos especiales y sección 3, educación de adultos), en lo que se refiere a los CLEI.
+                    Dicho decreto establece una duración mínima de 800 horas anuales de trabajo, en actividades
+                    pedagógicas relacionadas con el desarrollo de las áreas obligatorias y fundamentales, así como de
+                    proyectos pedagógicos, de conformidad con el respectivo Proyecto Educativo Institucional (PEI).</p>
+
+                <p>Este modelo se concibió para garantizar el derecho a la educación de aquellas personas que, por
+                    diversas circunstancias, no cursaron los niveles del servicio público educativo durante las edades
+                    aceptadas regularmente. En particular, está dirigido a jóvenes y adultos del país pertenecientes a
+                    los grupos poblacionales que se encuentran en situación de vulnerabilidad o son víctimas del
+                    conflicto armado. Además, plantea propuestas de formación, pertinentes y contextualizadas, posee
+                    materiales educativos propios, genera estrategias de formación docente y es coherente con los
+                    referentes de calidad educativa del país. Así mismo, pretende fortalecer el acceso y la permanencia
+                    en el servicio educativo, y mejorar la calidad educativa a través de la cualificación de estrategias
+                    y recursos pedagógicos que lo enriquecen como modelo y permiten dinamizar los conocimientos en torno
+                    a problemas locales.</p>
+
+                <p>En correspondencia con lo anterior, los propósitos del modelo son:</p>
+
+                <ul class="lista-institucional">
+                    <li>Formar jóvenes en extra-edad y adultos que, como sujetos de derechos y agentes líderes,
+                        participen activamente en su proceso formativo, para el mejoramiento de sus condiciones de vida
+                        y la construcción de relaciones más equitativas y respetuosas de la diversidad.</li>
+                    <li>Contribuir a garantizar (o restituir) el derecho a la educación y el derecho a aprender de los
+                        participantes a través de su posicionamiento como actores de su propio desarrollo, tomando como
+                        base el afianzamiento de su sentido de pertenencia a una comunidad y la apropiación de la
+                        historia y culturas locales.</li>
+                    <li>Generar espacios de aprendizaje para el diálogo entre los saberes y las experiencias previas de
+                        los participantes con los conocimientos académicos, favoreciendo la comprensión y la
+                        transformación del entorno de manera crítica, activa y propositiva.</li>
+                    <li>Contribuir a la formación de sujetos creativos, con capacidad para emplear en contexto elementos
+                        propios de los diferentes lenguajes, verbales y no verbales, incluyendo los lenguajes de
+                        expresión artística, junto con diversos recursos comunicativos para describir, comprender y
+                        transformar su realidad.</li>
+                    <li>Posicionar la alfabetización y la educación formal para jóvenes y adultos como proceso abierto y
+                        dinámico que permita a los participantes el acercamiento a diferentes códigos y sistemas de
+                        representación en las esferas personal y social, con el fin de ampliar las posibilidades de
+                        lectura del mundo y sus capacidades expresivas y comunicativas.</li>
+                    <br>
+                    <p> <span>(Ministerio de Educación Nacional, 2022, p. 14)</span></p>
+                </ul> <!--recordar poner lso referentes bibliograficos de paces -->
+            </section>
+
+            <section class="qsomos-seccion" id="teorica">
+                <h2><strong>Fundamentación Teórica</strong></h2>
+                <p>La propuesta andragógica del proyecto Aprendiendo Juntos se sustenta en los principios de la
+                    Educación de Personas Jóvenes y Adultas y en los aportes de la educación popular latinoamericana,
+                    reconociendo a las personas mayores como sujetos históricos, culturales y pedagógicos. En este
+                    sentido, la alfabetización se comprende más allá del aprendizaje mecánico del código escrito. Como
+                    plantea Paulo Freire, “la lectura del mundo precede a la lectura de la palabra”, lo que implica que
+                    los procesos alfabetizadores deben partir de la realidad, la experiencia y el contexto de los
+                    participantes. Desde esta mirada, enseñar a leer y escribir supone también posibilitar la
+                    comprensión crítica de la vida cotidiana y la participación social.</p>
+
+                <p>En correspondencia, la propuesta retoma los postulados de la andragogía de Malcolm Knowles, quien
+                    afirma que “los adultos aprenden mejor cuando perciben la relevancia inmediata de lo que aprenden
+                    para su vida”. Por ello, las actividades de alfabetización se diseñan desde situaciones funcionales:
+                    escribir su nombre, leer mensajes, recordar acontecimientos o comunicarse con sus familias,
+                    favoreciendo aprendizajes útiles, significativos y contextualizados. Asimismo, Knowles señala que
+                    “la experiencia es el recurso más rico para el aprendizaje de los adultos”, fundamento que orienta
+                    el trabajo desde historias de vida y saberes previos.</p>
+
+                <p>El componente de la afectividad se sustenta en la pedagogía humanista de Carl Rogers, quien plantea
+                    que “todo aprendizaje significativo se adquiere en un clima de confianza y aceptación”. En población
+                    mayor, el vínculo emocional es determinante para la motivación, la seguridad y la disposición al
+                    aprendizaje. Por ello, el proyecto prioriza ambientes cálidos, escucha activa y relaciones
+                    intergeneracionales basadas en el respeto y la dignificación de la persona mayor.</p>
+
+                <p>La narrativa y la oralidad se fundamentan en los aportes de Jerome Bruner, quien sostiene que “el ser
+                    humano organiza su experiencia y su memoria principalmente a través de relatos”. Desde esta
+                    perspectiva, contar historias, evocar recuerdos, cantar o compartir anécdotas no solo fortalece la
+                    identidad, sino que se convierte en puente pedagógico hacia la lectura y la escritura. La palabra
+                    hablada adquiere así valor alfabetizador al posibilitar la construcción de sentido.</p>
+
+                <p>Por su parte, la inclusión de la manualidad como mediación pedagógica se respalda en el enfoque
+                    sociocultural de Lev Vygotsky, quien afirma que “el aprendizaje es un proceso social mediado por
+                    herramientas y signos”. Las actividades manuales —como recortar, pegar, modelar o elaborar tarjetas—
+                    actúan como herramientas culturales que favorecen la motricidad fina, la coordinación y la
+                    apropiación progresiva del lenguaje escrito mediante la interacción con otros.</p>
+
+                <p>Finalmente, la incorporación de ejercicios físicos suaves responde a una visión integral del
+                    aprendizaje en la vejez, articulada a la gerontagogía. El cuerpo, la emoción y la cognición se
+                    encuentran interrelacionados; por ello, la activación corporal previa a las actividades pedagógicas
+                    mejora la atención, la memoria y el bienestar general, generando condiciones favorables para el
+                    proceso alfabetizador.</p>
+
+                <p>En síntesis, esta fundamentación teórica respalda una propuesta humanizante e intergeneracional donde
+                    la alfabetización se construye desde el afecto, la memoria, la palabra y la experiencia, permitiendo
+                    no solo el aprendizaje de la lectura y la escritura, sino también la resignificación de la vida y la
+                    dignificación de las personas mayores del Asilo El Paraíso de Marquetalia. <br> <span>(Escuela
+                        Normal Superior Nuestra Señora de la Candelaria, 2024,
+                        p.19)</span></p>
+            </section>
+
+            <section class="qsomos-seccion" id="bibliografia">
+                <h2><strong>Bibliografía</strong></h2>
+                <ul class="lista-institucional">
+                    <li>
+                        Ministerio de Educación Nacional. (2022). Manual de Implementación: Modelo Educativo
+                        Flexible
+                        PACES (Propuesta de Aprendizaje para Cambiar Entornos Sociales). Bogotá, Colombia.
+                        Página
+                        14.
+                    </li>
+                    <li>
+                        Escuela Normal Superior Nuestra Señora de la Candelaria. (2024). Proyecto de Alfabetización
+                        "Aprendiendo Juntos". Marquetalia, Caldas.
+                    </li>
+                    <li>
+                        Presidencia de la República de Colombia. Decreto 1075 de 2015: Sector Educación.
+                    </li>
+                    <li>
+                        Congreso de la República de Colombia. Ley 115 de 1994: Ley General de Educación.
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+
+
+
+    </div>
+
+    <footer class="pie-pagina">
+        <div class="footer-derechos">
+            <p>&copy; 2024 Escuela Normal Superior Nuestra Señora de la Candelaria - Programa de Alfabetización</p>
+        </div>
+        <div class="footer-container">
+            <div class="footer-col">
+                <p><span class="footer-icono">📍</span> <strong>Sede:</strong> Cra 2 No. 4-07 Barrio La Quiebrita.
+                    Marquetalia-Caldas</p>
+            </div>
+            <div class="footer-col">
+                <p><span class="footer-icono">📞</span> <strong>Teléfono:</strong> 3114409174</p>
+            </div>
+            <div class="footer-col">
+                <p><span class="footer-icono">@</span> <strong>E-mail:</strong> <a
+                        href="mailto:ienormallacandelaria@sedcaldas.gov.co"
+                        class="footer-enlace">ienormallacandelaria@sedcaldas.gov.co</a></p>
+            </div>
+            <div class="footer-col">
+                <p><span class="footer-icono">📘</span> <strong>Facebook:</strong> <a
+                        href="https://www.facebook.com/escuelanormalsuperiornsc" target="_blank"
+                        class="footer-enlace">Escuela Normal de Marquetalia</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll suave
+        document.querySelectorAll('.subnav-tab, .progreso-item, .subnav-tab-mobile').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Scrollspy unificado: subnav + progreso vertical
+        const tabsNav = document.querySelectorAll('.subnav-tab');
+        const tabsProg = document.querySelectorAll('.progreso-item');
+        const secciones = document.querySelectorAll('.qsomos-seccion');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tabsNav.forEach(t => t.classList.remove('active'));
+                    tabsProg.forEach(t => t.classList.remove('active'));
+                    const navTab = document.querySelector(`.subnav-tab[href="#${id}"]`);
+                    const progTab = document.querySelector(`.progreso-item[href="#${id}"]`);
+                    if (navTab) { navTab.classList.add('active'); navTab.scrollIntoView({ inline: 'nearest', block: 'nearest' }); }
+                    if (progTab) progTab.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+        secciones.forEach(s => observer.observe(s));
+    </script>
+
+</body>
+
+</html>
