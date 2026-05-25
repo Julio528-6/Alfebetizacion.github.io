@@ -163,6 +163,16 @@ p {
     max-width: 100%;
 }
 
+.video-secundario {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 6px solid var(--verde-institucional);
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background-color: #000;
+}
+
 /* --- Barra Lateral --- */
 .barra-lateral {
     background-color: #f9f9f9;
