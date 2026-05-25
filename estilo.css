@@ -720,3 +720,310 @@ p {
         margin-top: 10px;
     }
 }
+
+/* --- Libro 3D Asilo --- */
+.libro-contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
+    perspective: 1500px;
+}
+
+.libro-3d-wrapper {
+    position: relative;
+    width: 1350px;
+    height: 825px;
+    background: transparent;
+}
+
+.libro-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.hoja {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.hoja.girada {
+    transform: rotateY(-180deg);
+}
+
+.cara {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #0e5b37; /* Base hardcover color */
+    backface-visibility: hidden;
+    border: 2px solid #0a4227;
+    border-radius: 2px 18px 18px 2px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+.frente {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.atras {
+    z-index: 1;
+    transform: rotateY(180deg);
+    border-radius: 18px 2px 2px 18px;
+}
+
+/* Contenido interno y Portadas */
+.portada-libro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, var(--verde-institucional) 0%, #0e5b37 100%);
+    color: white;
+    text-align: center;
+    border: 16px double var(--amarillo-institucional);
+    border-radius: 4px 12px 12px 4px;
+    padding: 30px;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: calc(100% - 32px);
+    height: calc(100% - 12px);
+    box-shadow: 
+        inset 0 0 60px rgba(0,0,0,0.6),
+        1px 0 0 #fff, 2px 0 0 #d9d9d9,
+        3px 0 0 #fff, 4px 0 0 #d9d9d9,
+        5px 0 0 #fff, 6px 0 0 #d9d9d9,
+        7px 0 0 #fff, 8px 0 0 #d9d9d9,
+        9px 0 0 #fff, 10px 0 0 #d9d9d9,
+        11px 0 0 #fff, 12px 0 0 #d9d9d9,
+        13px 0 0 #fff, 14px 0 0 #d9d9d9,
+        15px 0 0 #fff, 16px 0 0 #888;
+    box-sizing: border-box;
+}
+
+.contraportada-libro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, var(--verde-institucional) 0%, #0e5b37 100%);
+    color: white;
+    text-align: center;
+    border: 16px double var(--amarillo-institucional);
+    border-radius: 12px 4px 4px 12px;
+    padding: 30px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: calc(100% - 32px);
+    height: calc(100% - 12px);
+    box-shadow: 
+        inset 0 0 60px rgba(0,0,0,0.6),
+        -1px 0 0 #fff, -2px 0 0 #d9d9d9,
+        -3px 0 0 #fff, -4px 0 0 #d9d9d9,
+        -5px 0 0 #fff, -6px 0 0 #d9d9d9,
+        -7px 0 0 #fff, -8px 0 0 #d9d9d9,
+        -9px 0 0 #fff, -10px 0 0 #d9d9d9,
+        -11px 0 0 #fff, -12px 0 0 #d9d9d9,
+        -13px 0 0 #fff, -14px 0 0 #d9d9d9,
+        -15px 0 0 #fff, -16px 0 0 #888;
+    box-sizing: border-box;
+}
+.portada-libro h1 {
+    font-family: var(--fuente-titulos);
+    font-size: 7.5rem;
+    color: var(--amarillo-institucional);
+    margin-bottom: 0;
+    line-height: 1;
+    text-shadow: 2px 2px 0px #000;
+}
+.portada-libro h2 {
+    font-family: var(--fuente-tarjetas);
+    font-size: 3.5rem;
+    color: white;
+    margin-top: 0;
+}
+.portada-libro span {
+    font-family: var(--fuente-botones);
+    margin-top: 45px;
+    font-size: 1.8rem;
+    opacity: 0.8;
+}
+
+.pagina {
+    background-color: #ffffff;
+    height: calc(100% - 40px); /* Leave 20px top and bottom */
+    width: calc(100% - 25px); /* Leave 25px outside edge */
+    position: absolute;
+    top: 20px;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Page drop shadow on the hardcover */
+    box-sizing: border-box;
+}
+
+.pagina-izquierda {
+    left: 20px; /* Exposed green on the left side (outside edge) */
+    right: 0;
+    border-radius: 6px 0 0 6px;
+    background: linear-gradient(to left, #c4c4c4 0%, #ffffff 6%, #ffffff 100%);
+}
+
+.pagina-derecha {
+    right: 20px; /* Exposed green on the right side (outside edge) */
+    left: 0;
+    border-radius: 0 6px 6px 0;
+    background: linear-gradient(to right, #c4c4c4 0%, #ffffff 6%, #ffffff 100%);
+}
+
+.numero-pagina-izq, .numero-pagina-der {
+    position: absolute;
+    bottom: 25px;
+    font-family: var(--fuente-botones);
+    font-size: 1.8rem;
+    color: var(--verde-institucional);
+}
+.numero-pagina-izq { left: 20px; }
+.numero-pagina-der { right: 20px; }
+
+/* Página Izquierda */
+.foto-principal-container {
+    width: 100%;
+    height: 380px;
+    border: 8px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    margin-bottom: 35px;
+    border-radius: 4px;
+    overflow: hidden;
+    transform: rotate(-1deg);
+}
+.foto-principal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.titulo-desc {
+    font-family: var(--fuente-tarjetas);
+    color: var(--verde-institucional);
+    font-size: 2.7rem;
+    margin-bottom: 15px;
+}
+.descripcion-amplia p {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: #444;
+}
+
+.grid-tres-fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 100%;
+    justify-content: space-between;
+}
+.foto-pequena-item {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    background: #F5F5DC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08), inset 0 0 10px rgba(0,0,0,0.03);
+    border: 1px solid #ebebd1;
+}
+.foto-pequena-item .foto-wrapper {
+    flex-shrink: 0;
+    width: 210px;
+    height: 165px;
+    border: 4px solid #eee;
+    transform: rotate(1deg);
+    overflow: hidden;
+}
+.foto-pequena-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.desc-pequena {
+    font-size: 1.45rem;
+    margin: 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Botones */
+.btn-libro {
+    background-color: var(--verde-institucional);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    font-family: var(--fuente-botones);
+    font-size: 1.8rem;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.btn-libro:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.btn-libro:not(:disabled):hover {
+    background-color: #12633e;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+    .libro-contenedor {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .libro-3d-wrapper {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        min-height: 600px;
+        transform-style: flat;
+    }
+    .hoja {
+        width: 100%;
+        position: relative;
+        transform: none;
+        transition: none;
+        box-shadow: none;
+        margin-bottom: 20px;
+        height: auto;
+    }
+    .hoja.girada {
+        transform: none;
+    }
+    .cara {
+        position: relative;
+        transform: none;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        height: auto;
+        min-height: 500px;
+    }
+    .frente, .atras {
+        transform: none;
+        border-radius: 8px;
+    }
+    .foto-pequena-item { flex-direction: column; align-items: flex-start; }
+    .foto-pequena-item .foto-wrapper { width: 100%; height: 160px; }
+    .btn-libro { display: none; } /* Ocultar botones en móvil al estar vertical */
+}

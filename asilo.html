@@ -52,10 +52,197 @@
         </div>
     </nav>
 
-    <main class="container contenido-principal" style="max-width: 1000px; margin-top: 20px;">
-        <h1>Asilo</h1>
-        <p>Información...</p>
+    <main class="container contenido-principal"
+        style="max-width: 1500px; margin-top: 20px; overflow: hidden; padding-bottom: 50px;">
+
+        <div class="libro-contenedor">
+            <button class="btn-libro btn-prev" id="btn-prev" onclick="pasarPaginaIzquierda()" disabled>&#10094;
+                Atrás</button>
+
+            <div class="libro-3d-wrapper">
+                <div class="libro-3d" id="libro">
+                    <!-- Hoja Portada y Página 1 -->
+                    <div class="hoja" id="hoja-0" style="z-index: 10;">
+                        <!-- Frente de la Hoja (Portada) -->
+                        <div class="cara frente">
+                            <div class="portada-libro">
+                                <h1>Memorias</h1>
+                                <h2>del Asilo</h2>
+                                <span>Abre para ver las fotos</span>
+                            </div>
+                        </div>
+                        <!-- Atrás de la Hoja (Página 1 - Izquierda) -->
+                        <div class="cara atras">
+                            <div class="pagina pagina-izquierda">
+                                <div class="numero-pagina-izq">1</div>
+                                <div class="foto-principal-container">
+                                    <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?auto=format&fit=crop&w=600&q=80"
+                                        alt="Foto principal Asilo" class="foto-principal">
+                                </div>
+                                <div class="descripcion-amplia">
+                                    <h3 class="titulo-desc">Compartiendo Momentos</h3>
+                                    <p>Esta actividad se realiza con gran dedicación y amor, para brindarles a nuestros
+                                        abuelitos un espacio de escucha, alegría y compañía. Cada sonrisa y anécdota
+                                        compartida es un tesoro para nosotros, y aprendemos de su gran experiencia y
+                                        sabiduría.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!--     PLANTILLA PARA AÑADIR MÁS PÁGINAS      -->
+                    <!-- Copia el bloque <div class="hoja">...</div>-->
+                    <!-- que está comentado abajo y pégalo justo    -->
+                    <!-- encima de la ÚLTIMA HOJA (Contraportada).  -->
+                    <!-- ========================================== -->
+
+                    <!-- 
+                    <div class="hoja">
+                        <div class="cara frente">
+                            <div class="pagina pagina-derecha">
+                                <div class="numero-pagina-der"></div>
+                                <div class="grid-tres-fotos">
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?auto=format&fit=crop&w=300&q=80" alt="Nueva"></div>
+                                        <p class="desc-pequena">Nueva foto 1</p>
+                                    </div>
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?auto=format&fit=crop&w=300&q=80" alt="Nueva"></div>
+                                        <p class="desc-pequena">Nueva foto 2</p>
+                                    </div>
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?auto=format&fit=crop&w=300&q=80" alt="Nueva"></div>
+                                        <p class="desc-pequena">Nueva foto 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cara atras">
+                            <div class="pagina pagina-izquierda">
+                                <div class="numero-pagina-izq"></div>
+                                <div class="foto-principal-container">
+                                    <img src="https://images.unsplash.com/photo-1522062635951-a7a2a0750596?auto=format&fit=crop&w=600&q=80" alt="Nueva Grande" class="foto-principal">
+                                </div>
+                                <div class="descripcion-amplia">
+                                    <h3 class="titulo-desc">Nuevo Momento</h3>
+                                    <p>Escribe aquí la descripción para esta nueva página...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    -->
+
+
+                    <!-- ÚLTIMA HOJA (Página Derecha final y Contraportada) -->
+                    <div class="hoja">
+                        <!-- Frente de la Hoja (Página 2 - Derecha) -->
+                        <div class="cara frente">
+                            <div class="pagina pagina-derecha">
+                                <div class="numero-pagina-der"></div>
+                                <div class="grid-tres-fotos">
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img
+                                                src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=300&q=80"
+                                                alt="Momento 1"></div>
+                                        <p class="desc-pequena">Juegos de mesa y estimulación cognitiva para mantener la
+                                            mente activa.</p>
+                                    </div>
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img
+                                                src="https://images.unsplash.com/photo-1522062635951-a7a2a0750596?auto=format&fit=crop&w=300&q=80"
+                                                alt="Momento 2"></div>
+                                        <p class="desc-pequena">Tardes de música, donde bailamos al ritmo del pasillo y
+                                            las cuerdas.</p>
+                                    </div>
+                                    <div class="foto-pequena-item">
+                                        <div class="foto-wrapper"><img
+                                                src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=300&q=80"
+                                                alt="Momento 3"></div>
+                                        <p class="desc-pequena">Conversaciones entrañables y escucha activa compartiendo
+                                            historias de vida.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Atrás de la Hoja (Contraportada) -->
+                        <div class="cara atras">
+                            <div class="contraportada-libro">
+                                <img src="./img/n.png" alt="Logo" width="100" style="margin-bottom: 20px;">
+                                <h2>¡Gracias por visitarnos!</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-libro btn-next" id="btn-next" onclick="pasarPaginaDerecha()">Adelante &#10095;</button>
+        </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let estadoHoja = 0;
+            let hojas = document.querySelectorAll('.hoja');
+            const totalHojas = hojas.length;
+
+            // Inicializar configuración dinámica de hojas (z-index y clics de las hojas)
+            hojas.forEach((hoja, index) => {
+                // z-index inicial para que la primera esté encima de todas en la pila derecha
+                hoja.style.zIndex = 100 - index;
+
+                // Hacer clic en la cara derecha (frente) avanza página
+                let frente = hoja.querySelector('.frente');
+                if (frente) {
+                    frente.style.cursor = 'pointer';
+                    frente.onclick = () => { if (estadoHoja === index) pasarPaginaDerecha(); };
+                }
+
+                // Hacer clic en la cara izquierda (atras) retrocede página
+                let atras = hoja.querySelector('.atras');
+                if (atras) {
+                    atras.style.cursor = 'pointer';
+                    atras.onclick = () => { if (estadoHoja === index + 1) pasarPaginaIzquierda(); };
+                }
+            });
+
+            // Numeración automática de páginas
+            let numIzquierdas = document.querySelectorAll('.numero-pagina-izq');
+            let numDerechas = document.querySelectorAll('.numero-pagina-der');
+
+            numIzquierdas.forEach((el, i) => { el.innerText = (i * 2) + 1; });
+            numDerechas.forEach((el, i) => { el.innerText = (i * 2) + 2; });
+
+            function actualizarBotones() {
+                document.getElementById('btn-prev').disabled = estadoHoja === 0;
+                document.getElementById('btn-next').disabled = estadoHoja === totalHojas;
+            }
+
+            window.pasarPaginaDerecha = function () {
+                if (estadoHoja < totalHojas) {
+                    let hoja = hojas[estadoHoja];
+                    hoja.classList.add('girada');
+                    // Invertir z-index para que la hoja caiga encima de la pila izquierda
+                    hoja.style.zIndex = 100 + estadoHoja;
+                    estadoHoja++;
+                    actualizarBotones();
+                }
+            }
+
+            window.pasarPaginaIzquierda = function () {
+                if (estadoHoja > 0) {
+                    estadoHoja--;
+                    let hoja = hojas[estadoHoja];
+                    hoja.classList.remove('girada');
+                    // Restaurar z-index original para que caiga encima de la pila derecha
+                    hoja.style.zIndex = 100 - estadoHoja;
+                    actualizarBotones();
+                }
+            }
+
+            actualizarBotones();
+        });
+    </script>
 
     <footer class="pie-pagina">
         <div class="footer-derechos">
