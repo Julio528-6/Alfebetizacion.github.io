@@ -19,36 +19,66 @@
 <body>
 
     <nav class="menu-institucional">
-        <div class="logo-container">
+        <div class="logo-container" id="logoToggle">
             <a href="./index.html" class="logo-link"><img src="./img/n.png" alt="Logo" width="45" height="45"></a>
         </div>
         <div class="botones-container">
             <a href="./QSomos.html" class="boton-nav">
                 <div class="circulo-icono"><span>🤝</span></div>
-                <span class="texto-nav"> Quiénes somos </span>
+                <span class="texto-nav">Quiénes somos</span>
             </a>
             <a href="./referentes.html" class="boton-nav">
                 <div class="circulo-icono"><span>📖</span></div>
-                <span class="texto-nav"> Referentes bibliograficos </span>
+                <span class="texto-nav">Referentes bibliográficos</span>
             </a>
             <a href="./andragogia.html" class="boton-nav">
                 <div class="circulo-icono"><span>👴</span></div>
-                <span class="texto-nav"> Asilo </span>
+                <span class="texto-nav">Andragogía</span>
             </a>
             <a href="./social.html" class="boton-nav">
                 <div class="circulo-icono"><span>🏫</span></div>
-                <span class="texto-nav"> Reseña social </span>
+                <span class="texto-nav">Reseña social</span>
             </a>
             <a href="./información.html" class="boton-nav">
                 <div class="circulo-icono"><span>❓</span></div>
-                <span class="texto-nav"> Más información </span>
+                <span class="texto-nav">Más información</span>
             </a>
         </div>
         <div class="separador-nav"></div>
         <div class="titulo-container">
-            <h1 class="titulo-principal"><b>ALFABETIZACIÓN</b></h1>
+            <h1 class="titulo-principal">ALFABETIZACIÓN</h1>
         </div>
     </nav>
+
+    <!-- Menú Desplegable Móvil -->
+    <div class="menu-desplegable-movil" id="menuMovil">
+        <div class="botones-container-movil">
+            <a href="./index.html" class="boton-nav">
+                <div class="circulo-icono"><span>🏠</span></div>
+                <span class="texto-nav">Inicio</span>
+            </a>
+            <a href="./QSomos.html" class="boton-nav">
+                <div class="circulo-icono"><span>🤝</span></div>
+                <span class="texto-nav">Quiénes somos</span>
+            </a>
+            <a href="./referentes.html" class="boton-nav">
+                <div class="circulo-icono"><span>📖</span></div>
+                <span class="texto-nav">Referentes bibliográficos</span>
+            </a>
+            <a href="./andragogia.html" class="boton-nav">
+                <div class="circulo-icono"><span>👴</span></div>
+                <span class="texto-nav">Andragogía</span>
+            </a>
+            <a href="./social.html" class="boton-nav">
+                <div class="circulo-icono"><span>🏫</span></div>
+                <span class="texto-nav">Reseña social</span>
+            </a>
+            <a href="./información.html" class="boton-nav">
+                <div class="circulo-icono"><span>❓</span></div>
+                <span class="texto-nav">Más información</span>
+            </a>
+        </div>
+    </div>
 
     <main class="container-fluid contenido-principal"
         style="margin-top: 20px; padding-bottom: 50px; padding-left: 3%; padding-right: 3%;">
@@ -195,6 +225,26 @@
                 visorCol.classList.add('d-none');
                 visorLateral.classList.add('d-none');
             });
+        });
+
+        // Lógica para el menú móvil desplegable
+        document.addEventListener("DOMContentLoaded", function () {
+            const logoToggle = document.getElementById("logoToggle");
+            const menuMovil = document.getElementById("menuMovil");
+            if (logoToggle && menuMovil) {
+                logoToggle.addEventListener("click", function (e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        menuMovil.classList.toggle("show");
+                    }
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!logoToggle.contains(e.target) && !menuMovil.contains(e.target)) {
+                        menuMovil.classList.remove("show");
+                    }
+                });
+            }
         });
     </script>
 </body>

@@ -404,58 +404,52 @@ p {
 @media (max-width: 768px) {
 
     body {
-        padding-top: 60px;
+        padding-top: 70px;
     }
 
     .menu-institucional {
-        padding: 5px 10px;
+        padding: 5px 15px;
         height: auto;
-        min-height: 60px;
-    }
-
-    .texto-nav {
-        display: none;
-    }
-
-    .boton-nav {
-        padding: 3px;
-        width: 42px;
-        height: 42px;
-        justify-content: center;
-    }
-
-    .circulo-icono {
-        margin: 0;
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-        border: 3px solid var(--amarillo-institucional);
+        min-height: 70px;
     }
 
     .botones-container {
-        gap: 5px;
-        margin-right: 0;
-        width: 100%;
-    }
-
-    .titulo-principal, .separador-nav, .titulo-container {
-        display: none;
+        display: none !important;
     }
 
     .logo-container {
-        margin-right: 5px;
-        padding: 2px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 42px;
-        height: 42px;
+        margin-right: 10px;
+        padding: 3px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .logo-container:active {
+        transform: scale(0.95);
     }
 
     .logo-link img {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
+    }
+
+    .separador-nav {
+        display: none;
+    }
+
+    .titulo-container {
+        display: flex !important;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .titulo-principal {
+        display: block !important;
+        font-size: 1.8rem !important;
+        text-shadow: 1px 1px 0px #000;
+        margin: 0;
     }
 
     .subnav {
@@ -475,6 +469,74 @@ p {
         border-top: 4px solid var(--verde-institucional);
         margin-top: 20px;
     }
+}
+
+/* --- Menú Desplegable Móvil --- */
+.menu-desplegable-movil {
+    display: none;
+    position: fixed;
+    top: 70px; /* Al ras del header móvil */
+    left: 0;
+    width: 100%;
+    background-color: var(--verde-institucional);
+    border-bottom: 5px solid var(--amarillo-institucional);
+    padding: 15px 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+}
+
+.menu-desplegable-movil.show {
+    display: block;
+}
+
+.botones-container-movil {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.menu-desplegable-movil .boton-nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--amarillo-institucional);
+    padding: 5px 20px 5px 5px;
+    border-radius: 50px;
+    text-decoration: none;
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s;
+}
+
+.menu-desplegable-movil .boton-nav:hover {
+    transform: translateY(-2px);
+}
+
+.menu-desplegable-movil .circulo-icono {
+    width: 40px;
+    height: 40px;
+    background-color: var(--verde-institucional);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    font-size: 1.1rem;
+    border: none;
+}
+
+.menu-desplegable-movil .circulo-icono span {
+    filter: grayscale(100%) brightness(1000%);
+}
+
+.menu-desplegable-movil .texto-nav {
+    display: inline-block !important;
+    font-family: var(--fuente-botones);
+    color: var(--verde-institucional);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 /* --- Referentes Bibliográficos --- */
@@ -878,7 +940,7 @@ p {
     width: calc(100% - 25px); /* Leave 25px outside edge */
     position: absolute;
     top: 20px;
-    padding: 40px 50px;
+    padding: 25px 35px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Page drop shadow on the hardcover */
@@ -912,10 +974,10 @@ p {
 /* Página Izquierda */
 .foto-principal-container {
     width: 100%;
-    height: 380px;
-    border: 8px solid white;
+    height: 220px;
+    border: 5px solid white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     border-radius: 4px;
     overflow: hidden;
     transform: rotate(-1deg);
@@ -928,37 +990,38 @@ p {
 .titulo-desc {
     font-family: var(--fuente-tarjetas);
     color: var(--verde-institucional);
-    font-size: 2.7rem;
-    margin-bottom: 15px;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
 }
 .descripcion-amplia p {
-    font-size: 1.6rem;
-    line-height: 1.5;
+    font-size: 1.15rem;
+    line-height: 1.4;
     color: #444;
+    margin-bottom: 10px;
 }
 
 .grid-tres-fotos {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
     height: 100%;
     justify-content: space-between;
 }
 .foto-pequena-item {
     display: flex;
-    gap: 25px;
+    gap: 15px;
     align-items: center;
     background: #F5F5DC;
-    padding: 20px;
+    padding: 12px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08), inset 0 0 10px rgba(0,0,0,0.03);
     border: 1px solid #ebebd1;
 }
 .foto-pequena-item .foto-wrapper {
     flex-shrink: 0;
-    width: 210px;
-    height: 165px;
-    border: 4px solid #eee;
+    width: 150px;
+    height: 110px;
+    border: 3px solid #eee;
     transform: rotate(1deg);
     overflow: hidden;
 }
@@ -968,10 +1031,10 @@ p {
     object-fit: cover;
 }
 .desc-pequena {
-    font-size: 1.45rem;
+    font-size: 1.1rem;
     margin: 0;
     color: #555;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 /* Botones */
@@ -1001,39 +1064,120 @@ p {
     .libro-contenedor {
         flex-direction: column;
         gap: 10px;
+        margin: 20px auto;
+        padding: 0 10px;
     }
     .libro-3d-wrapper {
         width: 100%;
         max-width: 450px;
         height: auto;
-        min-height: 600px;
+        min-height: auto;
         transform-style: flat;
     }
     .hoja {
         width: 100%;
         position: relative;
-        transform: none;
+        transform: none !important;
         transition: none;
         box-shadow: none;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         height: auto;
     }
     .hoja.girada {
-        transform: none;
+        transform: none !important;
     }
     .cara {
         position: relative;
-        transform: none;
-        margin-bottom: 20px;
-        border-radius: 8px;
+        transform: none !important;
+        backface-visibility: visible !important;
+        margin-bottom: 25px;
+        border-radius: 12px;
         height: auto;
-        min-height: 500px;
+        min-height: auto;
+        padding: 10px;
+        box-sizing: border-box;
+        border-width: 2px;
     }
     .frente, .atras {
-        transform: none;
-        border-radius: 8px;
+        transform: none !important;
+        backface-visibility: visible !important;
+        border-radius: 12px;
     }
-    .foto-pequena-item { flex-direction: column; align-items: flex-start; }
-    .foto-pequena-item .foto-wrapper { width: 100%; height: 160px; }
-    .btn-libro { display: none; } /* Ocultar botones en móvil al estar vertical */
+    .pagina {
+        position: relative;
+        top: 0;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 20px 15px !important;
+        box-shadow: none;
+        border-radius: 8px !important;
+    }
+    .portada-libro, .contraportada-libro {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 280px;
+        border: 8px double var(--amarillo-institucional);
+        border-radius: 8px !important;
+        padding: 20px;
+        box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+    }
+    .portada-libro h1 {
+        font-size: 3.5rem;
+    }
+    .portada-libro h2 {
+        font-size: 1.8rem;
+    }
+    .portada-libro span {
+        font-size: 1.1rem;
+        margin-top: 20px;
+    }
+    .contraportada-libro {
+        min-height: 240px;
+    }
+    .foto-principal-container {
+        height: 220px;
+        margin-bottom: 15px;
+        border-width: 4px;
+    }
+    .titulo-desc {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    .descripcion-amplia p {
+        font-size: 1.1rem;
+        line-height: 1.4;
+    }
+    .foto-pequena-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+    .foto-pequena-item .foto-wrapper {
+        width: 100%;
+        height: 180px;
+        border-width: 2px;
+    }
+    .desc-pequena {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+    .numero-pagina-izq, .numero-pagina-der {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 1.1rem;
+    }
+    .btn-libro {
+        display: none;
+    }
 }

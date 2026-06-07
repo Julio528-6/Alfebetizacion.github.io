@@ -18,8 +18,24 @@
 <body>
 
     <nav class="menu-institucional">
-        <div class="logo-container">
+        <div class="logo-container" id="logoToggle">
             <a href="./index.html" class="logo-link"><img src="./img/n.png" alt="Logo" width="45" height="45"></a>
+        </div>
+
+        <!-- Botón subnav móvil al lado del escudo (visible solo en móviles) -->
+        <div class="dropdown d-md-none d-flex align-items-center" style="margin-left: 10px;">
+            <button class="boton-nav border-0 p-0" type="button" id="dropdownQSomos" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; width: auto; height: auto; box-shadow: none;">
+                <div class="circulo-icono" style="margin: 0; width: 42px; height: 42px; font-size: 1.2rem; border: 3px solid var(--amarillo-institucional);"><span>☰</span></div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownQSomos" style="background-color: var(--blanco-fondo); border: 2px solid var(--verde-institucional); margin-top: 10px;">
+                <li><a class="dropdown-item subnav-tab-mobile" href="#identidad">Identidad Institucional</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#mision">Fundamentación</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#actores">Actores del Programa</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#legal">Marco Legal</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#paces">Modelo Pedagógico PACES</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#teorica">Fundamentación Teórica</a></li>
+                <li><a class="dropdown-item subnav-tab-mobile" href="#bibliografia">Bibliografía</a></li>
+            </ul>
         </div>
 
         <div class="botones-container">
@@ -43,22 +59,6 @@
                 <div class="circulo-icono"><span>❓</span></div>
                 <span class="texto-nav">Más información</span>
             </a>
-
-            <!-- Mobile subnav dropdown -->
-            <div class="dropdown d-md-none d-flex align-items-center ms-auto">
-                <button class="boton-nav border-0 pe-0" type="button" id="dropdownQSomos" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="circulo-icono"><span>☰</span></div>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownQSomos" style="background-color: var(--blanco-fondo); border: 2px solid var(--verde-institucional);">
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#identidad">Identidad Institucional</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#mision">Fundamentación</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#actores">Actores del Programa</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#legal">Marco Legal</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#paces">Modelo Pedagógico PACES</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#teorica">Fundamentación Teórica</a></li>
-                    <li><a class="dropdown-item subnav-tab-mobile" href="#bibliografia">Bibliografía</a></li>
-                </ul>
-            </div>
         </div>
 
         <div class="separador-nav"></div>
@@ -67,6 +67,36 @@
             <h1 class="titulo-principal">ALFABETIZACIÓN</h1>
         </div>
     </nav>
+
+    <!-- Menú Desplegable Móvil -->
+    <div class="menu-desplegable-movil" id="menuMovil">
+        <div class="botones-container-movil">
+            <a href="./index.html" class="boton-nav">
+                <div class="circulo-icono"><span>🏠</span></div>
+                <span class="texto-nav">Inicio</span>
+            </a>
+            <a href="./QSomos.html" class="boton-nav">
+                <div class="circulo-icono"><span>🤝</span></div>
+                <span class="texto-nav">Quiénes somos</span>
+            </a>
+            <a href="./referentes.html" class="boton-nav">
+                <div class="circulo-icono"><span>📖</span></div>
+                <span class="texto-nav">Referentes bibliográficos</span>
+            </a>
+            <a href="./andragogia.html" class="boton-nav">
+                <div class="circulo-icono"><span>👴</span></div>
+                <span class="texto-nav">Andragogía</span>
+            </a>
+            <a href="./social.html" class="boton-nav">
+                <div class="circulo-icono"><span>🏫</span></div>
+                <span class="texto-nav">Reseña social</span>
+            </a>
+            <a href="./información.html" class="boton-nav">
+                <div class="circulo-icono"><span>❓</span></div>
+                <span class="texto-nav">Más información</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Subnav -->
     <nav class="subnav">
@@ -501,6 +531,26 @@
         }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
 
         secciones.forEach(s => observer.observe(s));
+
+        // Lógica para el menú móvil desplegable
+        document.addEventListener("DOMContentLoaded", function () {
+            const logoToggle = document.getElementById("logoToggle");
+            const menuMovil = document.getElementById("menuMovil");
+            if (logoToggle && menuMovil) {
+                logoToggle.addEventListener("click", function (e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        menuMovil.classList.toggle("show");
+                    }
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!logoToggle.contains(e.target) && !menuMovil.contains(e.target)) {
+                        menuMovil.classList.remove("show");
+                    }
+                });
+            }
+        });
     </script>
 
 </body>
