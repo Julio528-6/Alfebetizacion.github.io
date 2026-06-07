@@ -1,17 +1,28 @@
 /* --- Variables Institucionales --- */
 :root {
     --verde-institucional: #198754;
+    --verde-oscuro: #0d5c36;
+    --verde-claro: #2ea34e;
     --amarillo-institucional: #FCF876;
+    --amarillo-oscuro: #f0c825;
     --blanco-fondo: #FAF9F0;
     --fuente-botones: 'Patrick Hand', cursive;
     --fuente-titulos: 'Italianno', cursive;
     --fuente-subtitulos: 'Patrick Hand', cursive;
     --fuente-tarjetas: 'Gloria Hallelujah', cursive;
     --fuente-cuerpo: 'Comic Neue', cursive;
+    --degradado-nav: linear-gradient(135deg, #0d5c36 0%, #198754 55%, #2ea34e 100%);
+    --degradado-footer: linear-gradient(135deg, #0a3d22 0%, #0d5c36 50%, #155d36 100%);
+    --degradado-amarillo: linear-gradient(135deg, #FCF876 0%, #f0c825 100%);
+    --sombra-card: 0 4px 20px rgba(25,135,84,0.12);
+    --sombra-card-hover: 0 10px 32px rgba(25,135,84,0.22);
 }
 
 body {
-    background-color: var(--blanco-fondo);
+    background-color: #f6faf7;
+    background-image:
+        radial-gradient(ellipse at 90% 100%, rgba(25,135,84,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 90%, rgba(240,200,37,0.05) 0%, transparent 45%);
     font-family: var(--fuente-cuerpo);
     min-height: 100vh;
     display: flex;
@@ -42,10 +53,11 @@ p {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    background-color: var(--verde-institucional);
+    background: var(--degradado-nav);
     z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 18px rgba(13,92,54,0.35);
     height: 80px;
+    border-bottom: 2px solid rgba(240,200,37,0.4);
 }
 
 .logo-container {
@@ -79,29 +91,32 @@ p {
 .boton-nav {
     display: flex;
     align-items: center;
-    background-color: var(--amarillo-institucional);
+    background: var(--degradado-amarillo);
     padding: 5px 20px 5px 5px;
     border-radius: 50px;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     height: 55px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .boton-nav:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+    filter: brightness(1.05);
 }
 
 .circulo-icono {
     width: 45px;
     height: 45px;
-    background-color: var(--verde-institucional);
+    background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-claro));
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 12px;
     font-size: 1.2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .circulo-icono span {
@@ -141,7 +156,7 @@ p {
 
 .contenido-principal {
     padding: 30px;
-    background-color: var(--blanco-fondo);
+    background-color: transparent;
 }
 
 .contenido-principal h2,
@@ -175,7 +190,7 @@ p {
 
 /* --- Barra Lateral --- */
 .barra-lateral {
-    background-color: #f9f9f9;
+    background-color: rgba(255,255,255,0.7);
     padding: 20px;
     border-left: 4px solid var(--verde-institucional);
     min-height: 100%;
@@ -204,13 +219,14 @@ p {
 
 /* --- Pie de Página --- */
 .pie-pagina {
-    background-color: var(--verde-institucional);
+    background: var(--degradado-footer);
     color: white;
     padding: 15px 20px 25px 20px;
     width: 100%;
     margin-top: auto;
-    border-top: 5px solid var(--amarillo-institucional);
+    border-top: 4px solid var(--amarillo-oscuro);
     font-family: var(--fuente-cuerpo);
+    box-shadow: 0 -4px 20px rgba(13,92,54,0.3);
 }
 
 .footer-derechos {
@@ -286,9 +302,10 @@ p {
     left: 0;
     width: 100%;
     background-color: #ffffff;
-    border-bottom: 3px solid var(--verde-institucional);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--verde-oscuro), var(--verde-institucional), var(--amarillo-oscuro)) 1;
     z-index: 900;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(13,92,54,0.12);
 }
 
 .subnav-inner {
@@ -387,9 +404,16 @@ p {
     line-height: 1.6;
     padding: 16px 20px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    border-left: 4px solid var(--verde-institucional);
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    border-left: 5px solid transparent;
+    border-image: linear-gradient(180deg, var(--verde-oscuro), var(--verde-claro)) 1;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lista-institucional li:hover {
+    transform: translateX(4px);
+    box-shadow: var(--sombra-card-hover);
 }
 
 .lista-institucional li::before {
@@ -475,13 +499,13 @@ p {
 .menu-desplegable-movil {
     display: none;
     position: fixed;
-    top: 70px; /* Al ras del header móvil */
+    top: 70px;
     left: 0;
     width: 100%;
-    background-color: var(--verde-institucional);
-    border-bottom: 5px solid var(--amarillo-institucional);
+    background: var(--degradado-nav);
+    border-bottom: 4px solid var(--amarillo-oscuro);
     padding: 15px 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(13,92,54,0.35);
     z-index: 999;
 }
 
@@ -499,7 +523,7 @@ p {
 .menu-desplegable-movil .boton-nav {
     display: flex;
     align-items: center;
-    background-color: var(--amarillo-institucional);
+    background: var(--degradado-amarillo);
     padding: 5px 20px 5px 5px;
     border-radius: 50px;
     text-decoration: none;
@@ -507,6 +531,7 @@ p {
     width: 100%;
     box-sizing: border-box;
     transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .menu-desplegable-movil .boton-nav:hover {
@@ -516,7 +541,7 @@ p {
 .menu-desplegable-movil .circulo-icono {
     width: 40px;
     height: 40px;
-    background-color: var(--verde-institucional);
+    background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-claro));
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -524,6 +549,7 @@ p {
     margin-right: 12px;
     font-size: 1.1rem;
     border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .menu-desplegable-movil .circulo-icono span {
@@ -568,17 +594,28 @@ p {
 
 .recurso-card {
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    box-shadow: var(--sombra-card);
     padding: 25px;
     margin-bottom: 25px;
     border-left: 6px solid var(--verde-institucional);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.recurso-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--verde-oscuro), var(--verde-institucional), var(--verde-claro));
+    border-radius: 4px 0 0 4px;
 }
 
 .recurso-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-card-hover);
 }
 
 .recurso-titulo {
@@ -657,8 +694,8 @@ p {
 .recurso-enlace {
     display: inline-flex;
     align-items: center;
-    background-color: var(--amarillo-institucional);
-    color: var(--verde-institucional);
+    background: var(--degradado-amarillo);
+    color: var(--verde-oscuro);
     font-family: var(--fuente-botones);
     font-weight: bold;
     padding: 8px 25px;
@@ -666,13 +703,15 @@ p {
     text-decoration: none;
     font-size: 1.15rem;
     text-transform: uppercase;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 10px rgba(240,200,37,0.35);
 }
 
 .recurso-enlace:hover {
-    background-color: #eadd4f;
-    color: var(--verde-institucional);
-    transform: scale(1.03);
+    background: linear-gradient(135deg, #f0c825, #e6b800);
+    color: var(--verde-oscuro);
+    transform: scale(1.04) translateY(-2px);
+    box-shadow: 0 6px 18px rgba(240,200,37,0.45);
 }
 
 .recurso-enlace i {
@@ -1039,7 +1078,7 @@ p {
 
 /* Botones */
 .btn-libro {
-    background-color: var(--verde-institucional);
+    background: var(--degradado-nav);
     color: white;
     border: none;
     padding: 18px 30px;
@@ -1047,17 +1086,18 @@ p {
     font-size: 1.8rem;
     border-radius: 40px;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 16px rgba(13,92,54,0.35);
 }
 .btn-libro:disabled {
-    background-color: #ccc;
+    background: #ccc;
     cursor: not-allowed;
     box-shadow: none;
 }
 .btn-libro:not(:disabled):hover {
-    background-color: #12633e;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #0a3d22, #0d5c36);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(13,92,54,0.45);
 }
 
 @media (max-width: 992px) {
@@ -1332,24 +1372,14 @@ p {
     background: #fff;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(25,135,84,0.12);
+    box-shadow: var(--sombra-card);
     border: 2px solid #c3e6cb;
 }
-.mapa-placeholder {
-    background: linear-gradient(145deg, #0d5c36, #198754);
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 3rem;
-    gap: 10px;
-}
-.mapa-placeholder p {
-    font-size: 0.95rem;
-    margin: 0;
-    opacity: 0.9;
+.mapa-card iframe {
+    border-radius: 0;
+    width: 100%;
+    display: block;
+    min-height: 220px;
 }
 .mapa-footer {
     padding: 14px 20px;
