@@ -1181,3 +1181,460 @@ p {
         display: none;
     }
 }
+
+/* ============================================================
+   PÁGINA DE INFORMACIÓN - Estilos Premium
+   ============================================================ */
+
+/* --- Hero Banner de Información --- */
+.info-hero {
+    background: linear-gradient(135deg, #0d5c36 0%, #198754 45%, #2ea34e 70%, #f0c825 100%);
+    color: #fff;
+    padding: 60px 30px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+.info-hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 380px;
+    height: 380px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+}
+.info-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 280px;
+    height: 280px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+}
+.info-hero-titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 3.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.info-hero-subtitulo {
+    font-family: var(--fuente-cuerpo);
+    font-size: 1.15rem;
+    opacity: 0.92;
+    max-width: 620px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+}
+.info-hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 6px 22px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(8px);
+    letter-spacing: 1px;
+}
+
+/* --- Secciones Generales --- */
+.info-seccion {
+    padding: 60px 0 40px;
+}
+.info-seccion-titulo {
+    font-family: var(--fuente-subtitulos);
+    font-size: 2rem;
+    color: var(--verde-institucional);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.info-seccion-titulo .icono-seccion {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--verde-institucional), #2ea34e);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(25,135,84,0.3);
+}
+.info-seccion-linea {
+    height: 3px;
+    background: linear-gradient(90deg, var(--verde-institucional), var(--amarillo-institucional), transparent);
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+
+/* --- Tarjetas de Contacto --- */
+.contact-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 20px rgba(25,135,84,0.1);
+    border-left: 5px solid var(--verde-institucional);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(25,135,84,0.2);
+}
+.contact-card.accent-amarillo {
+    border-left-color: #c8a900;
+}
+.contact-card .contact-icono {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #e8f5ee, #c3e6cb);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
+.contact-card h4 {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.05rem;
+    color: #444;
+    margin: 0;
+    font-weight: 700;
+}
+.contact-card p, .contact-card a {
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+    text-decoration: none;
+}
+.contact-card a:hover {
+    color: var(--verde-institucional);
+    text-decoration: underline;
+}
+
+/* --- Tarjeta de Mapa --- */
+.mapa-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(25,135,84,0.12);
+    border: 2px solid #c3e6cb;
+}
+.mapa-placeholder {
+    background: linear-gradient(145deg, #0d5c36, #198754);
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 3rem;
+    gap: 10px;
+}
+.mapa-placeholder p {
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.9;
+}
+.mapa-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #e8f5ee;
+}
+.mapa-footer p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #555;
+}
+
+/* --- Tarjetas del Proyecto de Alfabetización --- */
+.alfa-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 26px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    text-align: center;
+    border-top: 4px solid var(--verde-institucional);
+}
+.alfa-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(25,135,84,0.18);
+}
+.alfa-card .alfa-icono {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+    display: block;
+}
+.alfa-card h4 {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.1rem;
+    color: var(--verde-institucional);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.alfa-card p {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Banner horizontal de Alfabetización */
+.alfa-banner {
+    background: linear-gradient(135deg, #198754 0%, #0d5c36 100%);
+    border-radius: 22px;
+    padding: 36px 40px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 8px 30px rgba(25,135,84,0.25);
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+}
+.alfa-banner-icono {
+    font-size: 4rem;
+    flex-shrink: 0;
+}
+.alfa-banner-texto h3 {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+.alfa-banner-texto p {
+    font-size: 1rem;
+    opacity: 0.92;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Badge de coste gratuito */
+.badge-gratis {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amarillo-institucional);
+    color: #5a4000;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-family: var(--fuente-subtitulos);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+/* --- Acordeón del PFC --- */
+.pfc-header-card {
+    background: linear-gradient(135deg, #198754 0%, #155d36 100%);
+    border-radius: 20px;
+    padding: 36px 40px;
+    color: #fff;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 8px 30px rgba(25,135,84,0.2);
+    flex-wrap: wrap;
+}
+.pfc-header-icono {
+    font-size: 3.5rem;
+    flex-shrink: 0;
+}
+.pfc-header-texto h3 {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+.pfc-header-texto p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.accordion-custom .accordion-item {
+    border: none;
+    border-radius: 16px !important;
+    overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+.accordion-custom .accordion-button {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--verde-institucional);
+    background: #f0faf4;
+    padding: 18px 24px;
+    border-radius: 16px !important;
+    box-shadow: none !important;
+}
+.accordion-custom .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, var(--verde-institucional), #2ea34e);
+    color: #fff;
+}
+.accordion-custom .accordion-button::after {
+    filter: none;
+}
+.accordion-custom .accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+.accordion-custom .accordion-body {
+    padding: 20px 26px;
+    background: #fff;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.98rem;
+    color: #444;
+    line-height: 1.7;
+}
+.accordion-custom .accordion-body ul {
+    padding-left: 20px;
+    margin: 0;
+}
+.accordion-custom .accordion-body ul li {
+    margin-bottom: 6px;
+}
+
+/* Tarjetas de semestre del PFC */
+.semestre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+}
+.semestre-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px 18px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--amarillo-institucional);
+    transition: transform 0.3s ease;
+}
+.semestre-card:hover {
+    transform: translateY(-4px);
+}
+.semestre-card .sem-num {
+    font-family: var(--fuente-tarjetas);
+    font-size: 1.1rem;
+    color: #c8a900;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.semestre-card p {
+    font-size: 0.88rem;
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* --- Formulario de Contacto --- */
+.form-info-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(25,135,84,0.12);
+    border-top: 5px solid var(--verde-institucional);
+}
+.form-info-card h3 {
+    font-family: var(--fuente-subtitulos);
+    font-size: 1.5rem;
+    color: var(--verde-institucional);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.form-info-card .form-label {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #444;
+}
+.form-info-card .form-control,
+.form-info-card .form-select {
+    border-radius: 10px;
+    border: 2px solid #d1e7dd;
+    padding: 10px 14px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-info-card .form-control:focus,
+.form-info-card .form-select:focus {
+    border-color: var(--verde-institucional);
+    box-shadow: 0 0 0 3px rgba(25,135,84,0.15);
+}
+.btn-enviar-info {
+    background: linear-gradient(135deg, var(--verde-institucional), #2ea34e);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 36px;
+    font-family: var(--fuente-subtitulos);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 16px rgba(25,135,84,0.3);
+}
+.btn-enviar-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(25,135,84,0.4);
+}
+.form-success {
+    display: none;
+    background: #d1e7dd;
+    border-radius: 12px;
+    padding: 14px 20px;
+    color: #0a4a24;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+    margin-top: 16px;
+    text-align: center;
+}
+
+/* Separador decorativo entre secciones */
+.info-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c3e6cb, var(--amarillo-institucional), #c3e6cb, transparent);
+    border-radius: 2px;
+    margin: 20px 0 0;
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .info-hero-titulo {
+        font-size: 2.5rem;
+    }
+    .alfa-banner, .pfc-header-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 24px;
+    }
+    .form-info-card {
+        padding: 26px 20px;
+    }
+    .info-seccion {
+        padding: 36px 0 24px;
+    }
+    .semestre-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
