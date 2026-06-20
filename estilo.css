@@ -345,18 +345,53 @@ p {
     border-bottom-color: var(--amarillo-institucional);
 }
 
-.subnav-tab-mobile {
-    font-family: var(--fuente-botones);
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--verde-institucional);
-    text-transform: uppercase;
-    padding: 10px 20px;
+/* --- Dropdown Subnav Móvil Customizado --- */
+.subnav-dropdown-custom {
+    background: #ffffff !important;
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+    border-image: linear-gradient(90deg, var(--verde-oscuro), var(--verde-institucional), var(--amarillo-oscuro)) 1 !important;
+    border-radius: 0 !important;
+    padding: 15px 20px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+    margin-top: 0 !important;
+    width: 100vw !important;
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 998;
 }
 
-.subnav-tab-mobile:hover, .subnav-tab-mobile:focus {
-    background-color: var(--amarillo-institucional);
-    color: var(--verde-institucional);
+.subnav-dropdown-custom li {
+    margin-bottom: 8px;
+}
+
+.subnav-dropdown-custom li:last-child {
+    margin-bottom: 0;
+}
+
+.subnav-tab-mobile {
+    display: block !important;
+    background: none !important;
+    font-family: var(--fuente-botones) !important;
+    font-size: 1.05rem !important;
+    font-weight: bold !important;
+    color: #666 !important;
+    text-transform: uppercase;
+    padding: 6px 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: color 0.2s !important;
+    text-decoration: none !important;
+}
+
+.subnav-tab-mobile:hover, 
+.subnav-tab-mobile:focus, 
+.subnav-tab-mobile:active,
+.subnav-tab-mobile.active {
+    background: none !important;
+    color: var(--verde-institucional) !important;
 }
 
 /* --- Contenido Quiénes Somos --- */
@@ -480,6 +515,10 @@ p {
         display: none;
     }
 
+    .qsomos-sidebar-left {
+        display: none !important;
+    }
+
     .qsomos-contenido {
         padding-top: 50px;
     }
@@ -492,6 +531,126 @@ p {
         border-left: none;
         border-top: 4px solid var(--verde-institucional);
         margin-top: 20px;
+    }
+
+    /* --- Mobile Size Overrides --- */
+    p {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    #parrafo-principal {
+        font-size: 1.35rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Titles */
+    .contenido-principal h2,
+    .qsomos-seccion h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .contenido-principal h3,
+    .qsomos-seccion h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* Lists and Cards */
+    .lista-institucional li {
+        font-size: 0.95rem !important;
+        padding: 10px 14px !important;
+        gap: 8px !important;
+    }
+
+    .lista-institucional li::before {
+        font-size: 1rem !important;
+    }
+
+    .recurso-card {
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .recurso-card h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .semestre-card {
+        padding: 14px 12px !important;
+    }
+
+    .semestre-card .sem-num {
+        font-size: 0.95rem !important;
+    }
+
+    .semestre-card p {
+        font-size: 0.8rem !important;
+    }
+
+    /* Info Sections */
+    .info-hero-titulo {
+        font-size: 2.1rem !important;
+    }
+
+    .info-hero-subtitulo {
+        font-size: 1.05rem !important;
+    }
+
+    .info-seccion {
+        padding: 24px 0 16px !important;
+    }
+
+    .info-seccion-titulo {
+        font-size: 1.4rem !important;
+    }
+
+    .contact-card {
+        padding: 16px !important;
+    }
+
+    .contact-card h4 {
+        font-size: 1.1rem !important;
+    }
+
+    .contact-card p {
+        font-size: 0.9rem !important;
+    }
+
+    .form-info-card {
+        padding: 20px 16px !important;
+    }
+
+    .form-info-card h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .alfa-banner-texto h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .alfa-banner-texto p {
+        font-size: 0.9rem !important;
+    }
+
+    .pfc-header-texto h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .pfc-header-texto p {
+        font-size: 0.9rem !important;
+    }
+
+    .accordion-custom .accordion-button {
+        font-size: 0.95rem !important;
+        padding: 14px 18px !important;
+    }
+
+    .accordion-custom .accordion-body {
+        font-size: 0.9rem !important;
+        padding: 14px 18px !important;
     }
 }
 

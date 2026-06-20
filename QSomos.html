@@ -24,10 +24,15 @@
 
         <!-- Botón subnav móvil al lado del escudo (visible solo en móviles) -->
         <div class="dropdown d-md-none d-flex align-items-center" style="margin-left: 10px;">
-            <button class="boton-nav border-0 p-0" type="button" id="dropdownQSomos" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; width: auto; height: auto; box-shadow: none;">
-                <div class="circulo-icono" style="margin: 0; width: 42px; height: 42px; font-size: 1.2rem; border: 3px solid var(--amarillo-institucional);"><span>☰</span></div>
+            <button class="boton-nav border-0 p-0" type="button" id="dropdownQSomos" data-bs-toggle="dropdown"
+                data-bs-display="static"
+                aria-expanded="false" style="background: none; width: auto; height: auto; box-shadow: none;">
+                <div class="circulo-icono"
+                    style="margin: 0; width: 42px; height: 42px; font-size: 1.2rem; border: 3px solid var(--amarillo-institucional);">
+                    <span>☰</span>
+                </div>
             </button>
-            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownQSomos" style="background-color: var(--blanco-fondo); border: 2px solid var(--verde-institucional); margin-top: 10px;">
+            <ul class="dropdown-menu dropdown-menu-start subnav-dropdown-custom" aria-labelledby="dropdownQSomos">
                 <li><a class="dropdown-item subnav-tab-mobile" href="#identidad">Identidad Institucional</a></li>
                 <li><a class="dropdown-item subnav-tab-mobile" href="#mision">Fundamentación</a></li>
                 <li><a class="dropdown-item subnav-tab-mobile" href="#actores">Actores del Programa</a></li>
