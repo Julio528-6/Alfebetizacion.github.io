@@ -254,6 +254,7 @@
             .libro-movil   { display: block !important; margin: 0 auto; }
         }
     </style>
+    <script src="./animaciones.js" defer></script>
 </head>
 
 <body>
@@ -322,8 +323,8 @@
                             </div>
                         </div>
 
-                        <!-- HOJA 1 — Pág. 2 | Contraportada -->
-                        <div class="hoja" style="z-index:9;">
+                        <!-- HOJA 1 — Pág. 2 | Pág. 3 -->
+                        <div class="hoja" id="hoja-1" style="z-index:9;">
                             <div class="cara frente">
                                 <div class="pagina pagina-derecha">
                                     <div class="numero-pagina-der">2</div>
@@ -339,6 +340,78 @@
                                         <div class="foto-pequena-item">
                                             <div class="foto-wrapper"><img src="media/andragogia/pagina2/cognitivo.jpeg" alt="Impacto Cognitivo"></div>
                                             <p class="desc-pequena"><strong>Impacto cognitivo:</strong> Se fortalecieron memoria, atención y reconocimiento de letras. Las actividades estimularon las capacidades cognitivas de los adultos mayores.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cara atras">
+                                <div class="pagina pagina-izquierda">
+                                    <div class="numero-pagina-izq">3</div>
+                                    <div class="foto-principal-container">
+                                        <img src="media/andragogia/pagina3/principal.jpeg" alt="Lectura guiada con la letra i" class="foto-principal">
+                                    </div>
+                                    <div class="descripcion-amplia">
+                                        <h3 class="titulo-desc">El Despertar de la Lectura</h3>
+                                        <p>Leer en voz alta un pequeño texto enfocado en la letra <em>"i"</em>, con el acompañamiento directo de la maestra en formación, marcó el inicio de un vínculo profundo entre el adulto mayor y la palabra escrita. Ese gesto cotidiano —señalar la letra, repetir su sonido, reconocerla en el texto— encarna el principio andragógico que afirma que todo aprendizaje adulto se consolida cuando parte de la experiencia vivida y del acompañamiento respetuoso.</p>
+                                        <p>La maestra en formación no solo transmitió un contenido: construyó junto al estudiante un territorio seguro donde equivocarse forma parte del aprendizaje y cada avance, por pequeño que sea, merece ser celebrado.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HOJA 2 — Pág. 4 | Pág. 5 -->
+                        <div class="hoja" id="hoja-2" style="z-index:8;">
+                            <div class="cara frente">
+                                <div class="pagina pagina-derecha">
+                                    <div class="numero-pagina-der">4</div>
+                                    <div class="grid-tres-fotos">
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina4/2.jpeg" alt="Proyecto transversal letra i con naturaleza"></div>
+                                            <p class="desc-pequena"><strong>Proyecto transversal:</strong> Rellenar la letra "i" con elementos de la naturaleza integró la creatividad manual con el reconocimiento de grafemas, demostrando que escribir también puede hacerse con las manos y los sentidos.</p>
+                                        </div>
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina4/3.jpeg" alt="Completando palabras con letras i y a"></div>
+                                            <p class="desc-pequena"><strong>Construcción de palabras:</strong> Completar palabras con las letras "i" y "a" fortaleció la conciencia fonológica y la memoria visual. Cada hueco rellenado representó un puente entre el sonido conocido y el signo escrito.</p>
+                                        </div>
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina4/4.jpeg" alt="Don Adán repasando el abecedario"></div>
+                                            <p class="desc-pequena"><strong>Planas del abecedario:</strong> Don Adán repasó emocionado el abecedario completo, trazando mayúsculas y minúsculas con dedicación. Cada trazo ilustra cómo la escritura devuelve autonomía y dignidad al adulto aprendiz.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cara atras">
+                                <div class="pagina pagina-izquierda">
+                                    <div class="numero-pagina-izq">5</div>
+                                    <div class="foto-principal-container">
+                                        <img src="media/andragogia/pagina5/principal.jpeg" alt="Portada del libro de vida" class="foto-principal">
+                                    </div>
+                                    <div class="descripcion-amplia">
+                                        <h3 class="titulo-desc">El Libro de Mi Propia Vida</h3>
+                                        <p>Elaborar la portada de un libro cuya historia fuera la propia vida del estudiante constituyó una de las experiencias más significativas del proceso. Con materiales aportados por las docentes en formación, cada adulto mayor diseñó una portada que reflejaba quién es, de dónde viene y qué sueña.</p>
+                                        <p>La actividad activó la memoria autobiográfica, estimuló la expresión escrita y reafirmó la identidad de cada participante como sujeto con historia, voz y valor. Aprender a leer y escribir no es solo dominar un código: es recuperar la capacidad de nombrarse y contarse al mundo.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HOJA 3 — Pág. 6 | Contraportada -->
+                        <div class="hoja" id="hoja-3" style="z-index:7;">
+                            <div class="cara frente">
+                                <div class="pagina pagina-derecha">
+                                    <div class="numero-pagina-der">6</div>
+                                    <div class="grid-tres-fotos">
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina6/7.jpeg" alt="Juego de cartas UNO"></div>
+                                            <p class="desc-pequena"><strong>El juego como estrategia:</strong> En el juego de cartas UNO, la docente nombraba un número y un color; el adulto que tuviera esa carta la levantaba. Esta dinámica lúdica entrenó la escucha activa, el reconocimiento de colores y números en un ambiente de alegría compartida.</p>
+                                        </div>
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina6/8.jpeg" alt="Reloj con metas y propósitos"></div>
+                                            <p class="desc-pequena"><strong>Escritura con sentido:</strong> Diseñar un reloj y escribir en su centro metas, deseos o propósitos para el nuevo año convirtió la escritura en un acto personal y significativo, testimonio de la capacidad expresiva que el proceso despertó en cada participante.</p>
+                                        </div>
+                                        <div class="foto-pequena-item">
+                                            <div class="foto-wrapper"><img src="media/andragogia/pagina6/12.jpeg" alt="Momento de origami en comunidad"></div>
+                                            <p class="desc-pequena"><strong>Comunidad de aprendizaje:</strong> El origami compartido entre maestros y alumnos construyó vínculos que trascienden el aula. Esos momentos de compañerismo son la base afectiva sobre la que se sostiene cualquier proceso educativo duradero.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -398,6 +471,56 @@
                             </div>
                         </div>
 
+                        <!-- Página 3 -->
+                        <div class="pagina-movil">
+                            <span class="num-pag-movil">3</span>
+                            <img src="media/andragogia/pagina3/principal.jpeg" alt="Lectura guiada con la letra i" class="foto-movil-principal">
+                            <p class="titulo-movil">El Despertar de la Lectura</p>
+                            <p class="texto-movil">Leer en voz alta un pequeño texto enfocado en la letra "i", con el acompañamiento directo de la maestra en formación, marcó el inicio de un vínculo profundo entre el adulto mayor y la palabra escrita. Ese gesto cotidiano encarna el principio andragógico de que todo aprendizaje adulto se consolida con acompañamiento respetuoso y desde la experiencia vivida.</p>
+                        </div>
+
+                        <!-- Página 4 -->
+                        <div class="pagina-movil">
+                            <span class="num-pag-movil">4</span>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina4/2.jpeg" alt="Proyecto transversal letra i con naturaleza">
+                                <p><strong>Proyecto transversal:</strong> Rellenar la letra "i" con elementos de la naturaleza integró creatividad manual con reconocimiento de grafemas.</p>
+                            </div>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina4/3.jpeg" alt="Completando palabras">
+                                <p><strong>Construcción de palabras:</strong> Completar palabras con "i" y "a" fortaleció la conciencia fonológica y la memoria visual de cada participante.</p>
+                            </div>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina4/4.jpeg" alt="Don Adán y el abecedario">
+                                <p><strong>Planas del abecedario:</strong> Don Adán repasó emocionado el abecedario completo; cada trazo reflejó cómo la escritura devuelve autonomía y dignidad al adulto aprendiz.</p>
+                            </div>
+                        </div>
+
+                        <!-- Página 5 -->
+                        <div class="pagina-movil">
+                            <span class="num-pag-movil">5</span>
+                            <img src="media/andragogia/pagina5/principal.jpeg" alt="Portada del libro de vida" class="foto-movil-principal">
+                            <p class="titulo-movil">El Libro de Mi Propia Vida</p>
+                            <p class="texto-movil">Elaborar la portada de un libro cuya historia fuera la propia vida del estudiante fue una de las experiencias más significativas del proceso. Con materiales aportados por las docentes en formación, cada adulto mayor diseñó una portada que reflejaba quién es, de dónde viene y qué sueña, activando la memoria autobiográfica y reafirmando su identidad como sujeto con historia y voz propia.</p>
+                        </div>
+
+                        <!-- Página 6 -->
+                        <div class="pagina-movil">
+                            <span class="num-pag-movil">6</span>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina6/7.jpeg" alt="Juego de cartas UNO">
+                                <p><strong>El juego como estrategia:</strong> En el juego de cartas UNO, la dinámica lúdica entrenó escucha activa, reconocimiento de colores y números en un ambiente de alegría compartida.</p>
+                            </div>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina6/8.jpeg" alt="Reloj con metas">
+                                <p><strong>Escritura con sentido:</strong> Diseñar un reloj y escribir metas y propósitos convirtió la escritura en un acto personal y profundamente significativo para cada participante.</p>
+                            </div>
+                            <div class="foto-movil-item">
+                                <img src="media/andragogia/pagina6/12.jpeg" alt="Origami en comunidad">
+                                <p><strong>Comunidad de aprendizaje:</strong> El origami compartido entre maestros y alumnos construyó vínculos afectivos que sostienen cualquier proceso educativo duradero.</p>
+                            </div>
+                        </div>
+
                         <!-- Contraportada -->
                         <div class="pagina-movil contraportada-movil">
                             <img src="./img/n.png" alt="Logo ENS" width="80" style="margin-bottom:14px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));">
@@ -410,7 +533,7 @@
 
                 <div class="libro-movil-nav">
                     <button class="btn-movil" id="btn-prev-movil" disabled>&#10094; Atrás</button>
-                    <span class="indicador-paginas" id="indicadorMovil">1 / 4</span>
+                    <span class="indicador-paginas" id="indicadorMovil">1 / 8</span>
                     <button class="btn-movil" id="btn-next-movil">Siguiente &#10095;</button>
                 </div>
             </div><!-- /libro-movil -->

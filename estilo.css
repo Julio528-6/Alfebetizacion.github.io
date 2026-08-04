@@ -1827,3 +1827,460 @@ p {
         grid-template-columns: 1fr 1fr;
     }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   SISTEMA DE ANIMACIONES — ESTILO APPLE
+   Inspirado en apple.com · WWDC · Human Interface Guidelines
+   Principios: cortas (150–400ms), propósito, easing personalizado.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes base ─────────────────────────────────────────────── */
+
+@keyframes fadeUpIn {
+    from { opacity: 0; transform: translateY(22px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes scaleSpring {
+    0%   { transform: scale(0.88); opacity: 0; }
+    65%  { transform: scale(1.04); opacity: 1; }
+    100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes rippleExpand {
+    to { transform: scale(1); opacity: 0; }
+}
+
+@keyframes logoEntrada {
+    0%   { transform: scale(0.7) rotate(-8deg); opacity: 0; }
+    60%  { transform: scale(1.08) rotate(2deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg);    opacity: 1; }
+}
+
+@keyframes tituloEntrada {
+    from { opacity: 0; letter-spacing: 6px; transform: translateX(12px); }
+    to   { opacity: 1; letter-spacing: normal; transform: translateX(0); }
+}
+
+@keyframes menuSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes shimmerSlide {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center;  }
+}
+
+@keyframes pulseRing {
+    0%   { box-shadow: 0 0 0 0 rgba(25,135,84,0.35); }
+    70%  { box-shadow: 0 0 0 10px rgba(25,135,84,0);  }
+    100% { box-shadow: 0 0 0 0 rgba(25,135,84,0);     }
+}
+
+@keyframes tabUnderlineIn {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0);    }
+}
+
+@keyframes polaroidEntrada {
+    0%   { opacity: 0; transform: translateY(28px) rotate(var(--rot, -1deg)) scale(0.93); }
+    65%  { opacity: 1; transform: translateY(-4px) rotate(var(--rot, -1deg)) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0)    rotate(var(--rot, -1deg)) scale(1);    }
+}
+
+@keyframes libroShimmer {
+    0%   { background-position: -120% 0; }
+    100% { background-position: 220% 0;  }
+}
+
+@keyframes numPagEntrada {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1);   }
+}
+
+/* ── Clases de reveal por scroll ────────────────────────────────── */
+
+.anim-reveal {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    transition: none;
+}
+
+.anim-reveal.anim-visible {
+    animation: fadeUpIn 0.42s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+/* ── Logo nav ───────────────────────────────────────────────────── */
+
+.logo-container {
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.12) rotate(-4deg);
+    box-shadow: 0 0 0 4px rgba(252,248,118,0.55), 0 4px 14px rgba(0,0,0,0.2);
+}
+
+/* ── Botones nav: glow + lift mejorado ─────────────────────────── */
+
+.boton-nav {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease,
+                filter 0.25s ease !important;
+    will-change: transform;
+}
+
+.boton-nav:hover {
+    transform: translateY(-4px) scale(1.04) !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18), 0 0 0 2px rgba(252,248,118,0.5) !important;
+    filter: brightness(1.06) !important;
+}
+
+.boton-nav:active {
+    transform: translateY(0) scale(0.97) !important;
+    transition-duration: 0.08s !important;
+}
+
+/* ── Círculo icono: rotación de pulso en hover ──────────────────── */
+
+.circulo-icono {
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.boton-nav:hover .circulo-icono {
+    transform: rotate(-8deg) scale(1.1);
+}
+
+/* ── Subnav tabs mejorados ──────────────────────────────────────── */
+
+.subnav-tab {
+    position: relative;
+    transition: color 0.2s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+
+.subnav-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: var(--verde-institucional);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.subnav-tab:hover::after,
+.subnav-tab.active::after {
+    transform: scaleX(1);
+}
+
+/* ── Menú móvil desplegable ─────────────────────────────────────── */
+
+.menu-desplegable-movil.show {
+    display: block;
+    animation: menuSlideDown 0.28s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+
+/* ── Cards de contenido: hover lift con sombra dinámica ─────────── */
+
+.recurso-card,
+.contact-card,
+.alfa-card,
+.semestre-card {
+    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+                box-shadow 0.3s ease !important;
+    will-change: transform;
+}
+
+.recurso-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 16px 40px rgba(25,135,84,0.22) !important;
+}
+
+.contact-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 16px 40px rgba(25,135,84,0.2) !important;
+}
+
+.alfa-card:hover {
+    transform: translateY(-8px) scale(1.015) !important;
+    box-shadow: 0 20px 45px rgba(25,135,84,0.2) !important;
+}
+
+.semestre-card:hover {
+    transform: translateY(-5px) scale(1.015) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12) !important;
+}
+
+/* ── Botón de enviar formulario: pulse en idle ──────────────────── */
+
+.btn-enviar-info {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease !important;
+}
+
+.btn-enviar-info:hover {
+    transform: translateY(-3px) scale(1.04) !important;
+    box-shadow: 0 12px 30px rgba(25,135,84,0.42) !important;
+    animation: pulseRing 1.8s cubic-bezier(0.455,0.03,0.515,0.955) infinite;
+}
+
+/* ── Enlace de recurso bibliográfico ────────────────────────────── */
+
+.recurso-enlace {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease,
+                background 0.25s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.recurso-enlace:hover {
+    transform: scale(1.05) translateY(-2px) !important;
+    box-shadow: 0 8px 22px rgba(240,200,37,0.52) !important;
+}
+
+/* ── Polaroids: entrada controlada por JS + .polaroid-visible ───── */
+
+.foto-polaroid {
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                box-shadow 0.3s ease;
+}
+
+.foto-polaroid:nth-child(even) { --rot: 2deg; }
+.foto-polaroid:nth-child(odd)  { --rot: -1deg; }
+
+.foto-polaroid.polaroid-visible {
+    animation: polaroidEntrada 0.48s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+.foto-polaroid:hover {
+    transform: scale(1.06) rotate(0deg) translateY(-4px) !important;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.1) !important;
+    z-index: 20;
+}
+
+/* ── Lista institucional: hover mejorado ────────────────────────── */
+
+.lista-institucional li {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease !important;
+}
+
+.lista-institucional li:hover {
+    transform: translateX(6px) !important;
+    box-shadow: 0 8px 24px rgba(25,135,84,0.18) !important;
+}
+
+/* ── Botones del libro 3D ───────────────────────────────────────── */
+
+.btn-libro {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease,
+                background 0.25s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-libro:not(:disabled):hover {
+    transform: translateY(-4px) scale(1.06) !important;
+    box-shadow: 0 10px 28px rgba(13,92,54,0.5) !important;
+}
+
+.btn-libro:not(:disabled):active {
+    transform: translateY(0) scale(0.96) !important;
+    transition-duration: 0.08s !important;
+}
+
+/* ── Botones móvil del libro ────────────────────────────────────── */
+
+.btn-movil {
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.25s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-movil:not(:disabled):hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 8px 20px rgba(13,92,54,0.42) !important;
+}
+
+.btn-movil:not(:disabled):active {
+    transform: scale(0.95) !important;
+    transition-duration: 0.08s !important;
+}
+
+/* ── Portada del libro: shimmer diagonal sutil ──────────────────── */
+
+.portada-libro::after,
+.contraportada-libro::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255,255,255,0.08) 50%,
+        transparent 65%
+    );
+    background-size: 200% 100%;
+    animation: libroShimmer 4s linear infinite;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* ── Números de página: aparecen con scaleSpring ────────────────── */
+
+.numero-pagina-izq,
+.numero-pagina-der {
+    animation: numPagEntrada 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+
+/* ── Título principal (nav) ─────────────────────────────────────── */
+
+.titulo-principal {
+    transition: text-shadow 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.menu-institucional:hover .titulo-principal {
+    text-shadow: 3px 3px 0px #000, 0 0 20px rgba(252,248,118,0.4);
+}
+
+/* ── Footer links: underline crece desde centro ─────────────────── */
+
+.footer-enlace {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-enlace::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--amarillo-institucional);
+    transition: width 0.25s ease, left 0.25s ease;
+}
+
+.footer-enlace:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* ── Visor lateral: entrada con slideInFromRight ────────────────── */
+
+.visor-lateral {
+    animation: slideInFromRight 0.35s cubic-bezier(0.25,0.46,0.45,0.94) both;
+}
+
+.btn-cerrar-visor {
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1),
+                color 0.2s ease !important;
+}
+
+.btn-cerrar-visor:hover {
+    transform: rotate(90deg) scale(1.2) !important;
+}
+
+/* ── Info hero: elementos aparecen escalonados ──────────────────── */
+
+.info-hero-titulo {
+    animation: fadeUpIn 0.5s cubic-bezier(0.25,0.46,0.45,0.94) 0.1s both;
+}
+
+.info-hero-subtitulo {
+    animation: fadeUpIn 0.5s cubic-bezier(0.25,0.46,0.45,0.94) 0.22s both;
+}
+
+.info-hero-badge {
+    animation: scaleSpring 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.35s both;
+}
+
+/* ── Inputs del formulario: focus con bounce sutil ──────────────── */
+
+.form-info-card .form-control,
+.form-info-card .form-select {
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.2s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+
+.form-info-card .form-control:focus,
+.form-info-card .form-select:focus {
+    transform: scale(1.012) !important;
+}
+
+/* ── Acordeón: botón con transición enriquecida ─────────────────── */
+
+.accordion-custom .accordion-button {
+    transition: background 0.28s ease,
+                color 0.28s ease,
+                transform 0.2s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+
+.accordion-custom .accordion-button:hover {
+    transform: translateX(4px) !important;
+}
+
+/* ── Icono de sección: levita en hover ──────────────────────────── */
+
+.info-seccion-titulo .icono-seccion {
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+                box-shadow 0.3s ease;
+}
+
+.info-seccion-titulo:hover .icono-seccion {
+    transform: translateY(-4px) rotate(-5deg) scale(1.12);
+    box-shadow: 0 8px 20px rgba(25,135,84,0.4);
+}
+
+/* ── Polaroid-img: zoom sutil al abrir visor ────────────────────── */
+
+.visor-contenido img {
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                box-shadow 0.3s ease;
+    animation: scaleSpring 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* ── Alfa-banner icono: flotante ────────────────────────────────── */
+
+.alfa-banner-icono,
+.pfc-header-icono {
+    animation: none;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    display: inline-block;
+}
+
+.alfa-banner:hover .alfa-banner-icono,
+.pfc-header-card:hover .pfc-header-icono {
+    transform: scale(1.18) rotate(-6deg);
+}
+
+/* ── Reduce-motion: respeta preferencias de accesibilidad ───────── */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

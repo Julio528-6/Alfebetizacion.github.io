@@ -13,6 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Italianno&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
+    <script src="./animaciones.js" defer></script>
 </head>
 
 <body>
@@ -85,15 +86,16 @@
     <div class="container-fluid contenedo-grid">
         <div class="row">
             <main class="col-md-9 contenido-principal">
-                <h1>APRENDIENDO JUNTOS</h1>
-                <p id="parrafo-principal">Este es un proceso de alfabetización integral para jóvenes y adultos mediante
+                <h1 class="anim-reveal">APRENDIENDO JUNTOS</h1>
+                <p id="parrafo-principal" class="anim-reveal">Este es un proceso de alfabetización integral para jóvenes
+                    y adultos mediante
                     estrategias pedagógicas flexibles, contextualizadas y participativas, fundamentadas en el modelo
                     PACES,
                     articulado como proyecto de extensión institucional y escenario de práctica pedagógica de la Escuela
                     Normal.
                 </p>
 
-                <div class="video-container">
+                <div class="video-container anim-reveal">
                     <video id="video-principal" width="1120" height="630" controls muted>
                         <source src="./media/1.mp4" type="video/mp4">
                     </video>
@@ -110,8 +112,10 @@
                 </script>
 
                 <!-- Grid de videos secundarios -->
-                <div class="row mt-5">
-                    <h2 class="mb-4" style="font-family: var(--fuente-subtitulos); color: var(--verde-institucional); font-size: 2.2rem; border-bottom: 2px solid var(--amarillo-institucional); padding-bottom: 8px;">Nuestros Momentos</h2>
+                <div class="row mt-5 anim-stagger-parent">
+                    <h2 class="mb-4"
+                        style="font-family: var(--fuente-subtitulos); color: var(--verde-institucional); font-size: 2.2rem; border-bottom: 2px solid var(--amarillo-institucional); padding-bottom: 8px;">
+                        Nuestros Momentos</h2>
                     <div class="col-md-6 mb-4">
                         <video class="video-secundario" controls>
                             <source src="./media/2.mp4" type="video/mp4">
@@ -143,7 +147,10 @@
                 <div class="sidebar-content">
                     <h3>Centro de Novedades</h3>
                     <div class="novedad-placeholder">
-                        <img src="./img/i.png" alt="Novedad">
+                        <img src="./img/i2.jpg" alt="Novedad 1">
+                    </div>
+                    <div class="novedad-placeholder">
+                        <img src="./img/i.png" alt="Novedad 2">
                     </div>
                 </div>
             </aside>
