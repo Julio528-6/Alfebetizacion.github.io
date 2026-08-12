@@ -1,6 +1,6 @@
 /* ==========================================================================
    GESTOR DE CONTENIDOS WEB — NOTICIAS.JS
-   Lógica del Módulo de Noticias (Carga de 1 imagen para barra lateral)
+   Lógica del Módulo de Noticias (Carga + Guardado Directo a Disco)
    ========================================================================== */
 
 function cargarImagenNoticia(file) {
@@ -11,12 +11,13 @@ function cargarImagenNoticia(file) {
         return;
     }
 
+    EstadoApp.datosNoticias.imagenBlob = file;
+    EstadoApp.datosNoticias.nombreArchivo = file.name;
+
     const reader = new FileReader();
     reader.onload = function (e) {
-        EstadoApp.datosNoticias.imagen = e.target.result;
-        EstadoApp.datosNoticias.nombreArchivo = file.name;
+        EstadoApp.datosNoticias.imagenDataUrl = e.target.result;
 
-        // Asignar a la vista previa
         const imgPrev = document.getElementById('noticias-img-preview');
         if (imgPrev) {
             imgPrev.src = e.target.result;
@@ -34,12 +35,11 @@ function irAPasoNoticias(paso) {
 }
 
 function confirmarNoticias() {
-    if (!EstadoApp.datosNoticias.imagen) {
+    if (!EstadoApp.datosNoticias.imagenDataUrl) {
         mostrarAlerta('Por favor selecciona una imagen antes de continuar.');
         return;
     }
 
-    // Generar el código exacto según la plantilla del sitio web
     const nombreNormalizado = EstadoApp.datosNoticias.nombreArchivo || 'novedad.jpg';
     const codigoFragmento = `<div class="novedad-placeholder">\n    <img src="./img/${nombreNormalizado}" alt="Novedad">\n</div>`;
 
@@ -48,11 +48,36 @@ function confirmarNoticias() {
         cajaCodigo.textContent = codigoFragmento;
     }
 
+    const containerAuto = document.getElementById('contenedor-auto-noticias');
+    if (containerAuto) {
+        containerAuto.style.display = EstadoApp.dirHandle ? 'block' : 'none';
+    }
+
     mostrarSubPaso('noticias', 3);
 }
 
+async function guardarNoticiaDirectoEnDisco() {
+    if (!EstadoApp.dirHandle) {
+        mostrarAlerta('Primero debes vincular la carpeta de tu proyecto con el botón 📁 Vincular Carpeta.');
+        return;
+    }
+
+    const nombreFoto = EstadoApp.datosNoticias.nombreArchivo || 'novedad.jpg';
+    const blobFoto = EstadoApp.datosNoticias.imagenBlob;
+    const codigoHTML = `<div class="novedad-placeholder">\n    <img src="./img/${nombreFoto}" alt="Novedad">\n</div>`;
+
+    const exitoImagen = await guardarArchivoEnSubcarpeta(['img'], nombreFoto, blobFoto);
+    const exitoHTML = await actualizarHTMLDirecto('index.html', '<h1 class="TN">Centro de Novedades</h1>', codigoHTML, 'después');
+
+    if (exitoImagen && exitoHTML) {
+        mostrarAlerta(`🎉 ¡ÉXITO! La foto "${nombreFoto}" fue guardada en "img/" e insertada directamente en "index.html".`, 'success');
+    } else {
+        mostrarAlerta('Ocurrió un problema al escribir los archivos en tu repositorio local.');
+    }
+}
+
 function descargarImagenNoticia() {
-    if (!EstadoApp.datosNoticias.imagen) return;
+    if (!EstadoApp.datosNoticias.imagenDataUrl) return;
     const nombre = EstadoApp.datosNoticias.nombreArchivo || 'novedad_noticia.jpg';
-    descargarArchivo(EstadoApp.datosNoticias.imagen, nombre);
+    descargarArchivo(EstadoApp.datosNoticias.imagenDataUrl, nombre);
 }

@@ -29,6 +29,8 @@
                 </div>
             </a>
             <div class="nav-controles-globales">
+                <button id="btn-vincular-carpeta" class="btn-gestor btn-gestor-warning btn-sm" onclick="vincularCarpetaProyecto()">📁 Vincular Carpeta Local (Opcional)</button>
+                <span id="badge-estado-carpeta" class="badge bg-light text-dark p-2 me-2">Modo Manual</span>
                 <a href="../index.html" class="btn-gestor btn-gestor-outline-light">🌐 Volver al Sitio Web</a>
             </div>
         </div>
@@ -72,7 +74,7 @@
         <section id="seccion-inicio" class="seccion-flujo activa">
             <div class="panel-bienvenida">
                 <h2>¿Qué espacio deseas actualizar hoy?</h2>
-                <p>Selecciona la sección del sitio web para la cual deseas preparar nuevo contenido. La herramienta te guiará paso a paso de forma visual.</p>
+                <p>Selecciona la sección del sitio web para la cual deseas preparar nuevo contenido. La herramienta te guiará paso a paso de forma totalmente visual.</p>
             </div>
 
             <div class="grid-opciones-inicio">
@@ -114,7 +116,7 @@
                     <p class="text-muted">Arrastra el archivo de imagen o haz clic en el recuadro para seleccionar desde tu computador.</p>
                 </div>
 
-                <div class="dropzone-container" id="noticias-dropzone" onclick="document.getElementById('noticias-file-input').click()">
+                <div class="dropzone-container" id="noticias-dropzone">
                     <div class="dropzone-icon">🖼️</div>
                     <div class="dropzone-texto">Haz clic o arrastra tu imagen aquí</div>
                     <div class="dropzone-subtexto">Formatos aceptados: JPG, PNG, WEBP</div>
@@ -149,13 +151,17 @@
             <div id="noticias-paso-3" class="flujo-paso-sub" style="display: none;">
                 <div class="panel-salida">
                     <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Contenido Preparado con Éxito! 🎉</h3>
-                    <p class="text-center text-muted">Copia el fragmento de contenido preparado o descarga tu imagen optimizada.</p>
+                    <p class="text-center text-muted">Copia el fragmento de código o descarga la imagen para integrarlo en tu proyecto.</p>
 
-                    <label class="campo-label mb-2">Fragmento de contenido generado:</label>
+                    <div id="contenedor-auto-noticias" class="text-center my-3" style="display: none;">
+                        <button id="btn-guardar-directo-noticias" class="btn-gestor btn-gestor-primary btn-lg" onclick="guardarNoticiaDirectoEnDisco()">🚀 GUARDAR AUTOMÁTICAMENTE EN EL SITIO</button>
+                    </div>
+
+                    <label class="campo-label mb-2">Fragmento de contenido generado (para copiar en <code>index.html</code>):</label>
                     <pre class="caja-codigo" id="noticias-codigo-output"></pre>
 
                     <div class="barra-acciones-final">
-                        <button class="btn-gestor btn-gestor-warning" onclick="copiarCodigo('noticias-codigo-output')">📋 Copiar Código</button>
+                        <button class="btn-gestor btn-gestor-warning" onclick="copiarCodigo('noticias-codigo-output')">📋 Copiar Código HTML</button>
                         <button class="btn-gestor btn-gestor-primary" onclick="descargarImagenNoticia()">💾 Descargar Imagen</button>
                         <button class="btn-gestor btn-gestor-secondary" onclick="reiniciarFlujo()">➕ Preparar Otro Contenido</button>
                     </div>
@@ -185,7 +191,7 @@
                         <div class="bloque-andro-body">
                             <div class="campo-grupo">
                                 <label class="campo-label">Fotografía Grande (Página 1)</label>
-                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-1').click()">
+                                <div class="dropzone-container p-3">
                                     <div id="andro-preview-thumb-1" class="mb-2">📷 Sin imagen seleccionada</div>
                                     <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 1</button>
                                     <input type="file" id="andro-file-1" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(0, this.files[0])">
@@ -206,7 +212,7 @@
                         <div class="bloque-andro-body">
                             <div class="campo-grupo">
                                 <label class="campo-label">Fotografía 2</label>
-                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-2').click()">
+                                <div class="dropzone-container p-3">
                                     <div id="andro-preview-thumb-2" class="mb-2">📷 Sin imagen seleccionada</div>
                                     <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 2</button>
                                     <input type="file" id="andro-file-2" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(1, this.files[0])">
@@ -227,7 +233,7 @@
                         <div class="bloque-andro-body">
                             <div class="campo-grupo">
                                 <label class="campo-label">Fotografía 3</label>
-                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-3').click()">
+                                <div class="dropzone-container p-3">
                                     <div id="andro-preview-thumb-3" class="mb-2">📷 Sin imagen seleccionada</div>
                                     <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 3</button>
                                     <input type="file" id="andro-file-3" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(2, this.files[0])">
@@ -248,7 +254,7 @@
                         <div class="bloque-andro-body">
                             <div class="campo-grupo">
                                 <label class="campo-label">Fotografía 4</label>
-                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-4').click()">
+                                <div class="dropzone-container p-3">
                                     <div id="andro-preview-thumb-4" class="mb-2">📷 Sin imagen seleccionada</div>
                                     <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 4</button>
                                     <input type="file" id="andro-file-4" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(3, this.files[0])">
@@ -314,9 +320,13 @@
             <div id="andragogia-paso-3" class="flujo-paso-sub" style="display: none;">
                 <div class="panel-salida">
                     <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Publicación de Libro Generada! 🎉</h3>
-                    <p class="text-center text-muted">Copia la estructura HTML para agregar a `andragogia.html` o descarga los archivos procesados.</p>
+                    <p class="text-center text-muted">Copia la estructura HTML para agregarla a <code>andragogia.html</code> o descarga tus imágenes.</p>
 
-                    <label class="campo-label mb-2">Estructura de la publicación preparada:</label>
+                    <div id="contenedor-auto-andro" class="text-center my-3" style="display: none;">
+                        <button id="btn-guardar-directo-andro" class="btn-gestor btn-gestor-primary btn-lg" onclick="guardarAndragogiaDirectoEnDisco()">🚀 GUARDAR AUTOMÁTICAMENTE EN EL SITIO</button>
+                    </div>
+
+                    <label class="campo-label mb-2">Estructura de la publicación preparada (para copiar en <code>andragogia.html</code>):</label>
                     <pre class="caja-codigo" id="andragogia-codigo-output"></pre>
 
                     <div class="barra-acciones-final">
@@ -374,9 +384,13 @@
             <div id="social-paso-3" class="flujo-paso-sub" style="display: none;">
                 <div class="panel-salida">
                     <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Álbum Social Preparado! 🎉</h3>
-                    <p class="text-center text-muted">Copia los elementos `<article class="foto-polaroid">` generados para incorporarlos a `social.html`.</p>
+                    <p class="text-center text-muted">Copia los elementos de fotografía para agregarlos a <code>social.html</code> o descarga tus fotos.</p>
 
-                    <label class="campo-label mb-2">Código HTML del álbum generado:</label>
+                    <div id="contenedor-auto-social" class="text-center my-3" style="display: none;">
+                        <button id="btn-guardar-directo-social" class="btn-gestor btn-gestor-primary btn-lg" onclick="guardarSocialDirectoEnDisco()">🚀 GUARDAR AUTOMÁTICAMENTE EN EL SITIO</button>
+                    </div>
+
+                    <label class="campo-label mb-2">Código HTML del álbum generado (para copiar en <code>social.html</code>):</label>
                     <pre class="caja-codigo" id="social-codigo-output"></pre>
 
                     <div class="barra-acciones-final">

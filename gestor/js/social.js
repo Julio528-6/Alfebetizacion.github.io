@@ -1,6 +1,6 @@
 /* ==========================================================================
    GESTOR DE CONTENIDOS WEB — SOCIAL.JS
-   Lógica del Módulo Social (Álbum de Memoria Fotográfica Polaroid)
+   Lógica del Módulo Social (Álbum Polaroid + Guardado Directo a Disco)
    ========================================================================== */
 
 let contadorFotosSocial = 0;
@@ -11,7 +11,8 @@ function agregarTarjetaFotoSocial() {
 
     const nuevaFotoObj = {
         id: idUnico,
-        imagen: null,
+        imagenBlob: null,
+        imagenDataUrl: null,
         texto: '',
         nombreArchivo: ''
     };
@@ -31,7 +32,7 @@ function agregarTarjetaFotoSocial() {
             <button type="button" class="btn-gestor btn-gestor-danger btn-sm" onclick="eliminarTarjetaSocial(${idUnico})">🗑️ Eliminar</button>
         </div>
         <div class="campo-grupo mb-3">
-            <div class="dropzone-container p-3" onclick="document.getElementById('social-file-${idUnico}').click()">
+            <div class="dropzone-container p-3">
                 <div id="social-thumb-${idUnico}" class="mb-2">📷 Seleccionar Imagen</div>
                 <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Cargar Foto</button>
                 <input type="file" id="social-file-${idUnico}" class="input-file-oculto" accept="image/*" onchange="cargarFotoSocial(${idUnico}, this.files[0])">
@@ -69,7 +70,8 @@ function cargarFotoSocial(id, file) {
     reader.onload = function (e) {
         const item = EstadoApp.datosSocial.find(f => f.id === id);
         if (item) {
-            item.imagen = e.target.result;
+            item.imagenBlob = file;
+            item.imagenDataUrl = e.target.result;
             item.nombreArchivo = file.name;
         }
 
@@ -82,7 +84,6 @@ function cargarFotoSocial(id, file) {
 }
 
 function validarYVistaPreviaSocial() {
-    // Recoger textos actualizados
     EstadoApp.datosSocial.forEach(item => {
         const txtArea = document.getElementById(`social-text-${item.id}`);
         if (txtArea) {
@@ -90,7 +91,6 @@ function validarYVistaPreviaSocial() {
         }
     });
 
-    // Validaciones
     if (EstadoApp.datosSocial.length === 0) {
         mostrarAlerta('Por favor agrega al menos una fotografía.');
         return;
@@ -98,7 +98,7 @@ function validarYVistaPreviaSocial() {
 
     for (let i = 0; i < EstadoApp.datosSocial.length; i++) {
         const item = EstadoApp.datosSocial[i];
-        if (!item.imagen) {
+        if (!item.imagenDataUrl) {
             mostrarAlerta(`Falta seleccionar la imagen de la fotografía número ${i + 1}.`);
             return;
         }
@@ -110,17 +110,16 @@ function validarYVistaPreviaSocial() {
 
     ocultarAlerta();
 
-    // Renderizar Galería Polaroid (Paso 2)
     const galeriaPreview = document.getElementById('galeria-preview-social');
     if (galeriaPreview) {
         galeriaPreview.innerHTML = '';
         EstadoApp.datosSocial.forEach((item, index) => {
             const article = document.createElement('article');
             article.className = 'polaroid-preview-item';
-            article.onclick = () => abrirLightbox(item.imagen, item.texto);
+            article.onclick = () => abrirLightbox(item.imagenDataUrl, item.texto);
 
             article.innerHTML = `
-                <img src="${item.imagen}" alt="Foto ${index + 1}" class="polaroid-preview-img">
+                <img src="${item.imagenDataUrl}" alt="Foto ${index + 1}" class="polaroid-preview-img">
                 <p class="polaroid-preview-txt">${item.texto}</p>
             `;
             galeriaPreview.appendChild(article);
@@ -152,7 +151,6 @@ function cerrarLightbox() {
 }
 
 function confirmarSocial() {
-    // Generar fragmentos HTML polaroid exactamente como en social.html
     let htmlResultado = `<!-- NUEVAS FOTOGRAFÍAS PARA LA RESEÑA SOCIAL (social.html) -->\n`;
 
     EstadoApp.datosSocial.forEach((item) => {
@@ -165,15 +163,48 @@ function confirmarSocial() {
         cajaCodigo.textContent = htmlResultado;
     }
 
+    const containerAuto = document.getElementById('contenedor-auto-social');
+    if (containerAuto) {
+        containerAuto.style.display = EstadoApp.dirHandle ? 'block' : 'none';
+    }
+
     mostrarSubPaso('social', 3);
+}
+
+async function guardarSocialDirectoEnDisco() {
+    if (!EstadoApp.dirHandle) {
+        mostrarAlerta('Primero debes vincular la carpeta de tu proyecto con el botón 📁 Vincular Carpeta.');
+        return;
+    }
+
+    let exitoFotos = true;
+    let htmlResultado = `<!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->\n`;
+
+    for (let i = 0; i < EstadoApp.datosSocial.length; i++) {
+        const item = EstadoApp.datosSocial[i];
+        const nombreImg = item.nombreArchivo || `social_foto_${i + 1}.jpg`;
+
+        const ok = await guardarArchivoEnSubcarpeta(['img', 'social'], nombreImg, item.imagenBlob);
+        if (!ok) exitoFotos = false;
+
+        htmlResultado += `<article class="foto-polaroid">\n    <img src="./img/social/${nombreImg}" alt="Descripción de la foto" class="polaroid-img">\n    <p class="polaroid-texto">${item.texto}</p>\n</article>\n`;
+    }
+
+    const exitoHTML = await actualizarHTMLDirecto('social.html', '<section class="galeria-grid">', htmlResultado, 'después');
+
+    if (exitoFotos && exitoHTML) {
+        mostrarAlerta(`🎉 ¡ÉXITO! Las ${EstadoApp.datosSocial.length} fotografías fueron guardadas en "img/social/" y agregadas a "social.html".`, 'success');
+    } else {
+        mostrarAlerta('Ocurrió un problema al escribir los archivos en tu repositorio local.');
+    }
 }
 
 function descargarFotosSocial() {
     EstadoApp.datosSocial.forEach((item, index) => {
-        if (item.imagen) {
+        if (item.imagenDataUrl) {
             const nombre = item.nombreArchivo || `social_foto_${index + 1}.jpg`;
             setTimeout(() => {
-                descargarArchivo(item.imagen, nombre);
+                descargarArchivo(item.imagenDataUrl, nombre);
             }, index * 300);
         }
     });

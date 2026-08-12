@@ -9,13 +9,13 @@
 | Paso / Fase | Componente / Archivo | Estado Actual | Notas / Próximo Paso |
 | :--- | :--- | :---: | :--- |
 | **0. Especificación** | `ESPECIFICACION_GESTOR_CONTENIDOS.md` | ✅ **Completado** | Documento creado en la raíz del repositorio. |
-| **1. Estructura HTML** | `gestor/index.html` | ✅ **Completado** | Interfaz general con panel principal (Noticias, Andragogía, Social), Wizards por pasos y Modales. |
+| **1. Estructura HTML** | `gestor/index.html` | ✅ **Completado** | Interfaz general con botón de Vincular Carpeta Local y Guardado Automático Directo. |
 | **2. Estilos CSS** | `gestor/css/gestor.css` | ✅ **Completado** | Estilos limpios e institucionales, dropzones, previsualizaciones y tarjetas. |
-| **3. Núcleo JavaScript** | `gestor/js/app.js` | ✅ **Completado** | Navegación entre pasos, reseteo, gestión de imágenes FileReader y portapapeles. |
-| **4. Módulo Noticias** | `gestor/js/noticias.js` | ✅ **Completado** | Carga y previsualización de 1 imagen para el banner lateral. Generación de código HTML. |
-| **5. Módulo Andragogía** | `gestor/js/andragogia.js` | ✅ **Completado** | Carga de 4 imágenes + 4 textos con visor de libro digital doble página y generación HTML. |
-| **6. Módulo Social** | `gestor/js/social.js` | ✅ **Completado** | Galería dinámica Polaroid, Lightbox ampliado y generación de fragmentos polaroid HTML. |
-| **7. Verificación** | Pruebas de integración | 🔄 **Completado** | Módulos probados y listos para uso local en GitHub Pages. |
+| **3. Núcleo JavaScript** | `gestor/js/app.js` | ✅ **Completado** | Integración de File System Access API para vincular la carpeta local del proyecto. |
+| **4. Módulo Noticias** | `gestor/js/noticias.js` | ✅ **Completado** | Guardado directo de foto en `img/` e inserción automática de fragmento en `index.html`. |
+| **5. Módulo Andragogía** | `gestor/js/andragogia.js` | ✅ **Completado** | Guardado directo de 4 fotos en `img/` e inserción automática de hoja en `andragogia.html`. |
+| **6. Módulo Social** | `gestor/js/social.js` | ✅ **Completado** | Guardado directo de fotos en `img/social/` e inserción automática de polaroids en `social.html`. |
+| **7. Verificación** | Pruebas de integración | ✅ **Completado** | Modo Directo (Auto) y Modo Manual (Copiar/Descargar) probados y funcionales. |
 
 ---
 

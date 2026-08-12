@@ -11,12 +11,13 @@ function cargarFotoAndro(index, file) {
         return;
     }
 
+    EstadoApp.datosAndragogia.imagenesBlobs[index] = file;
+    EstadoApp.datosAndragogia.nombresArchivos[index] = file.name;
+
     const reader = new FileReader();
     reader.onload = function (e) {
-        EstadoApp.datosAndragogia.imagenes[index] = e.target.result;
-        EstadoApp.datosAndragogia.nombresArchivos[index] = file.name;
+        EstadoApp.datosAndragogia.imagenesDataUrls[index] = e.target.result;
 
-        // Actualizar miniatura en la tarjeta del formulario
         const thumb = document.getElementById(`andro-preview-thumb-${index + 1}`);
         if (thumb) {
             thumb.innerHTML = `✅ <strong>${file.name}</strong> listo.`;
@@ -26,7 +27,6 @@ function cargarFotoAndro(index, file) {
 }
 
 function validarYVistaPreviaAndragogia() {
-    // Recoger textos de los textareas
     [0, 1, 2, 3].forEach(i => {
         const campo = document.getElementById(`andro-texto-${i + 1}`);
         if (campo) {
@@ -34,9 +34,8 @@ function validarYVistaPreviaAndragogia() {
         }
     });
 
-    // Validar en lenguaje cotidiano
     for (let i = 0; i < 4; i++) {
-        if (!EstadoApp.datosAndragogia.imagenes[i]) {
+        if (!EstadoApp.datosAndragogia.imagenesDataUrls[i]) {
             mostrarAlerta(`Falta seleccionar la fotografía número ${i + 1}.`);
             return;
         }
@@ -48,12 +47,11 @@ function validarYVistaPreviaAndragogia() {
 
     ocultarAlerta();
 
-    // Cargar datos en la simulación visual del libro (Paso 2)
     [0, 1, 2, 3].forEach(i => {
         const imgPrev = document.getElementById(`andro-prev-img-${i + 1}`);
         const txtPrev = document.getElementById(`andro-prev-txt-${i + 1}`);
 
-        if (imgPrev) imgPrev.src = EstadoApp.datosAndragogia.imagenes[i];
+        if (imgPrev) imgPrev.src = EstadoApp.datosAndragogia.imagenesDataUrls[i];
         if (txtPrev) txtPrev.textContent = EstadoApp.datosAndragogia.textos[i];
     });
 
@@ -65,7 +63,6 @@ function irAPasoAndragogia(paso) {
 }
 
 function confirmarAndragogia() {
-    // Generar la estructura exacta de 2 páginas del libro para andragogia.html
     const nombres = EstadoApp.datosAndragogia.nombresArchivos;
     const textos = EstadoApp.datosAndragogia.textos;
 
@@ -75,7 +72,7 @@ function confirmarAndragogia() {
     <div class="cara frente">
         <div class="pagina pagina-izquierda">
             <div class="foto-principal-container">
-                <img src="./img/andragogia/${nombres[0] || 'foto1.jpg'}" alt="Foto Principal" class="foto-principal">
+                <img src="./img/${nombres[0] || 'foto1.jpg'}" alt="Foto Principal" class="foto-principal">
             </div>
             <h3 class="titulo-desc">Memoria del Proceso</h3>
             <div class="descripcion-amplia">
@@ -90,19 +87,19 @@ function confirmarAndragogia() {
             <div class="grid-tres-fotos">
                 <div class="foto-pequena-item">
                     <div class="foto-wrapper">
-                        <img src="./img/andragogia/${nombres[1] || 'foto2.jpg'}" alt="Foto 2">
+                        <img src="./img/${nombres[1] || 'foto2.jpg'}" alt="Foto 2">
                     </div>
                     <p class="desc-pequena">${textos[1]}</p>
                 </div>
                 <div class="foto-pequena-item">
                     <div class="foto-wrapper">
-                        <img src="./img/andragogia/${nombres[2] || 'foto3.jpg'}" alt="Foto 3">
+                        <img src="./img/${nombres[2] || 'foto3.jpg'}" alt="Foto 3">
                     </div>
                     <p class="desc-pequena">${textos[2]}</p>
                 </div>
                 <div class="foto-pequena-item">
                     <div class="foto-wrapper">
-                        <img src="./img/andragogia/${nombres[3] || 'foto4.jpg'}" alt="Foto 4">
+                        <img src="./img/${nombres[3] || 'foto4.jpg'}" alt="Foto 4">
                     </div>
                     <p class="desc-pequena">${textos[3]}</p>
                 </div>
@@ -116,11 +113,75 @@ function confirmarAndragogia() {
         cajaCodigo.textContent = codigoHTML;
     }
 
+    const containerAuto = document.getElementById('contenedor-auto-andro');
+    if (containerAuto) {
+        containerAuto.style.display = EstadoApp.dirHandle ? 'block' : 'none';
+    }
+
     mostrarSubPaso('andragogia', 3);
 }
 
+async function guardarAndragogiaDirectoEnDisco() {
+    if (!EstadoApp.dirHandle) {
+        mostrarAlerta('Primero debes vincular la carpeta de tu proyecto con el botón 📁 Vincular Carpeta.');
+        return;
+    }
+
+    const nombres = EstadoApp.datosAndragogia.nombresArchivos;
+    const blobs = EstadoApp.datosAndragogia.imagenesBlobs;
+    const textos = EstadoApp.datosAndragogia.textos;
+
+    let exitoFotos = true;
+    for (let i = 0; i < 4; i++) {
+        const nombre = nombres[i] || `andro_foto_${i + 1}.jpg`;
+        const ok = await guardarArchivoEnSubcarpeta(['img'], nombre, blobs[i]);
+        if (!ok) exitoFotos = false;
+    }
+
+    const codigoHTML = `<!-- NUEVA HOJA DE LIBRO AGREGADA CON EL GESTOR -->
+<div class="hoja">
+    <div class="cara frente">
+        <div class="pagina pagina-izquierda">
+            <div class="foto-principal-container">
+                <img src="./img/${nombres[0]}" alt="Foto Principal" class="foto-principal">
+            </div>
+            <h3 class="titulo-desc">Memoria del Proceso</h3>
+            <div class="descripcion-amplia">
+                <p>${textos[0]}</p>
+            </div>
+        </div>
+    </div>
+    <div class="cara atras">
+        <div class="pagina pagina-derecha">
+            <div class="grid-tres-fotos">
+                <div class="foto-pequena-item">
+                    <div class="foto-wrapper"><img src="./img/${nombres[1]}" alt="Foto 2"></div>
+                    <p class="desc-pequena">${textos[1]}</p>
+                </div>
+                <div class="foto-pequena-item">
+                    <div class="foto-wrapper"><img src="./img/${nombres[2]}" alt="Foto 3"></div>
+                    <p class="desc-pequena">${textos[2]}</p>
+                </div>
+                <div class="foto-pequena-item">
+                    <div class="foto-wrapper"><img src="./img/${nombres[3]}" alt="Foto 4"></div>
+                    <p class="desc-pequena">${textos[3]}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
+
+    const exitoHTML = await actualizarHTMLDirecto('andragogia.html', '<div class="libro-3d" id="libro">', codigoHTML, 'después');
+
+    if (exitoFotos && exitoHTML) {
+        mostrarAlerta('🎉 ¡ÉXITO! Las 4 fotografías y la nueva hoja de libro fueron guardadas e insertadas en "andragogia.html".', 'success');
+    } else {
+        mostrarAlerta('Ocurrió un problema al escribir los archivos en tu repositorio local.');
+    }
+}
+
 function descargarImagenesAndragogia() {
-    EstadoApp.datosAndragogia.imagenes.forEach((imgData, index) => {
+    EstadoApp.datosAndragogia.imagenesDataUrls.forEach((imgData, index) => {
         if (imgData) {
             const nombre = EstadoApp.datosAndragogia.nombresArchivos[index] || `andragogia_foto_${index + 1}.jpg`;
             setTimeout(() => {
