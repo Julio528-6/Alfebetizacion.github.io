@@ -183,7 +183,7 @@ p {
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 6px solid var(--verde-institucional);
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1/1;
     object-fit: contain;
     background-color: #000;
 }

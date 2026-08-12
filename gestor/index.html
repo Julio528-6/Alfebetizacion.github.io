@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Contenidos Web | Alfabetización ENS</title>
+    <meta name="description" content="Herramienta intuitiva y visual para la preparación de contenidos de Noticias, Andragogía y Reseña Social.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos del Gestor -->
+    <link rel="stylesheet" href="./css/gestor.css">
+</head>
+
+<body>
+
+    <!-- Encabezado Institucional -->
+    <header class="gestor-header">
+        <div class="gestor-header-container">
+            <a href="../index.html" class="gestor-brand">
+                <div class="gestor-brand-icon">✏️</div>
+                <div class="gestor-brand-text">
+                    <h1>GESTOR DE CONTENIDOS WEB</h1>
+                    <p>Programa de Alfabetización - ENS La Candelaria</p>
+                </div>
+            </a>
+            <div class="nav-controles-globales">
+                <a href="../index.html" class="btn-gestor btn-gestor-outline-light">🌐 Volver al Sitio Web</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Navegación del Flujo Activo (Control de Pasos) -->
+    <nav class="gestor-main" style="margin-bottom: 0; padding-bottom: 0;">
+        <div id="barra-pasos" class="pasos-bar" style="display: none;">
+            <div id="btn-inicio-nav" class="btn-gestor btn-gestor-secondary" style="margin-right: 15px; cursor: pointer;">
+                🏠 Inicio
+            </div>
+            <div class="paso-item activo" id="paso-1">
+                <div class="paso-numero">1</div>
+                <span>Cargar Contenido</span>
+            </div>
+            <div class="paso-linea" id="linea-1"></div>
+            <div class="paso-item" id="paso-2">
+                <div class="paso-numero">2</div>
+                <span>Vista Previa</span>
+            </div>
+            <div class="paso-linea" id="linea-2"></div>
+            <div class="paso-item" id="paso-3">
+                <div class="paso-numero">3</div>
+                <span>Obtener Resultado</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Área Principal de la Aplicación -->
+    <main class="gestor-main">
+
+        <!-- Banner de Alerta / Mensajes al Usuario -->
+        <div id="alerta-mensaje" class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none; border-radius: 12px;">
+            <span id="alerta-texto"></span>
+            <button type="button" class="btn-close" onclick="ocultarAlerta()"></button>
+        </div>
+
+        <!-- ====================================================================
+             1. PANTALLA INICIAL (DASHBOARD - SELECCIÓN DE SECCIÓN)
+             ==================================================================== -->
+        <section id="seccion-inicio" class="seccion-flujo activa">
+            <div class="panel-bienvenida">
+                <h2>¿Qué espacio deseas actualizar hoy?</h2>
+                <p>Selecciona la sección del sitio web para la cual deseas preparar nuevo contenido. La herramienta te guiará paso a paso de forma visual.</p>
+            </div>
+
+            <div class="grid-opciones-inicio">
+                <!-- Tarjeta 1: Noticias -->
+                <div class="tarjeta-opcion" onclick="iniciarModulo('noticias')">
+                    <div class="tarjeta-icono">📰</div>
+                    <div class="tarjeta-titulo">NOTICIAS</div>
+                    <div class="tarjeta-desc">Prepara una nueva imagen para la barra lateral de novedades en la página de Inicio.</div>
+                    <button class="btn-gestor btn-gestor-primary w-100 mt-auto">Comenzar en Noticias</button>
+                </div>
+
+                <!-- Tarjeta 2: Andragogía -->
+                <div class="tarjeta-opcion" onclick="iniciarModulo('andragogia')">
+                    <div class="tarjeta-icono">📖</div>
+                    <div class="tarjeta-titulo">ANDRAGOGÍA</div>
+                    <div class="tarjeta-desc">Prepara una publicación para el Libro Digital con 4 imágenes y sus 4 descripciones.</div>
+                    <button class="btn-gestor btn-gestor-primary w-100 mt-auto">Comenzar en Andragogía</button>
+                </div>
+
+                <!-- Tarjeta 3: Social -->
+                <div class="tarjeta-opcion" onclick="iniciarModulo('social')">
+                    <div class="tarjeta-icono">📷</div>
+                    <div class="tarjeta-titulo">SOCIAL</div>
+                    <div class="tarjeta-desc">Agrega una o varias fotografías con sus descripciones a la Memoria Fotográfica.</div>
+                    <button class="btn-gestor btn-gestor-primary w-100 mt-auto">Comenzar en Social</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================
+             2. MÓDULO DE NOTICIAS
+             ==================================================================== -->
+        <section id="seccion-noticias" class="seccion-flujo">
+
+            <!-- Noticias - Paso 1: Cargar Imagen -->
+            <div id="noticias-paso-1" class="flujo-paso-sub">
+                <div class="text-center mb-4">
+                    <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos);">Selecciona la imagen de la noticia</h3>
+                    <p class="text-muted">Arrastra el archivo de imagen o haz clic en el recuadro para seleccionar desde tu computador.</p>
+                </div>
+
+                <div class="dropzone-container" id="noticias-dropzone" onclick="document.getElementById('noticias-file-input').click()">
+                    <div class="dropzone-icon">🖼️</div>
+                    <div class="dropzone-texto">Haz clic o arrastra tu imagen aquí</div>
+                    <div class="dropzone-subtexto">Formatos aceptados: JPG, PNG, WEBP</div>
+                    <button type="button" class="btn-gestor btn-gestor-primary">Seleccionar Imagen</button>
+                    <input type="file" id="noticias-file-input" class="input-file-oculto" accept="image/*" onchange="cargarImagenNoticia(this.files[0])">
+                </div>
+            </div>
+
+            <!-- Noticias - Paso 2: Previsualización -->
+            <div id="noticias-paso-2" class="flujo-paso-sub" style="display: none;">
+                <div class="text-center mb-3">
+                    <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos);">Vista Previa de la Noticia</h3>
+                    <p class="text-muted">Así lucirá tu imagen dentro de la barra lateral del sitio.</p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="preview-box">
+                            <div class="preview-img-container">
+                                <img id="noticias-img-preview" src="" alt="Vista Previa de Noticia">
+                            </div>
+                            <div class="d-flex justify-content-center gap-3">
+                                <button class="btn-gestor btn-gestor-secondary" onclick="irAPasoNoticias(1)">📷 Cambiar Imagen</button>
+                                <button class="btn-gestor btn-gestor-primary" onclick="confirmarNoticias()">✅ Confirmar e Ir al Resultado</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noticias - Paso 3: Código y Salida -->
+            <div id="noticias-paso-3" class="flujo-paso-sub" style="display: none;">
+                <div class="panel-salida">
+                    <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Contenido Preparado con Éxito! 🎉</h3>
+                    <p class="text-center text-muted">Copia el fragmento de contenido preparado o descarga tu imagen optimizada.</p>
+
+                    <label class="campo-label mb-2">Fragmento de contenido generado:</label>
+                    <pre class="caja-codigo" id="noticias-codigo-output"></pre>
+
+                    <div class="barra-acciones-final">
+                        <button class="btn-gestor btn-gestor-warning" onclick="copiarCodigo('noticias-codigo-output')">📋 Copiar Código</button>
+                        <button class="btn-gestor btn-gestor-primary" onclick="descargarImagenNoticia()">💾 Descargar Imagen</button>
+                        <button class="btn-gestor btn-gestor-secondary" onclick="reiniciarFlujo()">➕ Preparar Otro Contenido</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================
+             3. MÓDULO DE ANDRAGOGÍA (4 Fotos + 4 Textos)
+             ==================================================================== -->
+        <section id="seccion-andragogia" class="seccion-flujo">
+
+            <!-- Andragogía - Paso 1: Formulario -->
+            <div id="andragogia-paso-1" class="flujo-paso-sub">
+                <div class="text-center mb-4">
+                    <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos);">Crear Publicación para el Libro Digital</h3>
+                    <p class="text-muted">Carga 4 imágenes y escribe las 4 descripciones correspondientes para completar las 2 páginas del libro.</p>
+                </div>
+
+                <div class="grid-bloques-andragogia">
+
+                    <!-- Bloque 1: Primera Página (Imagen Principal) -->
+                    <div class="tarjeta-bloque-andro destacado">
+                        <div class="bloque-andro-titulo">
+                            <span>📄 Página 1 (Izquierda): Imagen Principal y Resumen</span>
+                        </div>
+                        <div class="bloque-andro-body">
+                            <div class="campo-grupo">
+                                <label class="campo-label">Fotografía Grande (Página 1)</label>
+                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-1').click()">
+                                    <div id="andro-preview-thumb-1" class="mb-2">📷 Sin imagen seleccionada</div>
+                                    <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 1</button>
+                                    <input type="file" id="andro-file-1" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(0, this.files[0])">
+                                </div>
+                            </div>
+                            <div class="campo-grupo">
+                                <label class="campo-label">Texto explicativo principal (Página 1)</label>
+                                <textarea id="andro-texto-1" class="campo-textarea" placeholder="Escribe aquí el texto amplio o descripción detallada para la primera página..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloque 2: Segunda Página - Foto 2 -->
+                    <div class="tarjeta-bloque-andro">
+                        <div class="bloque-andro-titulo">
+                            <span>📄 Página 2 (Derecha) - Bloque Superior</span>
+                        </div>
+                        <div class="bloque-andro-body">
+                            <div class="campo-grupo">
+                                <label class="campo-label">Fotografía 2</label>
+                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-2').click()">
+                                    <div id="andro-preview-thumb-2" class="mb-2">📷 Sin imagen seleccionada</div>
+                                    <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 2</button>
+                                    <input type="file" id="andro-file-2" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(1, this.files[0])">
+                                </div>
+                            </div>
+                            <div class="campo-grupo">
+                                <label class="campo-label">Descripción corta 2</label>
+                                <textarea id="andro-texto-2" class="campo-textarea" placeholder="Descripción breve para la foto 2..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloque 3: Segunda Página - Foto 3 -->
+                    <div class="tarjeta-bloque-andro">
+                        <div class="bloque-andro-titulo">
+                            <span>📄 Página 2 (Derecha) - Bloque Central</span>
+                        </div>
+                        <div class="bloque-andro-body">
+                            <div class="campo-grupo">
+                                <label class="campo-label">Fotografía 3</label>
+                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-3').click()">
+                                    <div id="andro-preview-thumb-3" class="mb-2">📷 Sin imagen seleccionada</div>
+                                    <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 3</button>
+                                    <input type="file" id="andro-file-3" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(2, this.files[0])">
+                                </div>
+                            </div>
+                            <div class="campo-grupo">
+                                <label class="campo-label">Descripción corta 3</label>
+                                <textarea id="andro-texto-3" class="campo-textarea" placeholder="Descripción breve para la foto 3..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloque 4: Segunda Página - Foto 4 -->
+                    <div class="tarjeta-bloque-andro">
+                        <div class="bloque-andro-titulo">
+                            <span>📄 Página 2 (Derecha) - Bloque Inferior</span>
+                        </div>
+                        <div class="bloque-andro-body">
+                            <div class="campo-grupo">
+                                <label class="campo-label">Fotografía 4</label>
+                                <div class="dropzone-container p-3" onclick="document.getElementById('andro-file-4').click()">
+                                    <div id="andro-preview-thumb-4" class="mb-2">📷 Sin imagen seleccionada</div>
+                                    <button type="button" class="btn-gestor btn-gestor-secondary btn-sm">Seleccionar Foto 4</button>
+                                    <input type="file" id="andro-file-4" class="input-file-oculto" accept="image/*" onchange="cargarFotoAndro(3, this.files[0])">
+                                </div>
+                            </div>
+                            <div class="campo-grupo">
+                                <label class="campo-label">Descripción corta 4</label>
+                                <textarea id="andro-texto-4" class="campo-textarea" placeholder="Descripción breve para la foto 4..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mb-4">
+                    <button class="btn-gestor btn-gestor-primary btn-lg" onclick="validarYVistaPreviaAndragogia()">👁️ Ver Vista Previa del Libro</button>
+                </div>
+            </div>
+
+            <!-- Andragogía - Paso 2: Vista Previa Libro -->
+            <div id="andragogia-paso-2" class="flujo-paso-sub" style="display: none;">
+                <div class="text-center mb-3">
+                    <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos);">Vista Previa del Libro Digital</h3>
+                    <p class="text-muted">Así se visualizará la publicación de 2 páginas en la sección de Andragogía.</p>
+                </div>
+
+                <div class="libro-preview-wrapper">
+                    <div class="libro-mock">
+                        <!-- Página Izquierda -->
+                        <div class="libro-pagina-izq">
+                            <div class="foto-principal-container mb-3" style="height: 200px; background: #eee;">
+                                <img id="andro-prev-img-1" src="" alt="Foto 1" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: var(--verde-principal); font-family: var(--fuente-titulos); margin-bottom: 8px;">Publicación de Andragogía</h4>
+                            <p id="andro-prev-txt-1" style="font-size: 0.95rem; line-height: 1.5; color: #444; margin: 0;"></p>
+                        </div>
+                        <!-- Página Derecha -->
+                        <div class="libro-pagina-der">
+                            <div class="d-flex flex-column gap-2 h-100 justify-content-between">
+                                <div class="d-flex gap-2 align-items-center p-2 rounded" style="background: #F5F5DC;">
+                                    <img id="andro-prev-img-2" src="" style="width: 80px; height: 65px; object-fit: cover; border-radius: 4px;">
+                                    <p id="andro-prev-txt-2" class="m-0 small text-dark"></p>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center p-2 rounded" style="background: #F5F5DC;">
+                                    <img id="andro-prev-img-3" src="" style="width: 80px; height: 65px; object-fit: cover; border-radius: 4px;">
+                                    <p id="andro-prev-txt-3" class="m-0 small text-dark"></p>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center p-2 rounded" style="background: #F5F5DC;">
+                                    <img id="andro-prev-img-4" src="" style="width: 80px; height: 65px; object-fit: cover; border-radius: 4px;">
+                                    <p id="andro-prev-txt-4" class="m-0 small text-dark"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <button class="btn-gestor btn-gestor-secondary" onclick="irAPasoAndragogia(1)">✏️ Modificar Datos</button>
+                    <button class="btn-gestor btn-gestor-primary" onclick="confirmarAndragogia()">✅ Confirmar e Ir al Resultado</button>
+                </div>
+            </div>
+
+            <!-- Andragogía - Paso 3: Salida -->
+            <div id="andragogia-paso-3" class="flujo-paso-sub" style="display: none;">
+                <div class="panel-salida">
+                    <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Publicación de Libro Generada! 🎉</h3>
+                    <p class="text-center text-muted">Copia la estructura HTML para agregar a `andragogia.html` o descarga los archivos procesados.</p>
+
+                    <label class="campo-label mb-2">Estructura de la publicación preparada:</label>
+                    <pre class="caja-codigo" id="andragogia-codigo-output"></pre>
+
+                    <div class="barra-acciones-final">
+                        <button class="btn-gestor btn-gestor-warning" onclick="copiarCodigo('andragogia-codigo-output')">📋 Copiar Código HTML</button>
+                        <button class="btn-gestor btn-gestor-primary" onclick="descargarImagenesAndragogia()">💾 Descargar Imágenes</button>
+                        <button class="btn-gestor btn-gestor-secondary" onclick="reiniciarFlujo()">➕ Preparar Otra Publicación</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================
+             4. MÓDULO SOCIAL (Fotografías Polaroid Dinámicas)
+             ==================================================================== -->
+        <section id="seccion-social" class="seccion-flujo">
+
+            <!-- Social - Paso 1: Agregar Fotografías -->
+            <div id="social-paso-1" class="flujo-paso-sub">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos); margin: 0;">Álbum de Memoria Fotográfica</h3>
+                        <p class="text-muted m-0">Agrega las fotografías que deseas incorporar al álbum social.</p>
+                    </div>
+                    <button class="btn-gestor btn-gestor-primary" onclick="agregarTarjetaFotoSocial()">➕ Agregar Fotografía</button>
+                </div>
+
+                <!-- Lista Dinámica de Tarjetas de Edición -->
+                <div id="contenedor-fotos-social" class="lista-fotos-social">
+                    <!-- Se llenará dinámicamente mediante JS -->
+                </div>
+
+                <div class="text-center my-4">
+                    <button class="btn-gestor btn-gestor-primary btn-lg" onclick="validarYVistaPreviaSocial()">👁️ Ver Vista Previa del Álbum</button>
+                </div>
+            </div>
+
+            <!-- Social - Paso 2: Vista Previa Polaroid y Lightbox -->
+            <div id="social-paso-2" class="flujo-paso-sub" style="display: none;">
+                <div class="text-center mb-3">
+                    <h3 style="color: var(--verde-principal); font-family: var(--fuente-titulos);">Vista Previa de la Galería Social</h3>
+                    <p class="text-muted">Haz clic en cualquier fotografía para probar la vista ampliada (Lightbox).</p>
+                </div>
+
+                <div id="galeria-preview-social" class="galeria-polaroid-preview mb-4">
+                    <!-- Se renderizan las polaroids mediante JS -->
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn-gestor btn-gestor-secondary" onclick="irAPasoSocial(1)">✏️ Modificar Fotos</button>
+                    <button class="btn-gestor btn-gestor-primary" onclick="confirmarSocial()">✅ Confirmar e Ir al Resultado</button>
+                </div>
+            </div>
+
+            <!-- Social - Paso 3: Salida -->
+            <div id="social-paso-3" class="flujo-paso-sub" style="display: none;">
+                <div class="panel-salida">
+                    <h3 class="text-center mb-3" style="color: var(--verde-principal); font-family: var(--fuente-titulos);">¡Álbum Social Preparado! 🎉</h3>
+                    <p class="text-center text-muted">Copia los elementos `<article class="foto-polaroid">` generados para incorporarlos a `social.html`.</p>
+
+                    <label class="campo-label mb-2">Código HTML del álbum generado:</label>
+                    <pre class="caja-codigo" id="social-codigo-output"></pre>
+
+                    <div class="barra-acciones-final">
+                        <button class="btn-gestor btn-gestor-warning" onclick="copiarCodigo('social-codigo-output')">📋 Copiar Código HTML</button>
+                        <button class="btn-gestor btn-gestor-primary" onclick="descargarFotosSocial()">💾 Descargar Imágenes</button>
+                        <button class="btn-gestor btn-gestor-secondary" onclick="reiniciarFlujo()">➕ Preparar Otro Álbum</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Lightbox para Vista Ampliada en Social -->
+    <div id="modal-lightbox" class="modal-lightbox">
+        <div class="lightbox-contenido">
+            <button class="lightbox-cerrar" onclick="cerrarLightbox()">&times;</button>
+            <img id="lightbox-img-target" class="lightbox-img" src="" alt="Ampliación de fotografía">
+            <div id="lightbox-txt-target" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Pie de Página del Gestor -->
+    <footer class="gestor-footer">
+        <p>&copy; 2026 Escuela Normal Superior Nuestra Señora de la Candelaria — Gestor Auxiliar de Contenidos Web</p>
+    </footer>
+
+    <!-- Scripts Modulares -->
+    <script src="./js/app.js"></script>
+    <script src="./js/noticias.js"></script>
+    <script src="./js/andragogia.js"></script>
+    <script src="./js/social.js"></script>
+</body>
+
+</html>
