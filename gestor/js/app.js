@@ -1,7 +1,7 @@
 /* ==========================================================================
    GESTOR DE CONTENIDOS WEB — APP.JS
-   Controlador Global de Navegación, Estado de la App, Utilidades UI y
-   Sistema de Guardado Directo en Disco (File System Access API)
+   Controlador Global, Estado de la App, Persistencia en IndexedDB
+   y Sistema de Guardado Directo en Disco (File System Access API)
    ========================================================================== */
 
 // Estado global de la aplicación
@@ -23,13 +23,55 @@ const EstadoApp = {
     datosSocial: []
 };
 
-// Evento Inicial
+// ── INDEXEDDB PARA RECORDAR CARPETA ENTRE SESIONES ──
+const DB_NAME = 'GestorContenidosDB';
+const STORE_NAME = 'carpetas';
+
+function abrirDB() {
+    return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME);
+            }
+        };
+        req.onsuccess = (e) => resolve(e.target.result);
+        req.onerror = (e) => reject(e.target.error);
+    });
+}
+
+async function guardarHandleEnDB(handle) {
+    try {
+        const db = await abrirDB();
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put(handle, 'rootDirectory');
+    } catch (err) {
+        console.error('Error guardando handle en IndexedDB:', err);
+    }
+}
+
+async function obtenerHandleDeDB() {
+    try {
+        const db = await abrirDB();
+        return new Promise((resolve) => {
+            const tx = db.transaction(STORE_NAME, 'readonly');
+            const req = tx.objectStore(STORE_NAME).get('rootDirectory');
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => resolve(null);
+        });
+    } catch (err) {
+        return null;
+    }
+}
+
+// ── Evento Inicial ──
 document.addEventListener('DOMContentLoaded', () => {
     // Evitar que arrastrar archivos abra la imagen en la pestaña
     window.addEventListener('dragover', (e) => e.preventDefault(), false);
     window.addEventListener('drop', (e) => e.preventDefault(), false);
 
-    // Configurar listener para volver a inicio
+    // Listener botón inicio
     const btnInicioNav = document.getElementById('btn-inicio-nav');
     if (btnInicioNav) {
         btnInicioNav.addEventListener('click', () => {
@@ -62,7 +104,54 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof agregarTarjetaFotoSocial === 'function') {
         agregarTarjetaFotoSocial();
     }
+
+    // Intentar recuperar carpeta guardada automáticamente
+    recuperarCarpetaGuardada();
 });
+
+// ── Intentar Autoconectar Carpeta Guardada ──
+async function recuperarCarpetaGuardada() {
+    if (window.location.protocol === 'file:') return;
+    if (!('showDirectoryPicker' in window)) return;
+
+    const savedHandle = await obtenerHandleDeDB();
+    if (savedHandle) {
+        try {
+            const state = await savedHandle.queryPermission({ mode: 'readwrite' });
+            if (state === 'granted') {
+                EstadoApp.dirHandle = savedHandle;
+                actualizarIndicadorCarpeta(savedHandle.name);
+            } else {
+                mostrarBotonReconectar(savedHandle);
+            }
+        } catch (e) {
+            console.log('Permiso previo requiere activación:', e);
+            mostrarBotonReconectar(savedHandle);
+        }
+    }
+}
+
+function mostrarBotonReconectar(savedHandle) {
+    const btnVincular = document.getElementById('btn-vincular-carpeta');
+    const badgeEstado = document.getElementById('badge-estado-carpeta');
+
+    if (btnVincular && badgeEstado) {
+        btnVincular.className = 'btn-gestor btn-gestor-warning btn-sm';
+        btnVincular.innerHTML = `⚡ Activar Carpeta "${savedHandle.name}"`;
+        btnVincular.onclick = async () => {
+            const perm = await savedHandle.requestPermission({ mode: 'readwrite' });
+            if (perm === 'granted') {
+                EstadoApp.dirHandle = savedHandle;
+                actualizarIndicadorCarpeta(savedHandle.name);
+                mostrarAlerta(`✅ ¡Acceso a "${savedHandle.name}" reactivado!`, 'success');
+                btnVincular.onclick = vincularCarpetaProyecto;
+            }
+        };
+
+        badgeEstado.className = 'badge bg-warning text-dark ms-2 p-2';
+        badgeEstado.innerHTML = `🟡 Reactivación requerida: ${savedHandle.name}`;
+    }
+}
 
 // ── VINCULACIÓN DE CARPETA LOCAL (File System Access API) ──
 async function vincularCarpetaProyecto() {
@@ -95,8 +184,12 @@ async function vincularCarpetaProyecto() {
         }
 
         EstadoApp.dirHandle = handle;
+
+        // Guardar en IndexedDB para recordar en futuras sesiones
+        await guardarHandleEnDB(handle);
+
         actualizarIndicadorCarpeta(handle.name);
-        mostrarAlerta(`✅ ¡Carpeta "${handle.name}" vinculada con éxito! Ahora puedes usar la opción de Guardar Automáticamente.`, 'success');
+        mostrarAlerta(`✅ ¡Carpeta "${handle.name}" vinculada y guardada con éxito! La herramienta la recordará automáticamente en tus próximas sesiones.`, 'success');
 
     } catch (err) {
         if (err.name !== 'AbortError') {
@@ -112,7 +205,8 @@ function actualizarIndicadorCarpeta(nombreCarpeta) {
 
     if (btnVincular && badgeEstado) {
         btnVincular.className = 'btn-gestor btn-gestor-warning btn-sm';
-        btnVincular.innerHTML = '📁 Re-vincular Carpeta';
+        btnVincular.innerHTML = '📁 Cambiar Carpeta Vincular';
+        btnVincular.onclick = vincularCarpetaProyecto;
         badgeEstado.className = 'badge bg-success ms-2 p-2';
         badgeEstado.innerHTML = `🟢 Conectado: ${nombreCarpeta}`;
     }

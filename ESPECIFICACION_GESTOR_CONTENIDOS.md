@@ -11,11 +11,11 @@
 | **0. Especificación** | `ESPECIFICACION_GESTOR_CONTENIDOS.md` | ✅ **Completado** | Documento creado en la raíz del repositorio. |
 | **1. Estructura HTML** | `gestor/index.html` | ✅ **Completado** | Interfaz general con botón de Vincular Carpeta Local y Guardado Automático Directo. |
 | **2. Estilos CSS** | `gestor/css/gestor.css` | ✅ **Completado** | Estilos limpios e institucionales, dropzones, previsualizaciones y tarjetas. |
-| **3. Núcleo JavaScript** | `gestor/js/app.js` | ✅ **Completado** | Integración de File System Access API para vincular la carpeta local del proyecto. |
+| **3. Núcleo JavaScript** | `gestor/js/app.js` | ✅ **Completado** | Persistencia en IndexedDB para autoconectar la carpeta vinculada entre sesiones. |
 | **4. Módulo Noticias** | `gestor/js/noticias.js` | ✅ **Completado** | Guardado directo de foto en `img/` e inserción automática de fragmento en `index.html`. |
 | **5. Módulo Andragogía** | `gestor/js/andragogia.js` | ✅ **Completado** | Guardado directo de 4 fotos en `img/` e inserción automática de hoja en `andragogia.html`. |
 | **6. Módulo Social** | `gestor/js/social.js` | ✅ **Completado** | Guardado directo de fotos en `img/social/` e inserción automática de polaroids en `social.html`. |
-| **7. Verificación** | Pruebas de integración | ✅ **Completado** | Modo Directo (Auto) y Modo Manual (Copiar/Descargar) probados y funcionales. |
+| **7. Verificación** | Pruebas de integración | ✅ **Completado** | Persistencia entre sesiones probada y lista para uso continuo. |
 
 ---
 
