@@ -67,11 +67,9 @@ async function obtenerHandleDeDB() {
 
 // ── Evento Inicial ──
 document.addEventListener('DOMContentLoaded', () => {
-    // Evitar que arrastrar archivos abra la imagen en la pestaña
     window.addEventListener('dragover', (e) => e.preventDefault(), false);
     window.addEventListener('drop', (e) => e.preventDefault(), false);
 
-    // Listener botón inicio
     const btnInicioNav = document.getElementById('btn-inicio-nav');
     if (btnInicioNav) {
         btnInicioNav.addEventListener('click', () => {
@@ -81,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Configurar drag and drop en noticias
     const noticiasDropzone = document.getElementById('noticias-dropzone');
     if (noticiasDropzone) {
         noticiasDropzone.addEventListener('dragover', (e) => {
@@ -100,18 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializar tarjeta social por defecto
     if (typeof agregarTarjetaFotoSocial === 'function') {
         agregarTarjetaFotoSocial();
     }
 
-    // Intentar recuperar carpeta guardada automáticamente
     recuperarCarpetaGuardada();
 });
 
-// ── Intentar Autoconectar Carpeta Guardada ──
+// ── Autoconectar Carpeta Guardada ──
 async function recuperarCarpetaGuardada() {
-    if (window.location.protocol === 'file:') return;
     if (!('showDirectoryPicker' in window)) return;
 
     const savedHandle = await obtenerHandleDeDB();
@@ -125,7 +119,6 @@ async function recuperarCarpetaGuardada() {
                 mostrarBotonReconectar(savedHandle);
             }
         } catch (e) {
-            console.log('Permiso previo requiere activación:', e);
             mostrarBotonReconectar(savedHandle);
         }
     }
@@ -139,12 +132,16 @@ function mostrarBotonReconectar(savedHandle) {
         btnVincular.className = 'btn-gestor btn-gestor-warning btn-sm';
         btnVincular.innerHTML = `⚡ Activar Carpeta "${savedHandle.name}"`;
         btnVincular.onclick = async () => {
-            const perm = await savedHandle.requestPermission({ mode: 'readwrite' });
-            if (perm === 'granted') {
-                EstadoApp.dirHandle = savedHandle;
-                actualizarIndicadorCarpeta(savedHandle.name);
-                mostrarAlerta(`✅ ¡Acceso a "${savedHandle.name}" reactivado!`, 'success');
-                btnVincular.onclick = vincularCarpetaProyecto;
+            try {
+                const perm = await savedHandle.requestPermission({ mode: 'readwrite' });
+                if (perm === 'granted') {
+                    EstadoApp.dirHandle = savedHandle;
+                    actualizarIndicadorCarpeta(savedHandle.name);
+                    mostrarAlerta(`✅ ¡Acceso a "${savedHandle.name}" reactivado!`, 'success');
+                }
+            } catch (err) {
+                console.error(err);
+                vincularCarpetaProyecto();
             }
         };
 
@@ -155,11 +152,6 @@ function mostrarBotonReconectar(savedHandle) {
 
 // ── VINCULACIÓN DE CARPETA LOCAL (File System Access API) ──
 async function vincularCarpetaProyecto() {
-    if (window.location.protocol === 'file:') {
-        mostrarAlerta('ℹ️ Estás abriendo el gestor directamente como un archivo local (file://). Los navegadores (Chrome/Edge) deshabilitan la vinculación automática de carpetas por seguridad salvo que uses un servidor local (ej. Live Server). ¡El modo MANUAL (Copiar Código y Descargar Fotos) funciona al 100%!');
-        return;
-    }
-
     if (!('showDirectoryPicker' in window)) {
         mostrarAlerta('Tu navegador no soporta el acceso directo a carpetas. Te recomendamos usar Google Chrome, Microsoft Edge u Opera. El modo MANUAL (Copiar Código y Descargar Fotos) sigue completamente disponible.');
         return;
@@ -184,17 +176,15 @@ async function vincularCarpetaProyecto() {
         }
 
         EstadoApp.dirHandle = handle;
-
-        // Guardar en IndexedDB para recordar en futuras sesiones
         await guardarHandleEnDB(handle);
 
         actualizarIndicadorCarpeta(handle.name);
-        mostrarAlerta(`✅ ¡Carpeta "${handle.name}" vinculada y guardada con éxito! La herramienta la recordará automáticamente en tus próximas sesiones.`, 'success');
+        mostrarAlerta(`✅ ¡Carpeta "${handle.name}" vinculada y guardada con éxito! La herramienta la recordará automáticamente.`, 'success');
 
     } catch (err) {
         if (err.name !== 'AbortError') {
             console.error('Error al vincular carpeta:', err);
-            mostrarAlerta('No se pudo vincular la carpeta. Puedes continuar usando el botón de Copiar Código y Descargar Fotos.');
+            mostrarAlerta('No se pudo vincular la carpeta directamente. Te sugerimos ejecutar "iniciar_gestor.bat" en la carpeta de tu proyecto o usar el modo de Copiar Código y Descargar Fotos.');
         }
     }
 }
@@ -205,7 +195,7 @@ function actualizarIndicadorCarpeta(nombreCarpeta) {
 
     if (btnVincular && badgeEstado) {
         btnVincular.className = 'btn-gestor btn-gestor-warning btn-sm';
-        btnVincular.innerHTML = '📁 Cambiar Carpeta Vincular';
+        btnVincular.innerHTML = '📁 Cambiar Carpeta Vinculada';
         btnVincular.onclick = vincularCarpetaProyecto;
         badgeEstado.className = 'badge bg-success ms-2 p-2';
         badgeEstado.innerHTML = `🟢 Conectado: ${nombreCarpeta}`;
@@ -354,18 +344,44 @@ function ocultarAlerta() {
     }
 }
 
-// ── Copiar Código al Portapapeles ──
+// ── Copiar Código al Portapapeles con Fallback Anti-Fallos ──
 function copiarCodigo(idElementoCodigo) {
     const elemento = document.getElementById(idElementoCodigo);
     if (!elemento) return;
 
-    const codigo = elemento.textContent;
-    navigator.clipboard.writeText(codigo).then(() => {
-        alert('✅ ¡Código copiado con éxito al portapapeles!');
-    }).catch(err => {
-        console.error('Error al copiar: ', err);
-        mostrarAlerta('No se pudo copiar automáticamente. Por favor, selecciona el texto y cópialo manualmente.');
-    });
+    const text = elemento.textContent;
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('✅ ¡Código copiado con éxito al portapapeles!');
+        }).catch(() => {
+            usarFallbackCopiado(text);
+        });
+    } else {
+        usarFallbackCopiado(text);
+    }
+}
+
+function usarFallbackCopiado(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+        const exitoso = document.execCommand('copy');
+        if (exitoso) {
+            alert('✅ ¡Código copiado con éxito al portapapeles!');
+        } else {
+            prompt('Copia manualmente este código:', text);
+        }
+    } catch (err) {
+        prompt('Copia manualmente este código:', text);
+    }
+    document.body.removeChild(textarea);
 }
 
 // ── Reiniciar Flujo Global ──
