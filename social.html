@@ -94,7 +94,29 @@
         <div class="row" id="layout-galeria">
             <div id="galeria-col" class="col-12 order-last" style="transition: width 0.3s ease;">
                 <section class="galeria-grid">
-<!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
+<!-- ====================================================================
+     PLANTILLAS EN COMENTARIOS PARA AGREGAR NUEVO CONTENIDO AL ÁLBUM
+     ==================================================================== -->
+
+<!-- 1. FORMATO PARA COPIAR Y PEGAR NUEVAS FOTOS:
+<article class="foto-polaroid">
+    <img src="./img/social/NOMBRE_IMAGEN.jpeg" alt="Descripción de la foto" class="polaroid-img">
+    <p class="polaroid-texto">Escribe aquí la descripción de la foto.</p>
+</article>
+-->
+
+<!-- 2. FORMATO PARA COPIAR Y PEGAR NUEVOS VIDEOS (CON REPRODUCTOR Y MISMO MARCO POLAROID):
+<article class="foto-polaroid">
+    <video src="./img/social/NOMBRE_VIDEO.mp4" controls class="polaroid-img" style="object-fit: cover; background: #000;"></video>
+    <p class="polaroid-texto">Escribe aquí la descripción del video.</p>
+</article>
+-->
+
+<!-- NUEVAS FOTOS Y VIDEOS AGREGADOS -->
+<article class="foto-polaroid">
+    <video src="./img/social/video-social.mp4" controls class="polaroid-img" style="object-fit: cover; background: #000;"></video>
+    <p class="polaroid-texto">Registro en video de las actividades y jornadas de alfabetización.</p>
+</article>
 <article class="foto-polaroid">
     <img src="./img/social/27.jpeg" alt="Descripción de la foto" class="polaroid-img">
     <p class="polaroid-texto">Se socializaron los conceptos mediante explicaciones y ejemplos en el tablero.</p>
@@ -260,7 +282,8 @@
                 <aside id="visor-lateral" class="visor-lateral">
                     <button id="btn-cerrar-visor" class="btn-cerrar-visor">&times;</button>
                     <div class="visor-contenido">
-                        <img id="visor-img" src="" alt="Vista ampliada">
+                        <img id="visor-img" src="" alt="Vista ampliada" style="display: none;">
+                        <video id="visor-video" src="" controls style="display: none; width: 100%; max-height: 400px; border-radius: 8px; border: 1px solid #ddd; background: #000; padding: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);"></video>
                         <p id="visor-texto" class="visor-texto-ampliado"></p>
                     </div>
                 </aside>
@@ -302,17 +325,33 @@
             const visorLateral = document.getElementById('visor-lateral');
             const btnCerrarVisor = document.getElementById('btn-cerrar-visor');
             const visorImg = document.getElementById('visor-img');
+            const visorVideo = document.getElementById('visor-video');
             const visorTexto = document.getElementById('visor-texto');
 
             polaroids.forEach(polaroid => {
-                polaroid.addEventListener('click', () => {
-                    const img = polaroid.querySelector('.polaroid-img');
+                polaroid.addEventListener('click', (e) => {
+                    const img = polaroid.querySelector('img.polaroid-img');
+                    const video = polaroid.querySelector('video');
                     const textoElt = polaroid.querySelector('.polaroid-texto');
                     const texto = textoElt ? textoElt.innerText : '';
 
-                    visorImg.src = img.src;
-                    visorImg.alt = img.alt;
-                    visorTexto.innerText = texto;
+                    if (video) {
+                        visorImg.style.display = 'none';
+                        visorVideo.style.display = 'block';
+                        visorVideo.src = video.src || './img/social/video-social.mp4';
+                        visorTexto.innerText = texto;
+                        visorVideo.play().catch(() => {});
+                    } else if (img) {
+                        if (visorVideo) {
+                            visorVideo.pause();
+                            visorVideo.style.display = 'none';
+                            visorVideo.src = '';
+                        }
+                        visorImg.style.display = 'block';
+                        visorImg.src = img.src;
+                        visorImg.alt = img.alt;
+                        visorTexto.innerText = texto;
+                    }
 
                     galeriaCol.className = 'col-lg-8 col-12 order-last';
                     visorCol.classList.remove('d-none');
@@ -320,11 +359,16 @@
                 });
             });
 
-            btnCerrarVisor.addEventListener('click', () => {
-                galeriaCol.className = 'col-12 order-last';
-                visorCol.classList.add('d-none');
-                visorLateral.classList.add('d-none');
-            });
+            if (btnCerrarVisor) {
+                btnCerrarVisor.addEventListener('click', () => {
+                    if (visorVideo) {
+                        visorVideo.pause();
+                    }
+                    galeriaCol.className = 'col-12 order-last';
+                    visorCol.classList.add('d-none');
+                    visorLateral.classList.add('d-none');
+                });
+            }
         });
 
         // Lógica para el menú móvil desplegable

@@ -116,43 +116,29 @@
             <a class="subnav-tab" href="#bibliografia">Bibliografía</a>
         </div>
     </nav>
-
-    <!-- Layout de 3 columnas -->
     <div class="qsomos-layout">
 
-        <!-- Columna izquierda: Progreso vertical -->
+        <!-- Columna izquierda: Fotos decorativas en el lateral izquierdo -->
         <aside class="qsomos-sidebar-left">
-            <div class="progreso-titulo">Contenido</div>
-            <nav class="progreso-vertical">
-                <a class="progreso-item active" href="#identidad" data-label="Identidad Institucional">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Identidad Institucional</span>
-                </a>
-                <a class="progreso-item" href="#mision" data-label="Fundamentación">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Fundamentación</span>
-                </a>
-                <a class="progreso-item" href="#actores" data-label="Actores del Programa">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Actores del Programa</span>
-                </a>
-                <a class="progreso-item" href="#legal" data-label="Marco Legal">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Marco Legal</span>
-                </a>
-                <a class="progreso-item" href="#paces" data-label="Modelo Pedagógico PACES">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Modelo Pedagógico PACES</span>
-                </a>
-                <a class="progreso-item" href="#teorica" data-label="Fundamentación Teórica">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Fundamentación Teórica</span>
-                </a>
-                <a class="progreso-item" href="#bibliografia" data-label="Bibliografía">
-                    <span class="progreso-dot"></span>
-                    <span class="progreso-label">Bibliografía</span>
-                </a>
-            </nav>
+            <article class="foto-polaroid">
+                <img src="./img/social/1.jpeg" alt="Acompañamiento en alfabetización" class="polaroid-img">
+                <p class="polaroid-texto">Acompañamiento personalizado en lectura.</p>
+            </article>
+
+            <article class="foto-polaroid">
+                <img src="./img/social/15.jpeg" alt="Planeaciones didácticas" class="polaroid-img">
+                <p class="polaroid-texto">Documentación de planeaciones pedagógicas.</p>
+            </article>
+
+            <article class="foto-polaroid">
+                <img src="./img/social/5.jpeg" alt="Lectura del mundo" class="polaroid-img">
+                <p class="polaroid-texto">Estrategias narrativas y comprensión.</p>
+            </article>
+
+            <article class="foto-polaroid">
+                <img src="./img/social/3.jpeg" alt="Completando palabras" class="polaroid-img">
+                <p class="polaroid-texto">Completando palabras y ejercicios prácticos.</p>
+            </article>
         </aside>
 
         <!-- Columna central: Contenido principal -->
@@ -351,9 +337,6 @@
                     del contexto. "<br> <span>(Escuela Normal Superior Nuestra Señora de la Candelaria, 2024,
                         p.1)</span>
                 </p>
-
-
-
             </section>
 
             <section class="qsomos-seccion" id="paces">
@@ -399,7 +382,7 @@
                         lectura del mundo y sus capacidades expresivas y comunicativas.</li>
                     <br>
                     <p> <span>(Ministerio de Educación Nacional, 2022, p. 14)</span></p>
-                </ul> <!--recordar poner lso referentes bibliograficos de paces -->
+                </ul>
             </section>
 
             <section class="qsomos-seccion" id="teorica">
@@ -478,7 +461,23 @@
 
         </main>
 
+        <!-- Columna derecha: Fotos decorativas y Video en el lateral derecho -->
+        <aside class="qsomos-sidebar-right">
+            <article class="foto-polaroid">
+                <video src="./img/social/video-social.mp4" controls class="polaroid-img" style="object-fit: cover; background: #000;"></video>
+                <p class="polaroid-texto">Video: Experiencia pedagógica en comunidad.</p>
+            </article>
 
+            <article class="foto-polaroid">
+                <img src="./img/social/27.jpeg" alt="Construcción en grupo" class="polaroid-img">
+                <p class="polaroid-texto">Explicación participativa en grupo.</p>
+            </article>
+
+            <article class="foto-polaroid">
+                <img src="./img/social/18.jpeg" alt="Trabajo colaborativo" class="polaroid-img">
+                <p class="polaroid-texto">Trabajo colaborativo y ambiente de confianza.</p>
+            </article>
+        </aside>
 
     </div>
 
@@ -509,7 +508,7 @@
 
     <script>
         // Scroll suave
-        document.querySelectorAll('.subnav-tab, .progreso-item, .subnav-tab-mobile').forEach(link => {
+        document.querySelectorAll('.subnav-tab, .subnav-tab-mobile').forEach(link => {
             link.addEventListener('click', e => {
                 e.preventDefault();
                 const target = document.querySelector(link.getAttribute('href'));
@@ -517,9 +516,8 @@
             });
         });
 
-        // Scrollspy unificado: subnav + progreso vertical
+        // Scrollspy unificado: subnav
         const tabsNav = document.querySelectorAll('.subnav-tab');
-        const tabsProg = document.querySelectorAll('.progreso-item');
         const secciones = document.querySelectorAll('.qsomos-seccion');
 
         const observer = new IntersectionObserver(entries => {
@@ -527,11 +525,8 @@
                 if (entry.isIntersecting) {
                     const id = entry.target.id;
                     tabsNav.forEach(t => t.classList.remove('active'));
-                    tabsProg.forEach(t => t.classList.remove('active'));
                     const navTab = document.querySelector(`.subnav-tab[href="#${id}"]`);
-                    const progTab = document.querySelector(`.progreso-item[href="#${id}"]`);
                     if (navTab) { navTab.classList.add('active'); navTab.scrollIntoView({ inline: 'nearest', block: 'nearest' }); }
-                    if (progTab) progTab.classList.add('active');
                 }
             });
         }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
