@@ -23,6 +23,66 @@ const EstadoApp = {
     datosSocial: []
 };
 
+// ── DETECCIÓN AUTOMÁTICA DEL SERVIDOR LOCAL ──
+// Cuando el gestor se sirve desde localhost:3000 (Node.js), se activa
+// automáticamente el guardado directo via API sin necesidad de vincular carpeta.
+const ServidorLocal = {
+    disponible: false,
+    baseUrl: '' // Se establecerá a 'http://localhost:3000' si se detecta el servidor
+};
+
+// ── API: Guardar archivo via servidor local ──
+async function guardarArchivoViaServidor(subcarpeta, nombreArchivo, blob) {
+    try {
+        const formData = new FormData();
+        formData.append('archivo', blob, nombreArchivo);
+        formData.append('subcarpeta', subcarpeta);
+        formData.append('nombre', nombreArchivo);
+
+        const resp = await fetch(`${ServidorLocal.baseUrl}/api/guardar-archivo`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await resp.json();
+        return Boolean(data && data.ok);
+    } catch (err) {
+        console.error('Error guardando archivo vía servidor:', err);
+        return false;
+    }
+}
+
+// ── API: Actualizar HTML via servidor local ──
+async function actualizarHTMLViaServidor(archivoHTML, patronInsercion, htmlFragmento, posicion) {
+    try {
+        const resp = await fetch(`${ServidorLocal.baseUrl}/api/actualizar-html`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ archivoHTML, patronInsercion, htmlFragmento, posicion })
+        });
+        const data = await resp.json();
+        return Boolean(data && data.ok);
+    } catch (err) {
+        console.error('Error actualizando HTML vía servidor:', err);
+        return false;
+    }
+}
+
+// ── API: Detectar si el servidor local está disponible ──
+async function detectarServidorLocal() {
+    try {
+        const resp = await fetch('/api/status', { method: 'GET' });
+        const data = await resp.json();
+        if (data.ok && data.mode === 'servidor-local') {
+            ServidorLocal.disponible = true;
+            ServidorLocal.baseUrl = window.location.origin;
+            return true;
+        }
+    } catch (e) {
+        // Servidor no disponible, se usará el modo manual
+    }
+    return false;
+}
+
 // ── INDEXEDDB PARA RECORDAR CARPETA ENTRE SESIONES ──
 const DB_NAME = 'GestorContenidosDB';
 const STORE_NAME = 'carpetas';
@@ -66,7 +126,7 @@ async function obtenerHandleDeDB() {
 }
 
 // ── Evento Inicial ──
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('dragover', (e) => e.preventDefault(), false);
     window.addEventListener('drop', (e) => e.preventDefault(), false);
 
@@ -101,7 +161,29 @@ document.addEventListener('DOMContentLoaded', () => {
         agregarTarjetaFotoSocial();
     }
 
-    recuperarCarpetaGuardada();
+    // ── Intentar detectar servidor local antes de intentar IndexedDB ──
+    const servidorDetectado = await detectarServidorLocal();
+
+    if (servidorDetectado) {
+        // Servidor local detectado: modo automático sin necesidad de vincular carpeta
+        const btnVincular = document.getElementById('btn-vincular-carpeta');
+        const badgeEstado = document.getElementById('badge-estado-carpeta');
+
+        if (btnVincular) {
+            btnVincular.style.display = 'none';
+        }
+        if (badgeEstado) {
+            badgeEstado.className = 'badge bg-success ms-2 p-2';
+            badgeEstado.innerHTML = '🟢 Modo Automático (Servidor Local)';
+        }
+
+        // Valor truthy para que los módulos (noticias.js, andragogia.js, social.js)
+        // muestren el contenedor automático (comprueban EstadoApp.dirHandle ? 'block' : 'none')
+        EstadoApp.dirHandle = 'servidor-local';
+    } else {
+        // Servidor no disponible: usar el flujo normal con File System Access API
+        recuperarCarpetaGuardada();
+    }
 });
 
 // ── Autoconectar Carpeta Guardada ──
@@ -204,6 +286,12 @@ function actualizarIndicadorCarpeta(nombreCarpeta) {
 
 // ── HELPER: Guardar archivo binario/texto en subcarpetas ──
 async function guardarArchivoEnSubcarpeta(rutaSubcarpetasArray, nombreArchivo, contenidoBlobOrText) {
+    // Preferir servidor local si está disponible
+    if (ServidorLocal.disponible) {
+        return guardarArchivoViaServidor(rutaSubcarpetasArray.join('/'), nombreArchivo, contenidoBlobOrText);
+    }
+
+    // Fallback a File System Access API
     if (!EstadoApp.dirHandle) return false;
 
     try {
@@ -228,6 +316,12 @@ async function guardarArchivoEnSubcarpeta(rutaSubcarpetasArray, nombreArchivo, c
 
 // ── HELPER: Modificar e Insertar HTML directamente en archivos ──
 async function actualizarHTMLDirecto(nombreArchivoHTML, patronInsercion, htmlFragmento, posicion = 'después') {
+    // Preferir servidor local si está disponible
+    if (ServidorLocal.disponible) {
+        return actualizarHTMLViaServidor(nombreArchivoHTML, patronInsercion, htmlFragmento, posicion);
+    }
+
+    // Fallback a File System Access API
     if (!EstadoApp.dirHandle) return false;
 
     try {
