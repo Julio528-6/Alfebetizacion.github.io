@@ -7,7 +7,7 @@
     --amarillo-oscuro: #f0c825;
     --blanco-fondo: #FAF9F0;
     --fuente-botones: 'Patrick Hand', cursive;
-    --fuente-titulos: 'Italianno', cursive;
+    --fuente-titulos: 'Chewy', 'Sour Gummy', cursive;
     --fuente-subtitulos: 'Patrick Hand', cursive;
     --fuente-tarjetas: 'Gloria Hallelujah', cursive;
     --fuente-cuerpo: 'Comic Neue', cursive;
@@ -142,8 +142,9 @@ p {
     font-family: var(--fuente-titulos);
     color: var(--amarillo-institucional);
     margin: 0;
-    font-size: 60px;
-    line-height: 1;
+    font-size: 52px;
+    line-height: 1.1;
+    letter-spacing: 1.5px;
     text-shadow: 2px 2px 0px #000;
 }
 
@@ -159,12 +160,31 @@ p {
     background-color: transparent;
 }
 
-.contenido-principal h2,
+.contenido-principal h1 {
+    font-family: var(--fuente-subtitulos);
+    color: var(--verde-institucional);
+    font-size: 2.8rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+}
+
+.contenido-principal h2 {
+    font-family: var(--fuente-subtitulos);
+    color: var(--verde-institucional);
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    margin-bottom: 24px;
+}
+
 .contenido-principal h3 {
     font-family: var(--fuente-subtitulos);
     color: var(--verde-institucional);
-    font-size: 2.2rem;
-    margin-bottom: 24px;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
 }
 
 /* --- Video --- */
@@ -176,20 +196,36 @@ p {
 
 .video-container video {
     max-width: 100%;
+    height: auto;
+}
+
+.anim-stagger-parent:has(.video-secundario) > .col-md-6,
+.col-video-secundario {
+    container-type: inline-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
 }
 
 .video-secundario {
-    width: 100%;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 520px;
+    max-height: 100cqw;
+    aspect-ratio: auto;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 6px solid var(--verde-institucional);
-    aspect-ratio: 1/1;
-    object-fit: contain;
     background-color: #000;
+    object-fit: contain;
 }
 
 .video-novedades {
     width: 100%;
+    height: auto;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 6px solid var(--verde-institucional);
@@ -197,39 +233,61 @@ p {
     background-color: #000;
 }
 
-/* --- Barra Lateral --- */
+/* --- Barra Lateral Flotante (Centro de Novedades) --- */
 .barra-lateral {
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 20px;
-    border-left: 4px solid var(--verde-institucional);
-    min-height: 100%;
+    background-color: transparent;
+    padding: 20px 10px;
+    border: none;
+    min-height: auto;
+}
+
+.sidebar-content {
+    background: linear-gradient(175deg, rgba(252, 248, 118, 0.18) 0%, rgba(25, 135, 84, 0.08) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 20px;
+    padding: 24px 16px;
+    box-shadow: 0 8px 24px rgba(25, 135, 84, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+    position: sticky;
+    top: 20px;
 }
 
 .barra-lateral h3 {
-    font-family: var(--fuente-botones);
+    font-family: var(--fuente-subtitulos);
     color: var(--verde-institucional);
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.8px;
     text-align: center;
 }
 
 .TN {
-    font-family: var(--fuente-botones);
+    font-family: var(--fuente-subtitulos);
     color: var(--verde-institucional);
+    font-size: 2.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
     text-align: center;
+    margin-bottom: 15px;
 }
 
 .novedad-placeholder {
-    padding: 10px;
+    padding: 12px;
     text-align: center;
-    margin-top: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 18px;
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(25, 135, 84, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.novedad-placeholder img {
+.novedad-placeholder img,
+.novedad-placeholder video {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
+    display: block;
 }
 
 /* --- Pie de Página --- */
@@ -530,10 +588,22 @@ p {
 .qsomos-seccion h2 {
     font-family: var(--fuente-subtitulos);
     color: var(--verde-institucional);
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 1.2px;
     margin-bottom: 24px;
     border-bottom: 2px solid var(--amarillo-institucional);
     padding-bottom: 8px;
+}
+
+.qsomos-seccion h3 {
+    font-family: var(--fuente-subtitulos);
+    color: var(--verde-institucional);
+    font-size: 1.9rem;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    margin-top: 20px;
+    margin-bottom: 14px;
 }
 
 .lista-institucional {
@@ -686,9 +756,9 @@ p {
     }
 
     .barra-lateral {
-        border-left: none;
-        border-top: 4px solid var(--verde-institucional);
+        border: none;
         margin-top: 20px;
+        padding: 10px;
     }
 
     /* --- Mobile Size Overrides --- */

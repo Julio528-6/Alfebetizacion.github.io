@@ -17,6 +17,6 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-echo Abriendo servidor local en http://localhost:3000/gestor/index.html ...
+echo Iniciando servidor local y abriendo el navegador ...
 node gestor/server.js
 pause

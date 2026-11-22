@@ -110,7 +110,31 @@ Se diseñó e implementó un **sistema de animación integral inspirado en las g
 
 ---
 
-## 5. Cuadro Resumen de Intervenciones
+## 5. Intervención 5: Soporte Multimedia Universal de Fotos y Videos en el Gestor de Contenidos
+
+- **Fecha de Intervención:** 19 de Noviembre de 2026
+- **Archivos Intervenidos:**
+  - `gestor/index.html`
+  - `gestor/server.js`
+  - `gestor/css/gestor.css`
+  - `gestor/js/app.js`
+  - `gestor/js/noticias.js`
+  - `gestor/js/andragogia.js`
+  - `gestor/js/social.js`
+  - `estilo.css`
+  - `andragogia.html`
+  - `social.html`
+
+### ¿Qué se hizo?
+Se habilitó la capacidad para que el sistema de inserción de contenidos en las **tres páginas determinadas** (`index.html` - Noticias, `andragogia.html` - Andragogía, `social.html` - Social) admita **tanto fotos como videos**:
+1. **Módulo de Noticias (`index.html`):** Admite imágenes (JPG, PNG, WEBP) o videos (MP4, WEBM). En la barra lateral se genera el reproductor interactivo con controles de reproducción (`<video class="video-novedades" controls>`), ocupando el mismo ancho y bordes redondeados que la foto.
+2. **Módulo de Andragogía (`andragogia.html`):** Los 4 bloques de carga permiten fotos o videos de forma indistinta. Se previsualizan con reproducción funcional en la maqueta del libro digital y se insertan en las hojas del libro conservando el marco, encuadre y dimensiones exactas de las fotos (`object-fit: cover`).
+3. **Módulo Social (`social.html`):** Las tarjetas polaroid admiten fotografías y videos con controles (`<video class="polaroid-img" controls>`). La vista previa y el modal Lightbox permiten reproducir videos ampliados, y en `social.html` el visor lateral reproduce el video con soporte completo.
+4. **Servidor Local (`server.js`):** Soporte de tipos MIME para video (`.mp4`, `.webm`, `.ogg`, `.mov`) y cabeceras HTTP `Range: bytes` (código 206) para streaming y reproducción fluida.
+
+---
+
+## 6. Cuadro Resumen de Intervenciones
 
 | Fecha | Ámbito | Acción Principal | Método / Herramientas | Enfoque de Diseño | Lenguaje / Tono |
 |---|---|---|---|---|---|
@@ -118,5 +142,7 @@ Se diseñó e implementó un **sistema de animación integral inspirado en las g
 | **04-08-2026** | Sitio Completo (Animaciones) | Motor de animaciones estilo Apple | CSS Keyframes (`cubic-bezier`), JS `IntersectionObserver`, Ripple Effect | Micro-interacciones sutiles, física de movimiento, elegancia visual | Código limpio, modular, accesible y con foco en experiencia de usuario (UX) |
 | **04-08-2026** | Gestión de Medios | Copia y organización de imágenes en `media/` e `img/` | PowerShell CLI (`Copy-Item`), reestructuración de rutas en HTML | Consistencia de rutas y duplicación redundante para prevención de errores | Técnico, estructurado y orientado a la preservación de activos digitales |
 | **04-08-2026** | UX & Animaciones | Optimización de frecuencia del Nav y prevención de reinicios | `sessionStorage`, limpieza de inline styles post-animación | Persistencia visual del nav y fluidez de interacción en hovers y clics | Código reactivo, defensivo y centrado en la continuidad de la experiencia |
+| **19-11-2026** | Gestor + 3 Páginas | Soporte multimedia total (Fotos + Videos) | HTML5 Video, HTTP Range streaming, File System Access API | Mismo molde y proporciones que las fotos, controles nativos | Intuitivo, accesible sin programación, preserva diseño visual intacto |
+
 
 

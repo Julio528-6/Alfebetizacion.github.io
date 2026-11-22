@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Italianno&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Chewy&family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Sour+Gummy:wght@700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
     <script src="./animaciones.js" defer></script>
@@ -93,17 +93,25 @@
 
         <div class="row" id="layout-galeria">
             <div id="galeria-col" class="col-12 order-last" style="transition: width 0.3s ease;">
-                <section class="galeria-grid"><!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
-<article class="foto-polaroid">
-    <img src="./img/social/WhatsApp Image 2026-11-11 at 6.02.58 PM.jpeg" alt="Descripción de la foto" class="polaroid-img">
-    <p class="polaroid-texto">nos volveremos a ver</p>
-</article>
+                <section class="galeria-grid"><!-- NUEVOS CONTENIDOS AGREGADOS CON EL GESTOR DE CONTENIDOS -->
+                    <article class="foto-polaroid">
+                        <video src="./img/social/WhatsApp Video 2026-11-15 at 4.48.02 PM.mp4" controls
+                            class="polaroid-img" style="object-fit: cover; background: #000;"></video>
+                        <p class="polaroid-texto">.</p>
+                    </article>
+                    <!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
+                    <article class="foto-polaroid">
+                        <img src="./img/social/WhatsApp Image 2026-11-11 at 6.02.58 PM.jpeg"
+                            alt="Descripción de la foto" class="polaroid-img">
+                        <p class="polaroid-texto">nos volveremos a ver</p>
+                    </article>
 
-<!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
-<article class="foto-polaroid">
-    <img src="./img/social/WhatsApp Image 2026-11-11 at 6.02.59 PM.jpeg" alt="Descripción de la foto" class="polaroid-img">
-    <p class="polaroid-texto">El fin de un camino y el inicio de otro</p>
-</article>
+                    <!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
+                    <article class="foto-polaroid">
+                        <img src="./img/social/WhatsApp Image 2026-11-11 at 6.02.59 PM.jpeg"
+                            alt="Descripción de la foto" class="polaroid-img">
+                        <p class="polaroid-texto">El fin de un camino y el inicio de otro</p>
+                    </article>
 
                     <!-- NUEVAS FOTOS AGREGADAS CON EL GESTOR DE CONTENIDOS -->
                     <article class="foto-polaroid">
@@ -364,9 +372,10 @@
                     const texto = textoElt ? textoElt.innerText : '';
 
                     if (video) {
+                        video.pause();
                         visorImg.style.display = 'none';
                         visorVideo.style.display = 'block';
-                        visorVideo.src = video.src || './img/social/video-social.mp4';
+                        visorVideo.src = video.currentSrc || video.src || './img/social/video-social.mp4';
                         visorTexto.innerText = texto;
                         visorVideo.play().catch(() => { });
                     } else if (img) {

@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Italianno&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Sour+Gummy:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
     <style>
         /* ── LIBRO: estilos exclusivos de esta página ── */
@@ -120,7 +120,7 @@
             margin-bottom: 10px; border-radius: 4px; overflow: hidden;
             transform: rotate(-0.5deg); flex-shrink: 0;
         }
-        .foto-principal { width: 100%; height: 100%; object-fit: cover; }
+        .foto-principal, .foto-principal-container video { width: 100%; height: 100%; object-fit: cover; }
         .titulo-desc {
             font-family: var(--fuente-tarjetas); color: var(--verde-institucional);
             font-size: clamp(1rem, 1.7vw, 1.8rem); margin-bottom: 8px; flex-shrink: 0;
@@ -142,7 +142,7 @@
             flex-shrink: 0; width: clamp(90px, 14vw, 180px); height: clamp(75px, 12vw, 140px);
             border: 2px solid #eee; overflow: hidden; border-radius: 5px; transform: rotate(0.5deg);
         }
-        .foto-pequena-item img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-pequena-item img, .foto-pequena-item video { width: 100%; height: 100%; object-fit: cover; }
         .desc-pequena {
             font-size: clamp(0.75rem, 1.15vw, 1.05rem);
             margin: 0; color: #555; line-height: 1.4;
@@ -226,7 +226,7 @@
             background: #F5F5DC; padding: 10px; border-radius: 8px;
             margin-bottom: 10px; border: 1px solid #ebebd1;
         }
-        .foto-movil-item img { width: 80px; height: 65px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+        .foto-movil-item img, .foto-movil-item video { width: 80px; height: 65px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
         .foto-movil-item p { font-size: 0.82rem; margin: 0; color: #555; line-height: 1.3; }
         .foto-movil-item strong { color: var(--verde-institucional); }
 

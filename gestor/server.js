@@ -20,7 +20,12 @@ const MIME_TYPES = {
     '.jpeg': 'image/jpeg',
     '.webp': 'image/webp',
     '.json': 'application/json',
-    '.ico': 'image/x-icon'
+    '.ico': 'image/x-icon',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.ogg': 'video/ogg',
+    '.mov': 'video/quicktime',
+    '.m4v': 'video/mp4'
 };
 
 /* --------------------------------------------------------------------------
@@ -133,25 +138,36 @@ function manejarStatus(req, res) {
    -------------------------------------------------------------------------- */
 async function manejarGuardarArchivo(req, res) {
     try {
-        // Extraer boundary del Content-Type de forma robusta
-        const contentType = req.headers['content-type'] || '';
-        const matchBoundary = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
-        if (!matchBoundary) {
-            return responderJSON(res, 400, { ok: false, error: 'Falta boundary en Content-Type' });
+        let subcarpeta = '';
+        let nombre = '';
+        let archivoBuf = null;
+
+        if (req.headers['x-nombre']) {
+            // Método binario directo (rápido, ultra seguro para videos de cualquier tamaño)
+            subcarpeta = decodeURIComponent(req.headers['x-subcarpeta'] || '').trim();
+            nombre = decodeURIComponent(req.headers['x-nombre'] || '').trim();
+            archivoBuf = await leerCuerpo(req);
+        } else {
+            // Método multipart clásico
+            const contentType = req.headers['content-type'] || '';
+            const matchBoundary = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+            if (!matchBoundary) {
+                return responderJSON(res, 400, { ok: false, error: 'Falta boundary en Content-Type' });
+            }
+            const boundary = (matchBoundary[1] || matchBoundary[2] || '').trim();
+
+            const cuerpo = await leerCuerpo(req);
+            const parsed = parsearMultipart(cuerpo, boundary);
+            subcarpeta = (parsed.campos.subcarpeta || '').trim();
+            nombre = (parsed.campos.nombre || '').trim();
+            archivoBuf = parsed.archivoBuf;
         }
-        const boundary = (matchBoundary[1] || matchBoundary[2] || '').trim();
-
-        const cuerpo = await leerCuerpo(req);
-        const { campos, archivoBuf } = parsearMultipart(cuerpo, boundary);
-
-        const subcarpeta = (campos.subcarpeta || '').trim();
-        const nombre = (campos.nombre || '').trim();
 
         if (!nombre) {
             return responderJSON(res, 400, { ok: false, error: 'El campo "nombre" es obligatorio' });
         }
-        if (!archivoBuf) {
-            return responderJSON(res, 400, { ok: false, error: 'No se recibió el archivo' });
+        if (!archivoBuf || archivoBuf.length === 0) {
+            return responderJSON(res, 400, { ok: false, error: 'No se recibió el contenido del archivo' });
         }
 
         // Construir ruta destino y validar seguridad
@@ -168,8 +184,12 @@ async function manejarGuardarArchivo(req, res) {
         // Escribir el archivo
         fs.writeFileSync(rutaCompleta, archivoBuf);
 
-        responderJSON(res, 200, { ok: true });
+        const tamMB = (archivoBuf.length / (1024 * 1024)).toFixed(2);
+        console.log(`✅ Archivo guardado con éxito: ${subcarpeta ? subcarpeta + '/' : ''}${nombre} (${tamMB} MB)`);
+
+        responderJSON(res, 200, { ok: true, bytes: archivoBuf.length, ruta: path.join(subcarpeta, nombre) });
     } catch (err) {
+        console.error('❌ Error en manejarGuardarArchivo:', err);
         responderJSON(res, 500, { ok: false, error: err.message });
     }
 }
@@ -231,9 +251,11 @@ async function manejarActualizarHTML(req, res) {
 
         // Escribir el archivo modificado
         fs.writeFileSync(rutaArchivo, contenidoHTML, 'utf-8');
+        console.log(`✅ Archivo HTML actualizado correctamente: ${archivoHTML}`);
 
         responderJSON(res, 200, { ok: true });
     } catch (err) {
+        console.error('❌ Error en manejarActualizarHTML:', err);
         responderJSON(res, 500, { ok: false, error: err.message });
     }
 }
@@ -290,22 +312,63 @@ const server = http.createServer((req, res) => {
 
         const ext = path.extname(filePath).toLowerCase();
         const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        const range = req.headers.range;
 
-        res.writeHead(200, {
-            'Content-Type': contentType,
-            'Cache-Control': 'no-cache'
-        });
-        fs.createReadStream(filePath).pipe(res);
+        // Soporte de HTTP Range (Streaming de video)
+        if (range && (contentType.startsWith('video/') || stats.size > 1024 * 1024)) {
+            const parts = range.replace(/bytes=/, '').split('-');
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+            const chunkSize = (end - start) + 1;
+
+            res.writeHead(206, {
+                'Content-Range': `bytes ${start}-${end}/${stats.size}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': chunkSize,
+                'Content-Type': contentType,
+                ...CORS_HEADERS
+            });
+            fs.createReadStream(filePath, { start, end }).pipe(res);
+        } else {
+            res.writeHead(200, {
+                'Content-Type': contentType,
+                'Content-Length': stats.size,
+                'Accept-Ranges': 'bytes',
+                'Cache-Control': 'no-cache',
+                ...CORS_HEADERS
+            });
+            fs.createReadStream(filePath).pipe(res);
+        }
     });
 });
 
-server.listen(PORT, () => {
-    const url = `http://localhost:${PORT}/gestor/index.html`;
-    console.log(`===================================================`);
-    console.log(`🚀 GESTOR DE CONTENIDOS - SERVIDOR LOCAL ACTIVO`);
-    console.log(`🌐 Abriendo automaticamente: ${url}`);
-    console.log(`===================================================`);
+function iniciarServidor(puerto) {
+    server.removeAllListeners('error');
+    server.removeAllListeners('listening');
 
-    const startCmd = process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
-    exec(`${startCmd} ${url}`);
-});
+    server.once('error', (err) => {
+        if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
+            console.log(`⚠️  Puerto ${puerto} no disponible (${err.code}). Probando puerto ${puerto + 1}...`);
+            iniciarServidor(puerto + 1);
+        } else {
+            console.error('Error al iniciar el servidor:', err);
+        }
+    });
+
+    server.once('listening', () => {
+        const address = server.address();
+        const p = address ? address.port : puerto;
+        const url = `http://localhost:${p}/gestor/index.html`;
+        console.log(`===================================================`);
+        console.log(`🚀 GESTOR DE CONTENIDOS - SERVIDOR LOCAL ACTIVO`);
+        console.log(`🌐 Abriendo automaticamente: ${url}`);
+        console.log(`===================================================`);
+
+        const startCmd = process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
+        exec(`${startCmd} ${url}`);
+    });
+
+    server.listen(puerto);
+}
+
+iniciarServidor(3000);

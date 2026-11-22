@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Italianno&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Chewy&family=Comic+Neue:wght@300;400;700&family=Gloria+Hallelujah&family=Patrick+Hand&family=Sour+Gummy:wght@700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="estilo.css">
     <script src="./animaciones.js" defer></script>
@@ -113,29 +113,29 @@
 
                 <!-- Grid de videos secundarios -->
                 <div class="row mt-5 anim-stagger-parent">
-                    <h2 class="mb-4"
-                        style="font-family: var(--fuente-subtitulos); color: var(--verde-institucional); font-size: 2.2rem; border-bottom: 2px solid var(--amarillo-institucional); padding-bottom: 8px;">
+                    <h2 class="col-12 mb-4"
+                        style="font-family: var(--fuente-subtitulos); color: var(--verde-institucional); font-size: 2.5rem; font-weight: bold; letter-spacing: 1.2px; border-bottom: 2px solid var(--amarillo-institucional); padding-bottom: 8px;">
                         Nuestros Momentos</h2>
-                    <div class="col-md-6 mb-4">
-                        <video class="video-secundario" controls>
+                    <div class="col-md-6 mb-4 col-video-secundario">
+                        <video class="video-secundario" controls preload="metadata">
                             <source src="./media/2.mp4" type="video/mp4">
                             Tu navegador no soporta el formato de video.
                         </video>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <video class="video-secundario" controls>
+                    <div class="col-md-6 mb-4 col-video-secundario">
+                        <video class="video-secundario" controls preload="metadata">
                             <source src="./media/3.mp4" type="video/mp4">
                             Tu navegador no soporta el formato de video.
                         </video>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <video class="video-secundario" controls>
+                    <div class="col-md-6 mb-4 col-video-secundario">
+                        <video class="video-secundario" controls preload="metadata">
                             <source src="./media/4.mp4" type="video/mp4">
                             Tu navegador no soporta el formato de video.
                         </video>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <video class="video-secundario" controls>
+                    <div class="col-md-6 mb-4 col-video-secundario">
+                        <video class="video-secundario" controls preload="metadata">
                             <source src="./media/5.mp4" type="video/mp4">
                             Tu navegador no soporta el formato de video.
                         </video>
@@ -145,9 +145,15 @@
 
             <aside class="col-md-3 barra-lateral">
                 <div class="sidebar-content">
-                    <h1 class="TN">Centro de Novedades</h1>
+                    <h1 class="TN">Centro de Novedades</h1><div class="novedad-placeholder">
+    <video class="video-novedades" controls style="width: 100%; height: auto; border-radius: 5px;">
+        <source src="./img/WhatsApp Video 2026-11-15 at 4.48.02 PM.mp4" type="video/mp4">
+        <source src="./media/WhatsApp Video 2026-11-15 at 4.48.02 PM.mp4" type="video/mp4">
+        Tu navegador no soporta el formato de video.
+    </video>
+</div>
                     <div class="novedad-placeholder">
-                        <video class="video-novedades" controls>
+                        <video class="video-novedades" controls preload="metadata">
                             <source src="./media/6.mp4" type="video/mp4">
                             Tu navegador no soporta el formato de video.
                         </video>

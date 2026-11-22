@@ -10,38 +10,61 @@ const EstadoApp = {
     pasoActual: 1,      // 1, 2, 3
     dirHandle: null,    // Handle de la carpeta raíz del repositorio en disco
     datosNoticias: {
-        imagenBlob: null,
-        imagenDataUrl: null,
-        nombreArchivo: ''
+        archivoBlob: null,
+        imagenBlob: null, // compatibilidad
+        archivoDataUrl: null,
+        imagenDataUrl: null, // compatibilidad
+        nombreArchivo: '',
+        esVideo: false
     },
     datosAndragogia: {
-        imagenesBlobs: [null, null, null, null],
-        imagenesDataUrls: [null, null, null, null],
+        archivosBlobs: [null, null, null, null],
+        imagenesBlobs: [null, null, null, null], // compatibilidad
+        archivosDataUrls: [null, null, null, null],
+        imagenesDataUrls: [null, null, null, null], // compatibilidad
         textos: ['', '', '', ''],
-        nombresArchivos: ['', '', '', '']
+        nombresArchivos: ['', '', '', ''],
+        esVideo: [false, false, false, false]
     },
     datosSocial: []
 };
 
+// Helper: Determinar si un archivo o nombre es video
+function esArchivoVideo(archivoOFilename) {
+    if (!archivoOFilename) return false;
+    const patronExtensiones = /\.(mp4|webm|ogg|mov|m4v|mkv|avi|3gp|wmv|flv)$/i;
+    if (typeof archivoOFilename === 'string') {
+        return patronExtensiones.test(archivoOFilename);
+    }
+    if (archivoOFilename.type) {
+        if (archivoOFilename.type.startsWith('video/')) return true;
+    }
+    if (archivoOFilename.name) {
+        return patronExtensiones.test(archivoOFilename.name);
+    }
+    return false;
+}
+
 // ── DETECCIÓN AUTOMÁTICA DEL SERVIDOR LOCAL ──
-// Cuando el gestor se sirve desde localhost:3000 (Node.js), se activa
+// Cuando el gestor se sirve desde localhost (Node.js), se activa
 // automáticamente el guardado directo via API sin necesidad de vincular carpeta.
 const ServidorLocal = {
     disponible: false,
-    baseUrl: '' // Se establecerá a 'http://localhost:3000' si se detecta el servidor
+    baseUrl: '' // Se detecta dinámicamente
 };
 
 // ── API: Guardar archivo via servidor local ──
 async function guardarArchivoViaServidor(subcarpeta, nombreArchivo, blob) {
     try {
-        const formData = new FormData();
-        formData.append('archivo', blob, nombreArchivo);
-        formData.append('subcarpeta', subcarpeta);
-        formData.append('nombre', nombreArchivo);
-
+        // Enviar con streaming binario puro (libre de fallos para videos pesados)
         const resp = await fetch(`${ServidorLocal.baseUrl}/api/guardar-archivo`, {
             method: 'POST',
-            body: formData
+            headers: {
+                'x-subcarpeta': encodeURIComponent(subcarpeta),
+                'x-nombre': encodeURIComponent(nombreArchivo),
+                'Content-Type': 'application/octet-stream'
+            },
+            body: blob
         });
         const data = await resp.json();
         return Boolean(data && data.ok);
@@ -69,17 +92,37 @@ async function actualizarHTMLViaServidor(archivoHTML, patronInsercion, htmlFragm
 
 // ── API: Detectar si el servidor local está disponible ──
 async function detectarServidorLocal() {
-    try {
-        const resp = await fetch('/api/status', { method: 'GET' });
-        const data = await resp.json();
-        if (data.ok && data.mode === 'servidor-local') {
-            ServidorLocal.disponible = true;
-            ServidorLocal.baseUrl = window.location.origin;
-            return true;
+    // 1. Si la página se abrió vía HTTP/HTTPS (por ejemplo, desde iniciar_gestor.bat)
+    if (window.location.protocol.startsWith('http')) {
+        try {
+            const resp = await fetch('/api/status', { method: 'GET' });
+            const data = await resp.json();
+            if (data.ok && data.mode === 'servidor-local') {
+                ServidorLocal.disponible = true;
+                ServidorLocal.baseUrl = window.location.origin;
+                return true;
+            }
+        } catch (e) {
+            // Continuar con sondeo de puertos
         }
-    } catch (e) {
-        // Servidor no disponible, se usará el modo manual
     }
+
+    // 2. Si se abrió por file:/// o el puerto cambió dinámicamente, probar puertos habituales
+    const puertos = [3001, 3000, 3002, 3003, 3004, 3005];
+    for (const p of puertos) {
+        try {
+            const resp = await fetch(`http://localhost:${p}/api/status`, { method: 'GET' });
+            const data = await resp.json();
+            if (data.ok && data.mode === 'servidor-local') {
+                ServidorLocal.disponible = true;
+                ServidorLocal.baseUrl = `http://localhost:${p}`;
+                return true;
+            }
+        } catch (e) {
+            // Probar siguiente puerto
+        }
+    }
+
     return false;
 }
 
@@ -152,7 +195,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.preventDefault();
             noticiasDropzone.classList.remove('dragover');
             if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                cargarImagenNoticia(e.dataTransfer.files[0]);
+                if (typeof cargarArchivoNoticia === 'function') {
+                    cargarArchivoNoticia(e.dataTransfer.files[0]);
+                } else if (typeof cargarImagenNoticia === 'function') {
+                    cargarImagenNoticia(e.dataTransfer.files[0]);
+                }
             }
         });
     }
@@ -485,21 +532,37 @@ function reiniciarFlujo() {
 
     ocultarAlerta();
 
-    EstadoApp.datosNoticias = { imagenBlob: null, imagenDataUrl: null, nombreArchivo: '' };
+    EstadoApp.datosNoticias = {
+        archivoBlob: null,
+        imagenBlob: null,
+        archivoDataUrl: null,
+        imagenDataUrl: null,
+        nombreArchivo: '',
+        esVideo: false
+    };
     const imgPrevNoticias = document.getElementById('noticias-img-preview');
-    if (imgPrevNoticias) imgPrevNoticias.src = '';
+    const vidPrevNoticias = document.getElementById('noticias-video-preview');
+    if (imgPrevNoticias) { imgPrevNoticias.src = ''; imgPrevNoticias.style.display = 'none'; }
+    if (vidPrevNoticias) { vidPrevNoticias.pause(); vidPrevNoticias.src = ''; vidPrevNoticias.style.display = 'none'; }
 
     EstadoApp.datosAndragogia = {
+        archivosBlobs: [null, null, null, null],
         imagenesBlobs: [null, null, null, null],
+        archivosDataUrls: [null, null, null, null],
         imagenesDataUrls: [null, null, null, null],
         textos: ['', '', '', ''],
-        nombresArchivos: ['', '', '', '']
+        nombresArchivos: ['', '', '', ''],
+        esVideo: [false, false, false, false]
     };
     [1, 2, 3, 4].forEach(i => {
         const thumb = document.getElementById(`andro-preview-thumb-${i}`);
         const txt = document.getElementById(`andro-texto-${i}`);
-        if (thumb) thumb.textContent = '📷 Sin imagen seleccionada';
+        const imgP = document.getElementById(`andro-prev-img-${i}`);
+        const vidP = document.getElementById(`andro-prev-vid-${i}`);
+        if (thumb) thumb.textContent = '📷🎬 Sin archivo seleccionado';
         if (txt) txt.value = '';
+        if (imgP) { imgP.src = ''; imgP.style.display = 'none'; }
+        if (vidP) { vidP.pause(); vidP.src = ''; vidP.style.display = 'none'; }
     });
 
     EstadoApp.datosSocial = [];

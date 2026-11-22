@@ -16,6 +16,7 @@
 | **5. Módulo Andragogía** | `gestor/js/andragogia.js` | ✅ **Completado** | Guardado directo de 4 fotos en `img/` e inserción automática de hoja en `andragogia.html`. |
 | **6. Módulo Social** | `gestor/js/social.js` | ✅ **Completado** | Guardado directo de fotos en `img/social/` e inserción automática de polaroids en `social.html`. |
 | **7. Verificación** | Pruebas de integración | ✅ **Completado** | Persistencia entre sesiones probada y lista para uso continuo. |
+| **8. Soporte Multimedia (Fotos + Videos)** | Gestor + 3 Páginas (`index`, `andragogia`, `social`) | ✅ **Completado** | Carga de videos (MP4, WebM) con controles interactivos, manteniendo dimensiones y aspecto idéntico a las fotos. |
 
 ---
 
